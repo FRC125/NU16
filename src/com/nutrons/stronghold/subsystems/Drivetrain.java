@@ -25,8 +25,12 @@ public class Drivetrain extends Subsystem {
 	private Encoder rightDriveEncoder = new Encoder(Robot.robotMap.ENCODER_RIGHT_DRIVETRAIN_A, Robot.robotMap.ENCODER_RIGHT_DRIVETRAIN_B, false, Encoder.EncodingType.k4X);
 	
 	// Constants
-	public double wheelCircumference = 2.5;
-	public double encoderTicksToFeet = wheelCircumference / (2 * Math.PI);
+	public double WHEEL_DIAM = 6;
+	
+	public Drivetrain() {
+		leftDriveEncoder.setDistancePerPulse(WHEEL_DIAM*Math.PI/128.0);
+		rightDriveEncoder.setDistancePerPulse(WHEEL_DIAM*Math.PI/128.0);
+	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -55,7 +59,7 @@ public class Drivetrain extends Subsystem {
      * @return Distance traveled - left 
      */
     public double getLeftEncoderDistance() {
-    	return this.leftDriveEncoder.get() * this.encoderTicksToFeet;
+    	return this.leftDriveEncoder.getDistance()/25.0;
     }
     
     /**
@@ -63,7 +67,7 @@ public class Drivetrain extends Subsystem {
      * @return Distance traveled - right
      */
     public double getRightEncoderDistance() {
-    	return this.rightDriveEncoder.get() * this.encoderTicksToFeet;
+    	return this.rightDriveEncoder.getDistance()/25.0;
     }
     
     /**
@@ -72,6 +76,10 @@ public class Drivetrain extends Subsystem {
     public void resetEncoders() {
     	this.leftDriveEncoder.reset();
     	this.rightDriveEncoder.reset();
-    }    
+    }   
+    
+    public double getGyroAngleInRadians() {
+    	return 0;
+    }
 }
 
