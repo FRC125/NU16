@@ -1,7 +1,6 @@
 package com.nutrons.stronghold;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * 
@@ -16,13 +15,20 @@ public class OI {
 		
 	}
 	
+	/**
+	 * Gets value of left joystick and y axis.
+	 * @return Y axis value
+	 */
 	public double getLeftJoystickY() {
 		return -driverPad.getRawAxis(1);
 	}
 	
+	/**
+	 * Gets value of y axis of right joystick. 
+	 * @return Y axis value.
+	 */
 	public double getRightJoystickY() {
 		return -driverPad.getRawAxis(5);
 	}
-	
 }
 

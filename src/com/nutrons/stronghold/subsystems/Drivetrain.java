@@ -5,7 +5,6 @@ import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.commands.drivetrain.TankDriveCmd;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryFollower;
-
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,7 +20,6 @@ public class Drivetrain extends Subsystem {
 	private Talon leftDrive = new Talon(Robot.robotMap.LEFT_DRIVE);
 	private Talon rightDrive = new Talon(Robot.robotMap.RIGHT_DRIVE);
 
-	
 	// Sensors
 	private Encoder leftDriveEncoder = new Encoder(Robot.robotMap.ENCODER_LEFT_DRIVETRAIN_A, Robot.robotMap.ENCODER_LEFT_DRIVETRAIN_B, false, Encoder.EncodingType.k4X);
 	private Encoder rightDriveEncoder = new Encoder(Robot.robotMap.ENCODER_RIGHT_DRIVETRAIN_A, Robot.robotMap.ENCODER_RIGHT_DRIVETRAIN_B, false, Encoder.EncodingType.k4X);
