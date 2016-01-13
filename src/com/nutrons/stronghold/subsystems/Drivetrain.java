@@ -2,6 +2,7 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.Robot;
+import com.nutrons.stronghold.commands.drivetrain.TankDriveCmd;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryFollower;
 
@@ -39,7 +40,7 @@ public class Drivetrain extends Subsystem {
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new TankDriveCmd());
     	this.initTrajectory();
     }
     
@@ -50,7 +51,7 @@ public class Drivetrain extends Subsystem {
      */
     public void driveLR(double leftPower, double rightPower) {
     	this.leftDrive.set(leftPower);
-    	this.rightDrive.set(rightPower);
+    	this.rightDrive.set(-rightPower);
     }
     
     /**
