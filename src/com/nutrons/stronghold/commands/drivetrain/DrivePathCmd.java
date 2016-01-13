@@ -1,6 +1,7 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
+import com.nutrons.stronghold.controllers.TrajectoryDriveController;
 import com.team254.lib.trajectory.Path;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -18,6 +19,8 @@ public class DrivePathCmd extends Command {
 	private Path path;
 	private double heading;
 	private double timeout;
+
+	private TrajectoryDriveController trajectoryDriveController;
 	
     public DrivePathCmd(Path path, double timeout) {
     	requires(Robot.dt);
@@ -27,16 +30,19 @@ public class DrivePathCmd extends Command {
     }
 
     protected void initialize() {
+    	trajectoryDriveController = new TrajectoryDriveController();
     	this.timer.start();
     	Robot.dt.resetEncoders();
-    	Robot.dt.loadProfile(this.path.getLeftWheelTrajectory(), this.path.getRightWheelTrajectory(), 1.0, this.heading);
+    	trajectoryDriveController.loadProfile(this.path.getLeftWheelTrajectory(), this.path.getRightWheelTrajectory(), 1.0, this.heading);
     }
 
     protected void execute() {
+    	trajectoryDriveController.update();
+    	trajectoryDriveController.loadProfileNoReset(this.path.getLeftWheelTrajectory(), this.path.getRightWheelTrajectory());
     }
 
     protected boolean isFinished() {
-        return this.timer.get() > this.timeout || Robot.dt.onTarget();
+        return this.timer.get() > this.timeout || trajectoryDriveController.onTarget();
     }
 
     protected void end() {
