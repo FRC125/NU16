@@ -97,6 +97,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Left Encoder", Robot.dt.getLeftEncoderDistance());
         SmartDashboard.putNumber("Right Encoder", Robot.dt.getRightEncoderDistance());
+        SmartDashboard.putNumber("Gyro Angle", Robot.dt.getGyroAngleInRadians());
     }
     
     /**
