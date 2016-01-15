@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto mode", chooser);
         camera = CameraServer.getInstance();
         camera.setQuality(50);
-        camera.startAutomaticCapture("cam0");
+        camera.startAutomaticCapture(RobotMap.CAMERA);
     }
 	
 	/**

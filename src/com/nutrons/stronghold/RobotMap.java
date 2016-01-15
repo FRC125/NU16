@@ -14,7 +14,9 @@ public class RobotMap {
 	public static final int ENCODER_LEFT_DRIVETRAIN_B = 6;
 	public static final int ENCODER_RIGHT_DRIVETRAIN_A = 4;
 	public static final int ENCODER_RIGHT_DRIVETRAIN_B = 3;
+	public static final String CAMERA = "cam0";
 	
 	// Joystick
 	public static final int DRIVER_PAD = 0;
+	
 }
