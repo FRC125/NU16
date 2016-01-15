@@ -15,6 +15,7 @@ public class OI {
 	
 	private Joystick driverPad = new Joystick(Robot.robotMap.DRIVER_PAD);
 	
+	
 	Button resetEncoder = new JoystickButton(driverPad, 1);
 	
 	public OI() {
