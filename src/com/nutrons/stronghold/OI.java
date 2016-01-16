@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	private Joystick driverPad = new Joystick(Robot.robotMap.DRIVER_PAD);
+	private Joystick driverPad = new Joystick(RobotMap.DRIVER_PAD);
 	
 	
 	Button resetEncoder = new JoystickButton(driverPad, 1);
