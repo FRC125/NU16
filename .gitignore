@@ -1,0 +1,9 @@
+/com/
+/org/
+
+bin/*
+build/*
+dist/*
+
+.settings
+/bin/
