@@ -2,7 +2,6 @@ package com.nutrons.stronghold;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import com.nutrons.stronghold.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
