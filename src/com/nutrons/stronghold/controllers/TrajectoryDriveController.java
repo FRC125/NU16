@@ -23,8 +23,8 @@ public class TrajectoryDriveController {
      * Initializes trajectories
      */
     private void initTrajectory() {
-    	this.followerLeft.configure(0.9/8.3, 0, 0, 1.0/8.3, 1.0/5.6);
-    	this.followerRight.configure(0.9/8.3, 0, 0, 1.0/8.3, 1.0/5.6);
+    	this.followerLeft.configure(0.05, 0, 0, 1.0/11.3, 1.0/9.6);
+    	this.followerRight.configure(0.05, 0, 0, 1.0/11.3, 1.0/9.6);
     }
     
     /**

@@ -17,4 +17,8 @@ public class RobotMap {
 	
 	// OI
 	public static int DRIVER_PAD = 0;
+	
+	// Digital
+	public static int LEFT_SOLENOID = 7;
+	public static int RIGHT_SOLENOID = 0;
 }

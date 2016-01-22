@@ -1,6 +1,7 @@
 
 package com.nutrons.stronghold;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final Drivetrain dt = new Drivetrain();
+	public static Compressor compressor;
 	public static OI oi;
 
     Command autonomousCommand;
@@ -33,6 +35,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		compressor = new Compressor();
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new DriveDistanceCmd(6.0));
         chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));

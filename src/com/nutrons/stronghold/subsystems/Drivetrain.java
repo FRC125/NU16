@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -29,6 +30,10 @@ public class Drivetrain extends Subsystem {
     // Sensors
     private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
     private Encoder rightDriveEncoder = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, RobotMap.RIGHT_DRIVE_ENCODER_B);
+    
+    // Solenoids
+    private Solenoid leftSolenoid = new Solenoid(RobotMap.LEFT_SOLENOID);
+    private Solenoid rightSolenoid = new Solenoid(RobotMap.RIGHT_SOLENOID);
     
     // Constants
     public static final double wheelDiam = 0.5;
@@ -127,6 +132,16 @@ public class Drivetrain extends Subsystem {
      */
     public void zeroGyro() {
     	this.imu.zeroYaw();
+    }
+    
+    public void deployPistons() {
+    	this.leftSolenoid.set(true);
+    	this.rightSolenoid.set(true);
+    }
+    
+    public void retractPistons() {
+    	this.leftSolenoid.set(false);
+    	this.rightSolenoid.set(false);
     }
     
     public class EncoderWrapper implements PIDSource {
