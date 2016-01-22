@@ -34,8 +34,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new DriveDistanceCmd(12.0));
-        chooser.addObject("Turn to 90 degrees", new TurnToAngleCmd(90.0));
+        chooser.addDefault("Default Auto", new DriveDistanceCmd(6.0));
+        chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));
         chooser.addObject("Drive path", new DriveAuto());
         SmartDashboard.putData("Auto mode", chooser);
     }

@@ -36,8 +36,8 @@ public class Drivetrain extends Subsystem {
     public static final double I_DISTANCE = 0.0;
     public static final double D_DISTANCE = 0.0;
     public static final double P_TURN = 0.0001;
-    public static final double I_TURN = 0.15;
-    public static final double D_TURN = 0.1;
+    public static final double I_TURN = 0.01;
+    public static final double D_TURN = 0.05;
     
     // PIDs
     public PIDController driveDistance = new PIDController(P_DISTANCE, I_DISTANCE, D_DISTANCE, new EncoderWrapper(), new DriveDistance());
@@ -179,8 +179,8 @@ public class Drivetrain extends Subsystem {
 
 		@Override
 		public void pidWrite(double output) {
-			leftDrive.pidWrite(output);
-			rightDrive.pidWrite(output);
+			leftDrive.pidWrite(leftDrive.get() + output);
+			rightDrive.pidWrite(rightDrive.get() + output);
 		}
     	
     }

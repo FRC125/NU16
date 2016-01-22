@@ -21,10 +21,9 @@ public class TurnToAngleCmd extends Command {
     protected void initialize() {
     	Robot.dt.zeroGyro();
     	Robot.dt.turnToAngle.setAbsoluteTolerance(1);
-    	Robot.dt.turnToAngle.setInputRange(-this.angle, this.angle);
+    	Robot.dt.turnToAngle.setInputRange(-360.0, 360.0);
     	Robot.dt.turnToAngle.setOutputRange(-1.0, 1.0);
     	Robot.dt.turnToAngle.setSetpoint(this.angle);
-    	Robot.dt.turnToAngle.setContinuous();
     	Robot.dt.turnToAngle.enable();
     }
 

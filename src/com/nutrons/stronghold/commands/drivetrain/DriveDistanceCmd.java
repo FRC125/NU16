@@ -20,11 +20,19 @@ public class DriveDistanceCmd extends Command {
 
     protected void initialize() {
     	Robot.dt.resetEncoders();
+    	Robot.dt.zeroGyro();
     	Robot.dt.driveDistance.setAbsoluteTolerance(1);
     	Robot.dt.driveDistance.setInputRange(-this.distance, this.distance);
     	Robot.dt.driveDistance.setOutputRange(-1, 1);
     	Robot.dt.driveDistance.setSetpoint(this.distance);
+    	
+    	Robot.dt.turnToAngle.setAbsoluteTolerance(1);
+    	Robot.dt.turnToAngle.setInputRange(-360.0, 360.0);
+    	Robot.dt.turnToAngle.setOutputRange(-1, 1);
+    	Robot.dt.turnToAngle.setSetpoint(0.0);
+    	
     	Robot.dt.driveDistance.enable();
+    	Robot.dt.turnToAngle.enable();
     }
 
     protected void execute() {
@@ -37,6 +45,7 @@ public class DriveDistanceCmd extends Command {
 
     protected void end() {
     	Robot.dt.driveDistance.disable();
+    	Robot.dt.turnToAngle.disable();
     	Robot.dt.stop();
     }
 
