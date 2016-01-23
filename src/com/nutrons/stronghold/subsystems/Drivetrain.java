@@ -34,15 +34,21 @@ public class Drivetrain extends Subsystem {
     // Solenoids
     private Solenoid leftSolenoid = new Solenoid(RobotMap.LEFT_SOLENOID);
     private Solenoid rightSolenoid = new Solenoid(RobotMap.RIGHT_SOLENOID);
+    private Solenoid leftSolenoid2 = new Solenoid(RobotMap.LEFT_SOLENOID2);
+    private Solenoid rightSolenoid2 = new Solenoid(RobotMap.RIGHT_SOLENOID2);
+    private Solenoid leftSolenoid3 = new Solenoid(RobotMap.LEFT_SOLENOID3);
+    private Solenoid rightSolenoid3 = new Solenoid(RobotMap.RIGHT_SOLENOID3);
+    private Solenoid leftSolenoid4 = new Solenoid(RobotMap.LEFT_SOLENOID4);
+    private Solenoid rightSolenoid4 = new Solenoid(RobotMap.RIGHT_SOLENOID4);
     
     // Constants
     public static final double wheelDiam = 0.5;
     public static final double P_DISTANCE = 0.3;
     public static final double I_DISTANCE = 0.0;
     public static final double D_DISTANCE = 0.0;
-    public static final double P_TURN = 0.0001;
-    public static final double I_TURN = 0.01;
-    public static final double D_TURN = 0.05;
+    public static final double P_TURN = 0.01;
+    public static final double I_TURN = 0.0;
+    public static final double D_TURN = 0.1;
     
     // PIDs
     public PIDController driveDistance = new PIDController(P_DISTANCE, I_DISTANCE, D_DISTANCE, new EncoderWrapper(), new DriveDistance());
@@ -135,13 +141,25 @@ public class Drivetrain extends Subsystem {
     }
     
     public void deployPistons() {
-    	this.leftSolenoid.set(true);
+    	this.leftSolenoid.set(false);
     	this.rightSolenoid.set(true);
+    	this.leftSolenoid2.set(false);
+    	this.rightSolenoid2.set(true);
+    	this.leftSolenoid3.set(false);
+    	this.rightSolenoid3.set(true);
+    	this.leftSolenoid4.set(false);
+    	this.rightSolenoid4.set(true);
     }
     
     public void retractPistons() {
-    	this.leftSolenoid.set(false);
+    	this.leftSolenoid.set(true);
     	this.rightSolenoid.set(false);
+    	this.leftSolenoid2.set(true);
+    	this.rightSolenoid2.set(false);
+    	this.leftSolenoid3.set(true);
+    	this.rightSolenoid3.set(false);
+    	this.leftSolenoid4.set(true);
+    	this.rightSolenoid4.set(false);
     }
     
     public class EncoderWrapper implements PIDSource {
@@ -181,7 +199,7 @@ public class Drivetrain extends Subsystem {
 
 		@Override
 		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kRate;
+			return PIDSourceType.kDisplacement;
 		}
 
 		@Override

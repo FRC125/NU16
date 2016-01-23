@@ -2,7 +2,6 @@ package com.nutrons.stronghold;
 
 import com.nutrons.stronghold.commands.drivetrain.DeployPistonsCmd;
 import com.nutrons.stronghold.commands.drivetrain.RetractPistonsCmd;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -20,7 +19,7 @@ public class OI {
 	
 	public OI() {
 		deploy.whenPressed(new DeployPistonsCmd());
-		retract.whenPressed(new RetractPistonsCmd());
+		retract.whenReleased(new RetractPistonsCmd());
 	}
 	
 	/**
