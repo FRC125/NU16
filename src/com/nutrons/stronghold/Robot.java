@@ -1,6 +1,7 @@
 
 package com.nutrons.stronghold;
 
+import com.nutrons.stronghold.grip.GripProcessor;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser chooser;
     CameraServer camera;
+    GripProcessor gripProcessor;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -32,6 +34,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
+        gripProcessor = new GripProcessor();
         //chooser.addDefault("Default Auto", new DrivePathCmd());
         //chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -39,6 +42,8 @@ public class Robot extends IterativeRobot {
         camera.setQuality(50);
         camera.startAutomaticCapture(RobotMap.CAMERA);
         System.out.println("Started auto-capture");
+        
+        System.out.println("Starting GRIP network tables: " + gripProcessor.startGrip(RobotMap.GRIP_PROFILE));
     }
 	
 	/**
