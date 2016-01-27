@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         chooser = new SendableChooser();
-        gripProcessor = new GripProcessor();
+        gripProcessor = new GripProcessor(RobotMap.JAVA_LOCATION, RobotMap.GRIP_LOCATION, RobotMap.GRIP_PROFILE);
         //chooser.addDefault("Default Auto", new DrivePathCmd());
         //chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
         camera.startAutomaticCapture(RobotMap.CAMERA);
         System.out.println("Started auto-capture");
         
-        System.out.println("Starting GRIP network tables: " + gripProcessor.startGrip(RobotMap.GRIP_PROFILE));
+        System.out.println("Starting GRIP network tables: " + gripProcessor.startGrip());
     }
 	
 	/**
