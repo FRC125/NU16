@@ -23,9 +23,11 @@ public class RobotMap {
 	public static final String JAVA_LOCATION = "/usr/local/frc/JRE/bin/java";
 	public static final String GRIP_PROFILE = "/home/lvuser/VisionTracking.grip";
 	public static final String CONTOUR_TABLE = "contourReport";
+	public static final String GRIP_LOCATION = "/home/lvuser/grip.jar";
 	
 	// Joystick
 	public static final int DRIVER_PAD = 0;
+	
 	
 
 	
