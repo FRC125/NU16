@@ -1,7 +1,7 @@
 
 package com.nutrons.stronghold;
 
-import com.nutrons.stronghold.grip.GripProcessor;
+import com.nutrons.stronghold.shared.grip.GripProcessor;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.CameraServer;

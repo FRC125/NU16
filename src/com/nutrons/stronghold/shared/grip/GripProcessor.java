@@ -1,4 +1,4 @@
-package com.nutrons.stronghold.grip;
+package com.nutrons.stronghold.shared.grip;
 
 import java.io.IOException;
 import java.util.Timer;
