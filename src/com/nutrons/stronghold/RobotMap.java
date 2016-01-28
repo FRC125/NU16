@@ -17,4 +17,10 @@ public class RobotMap {
 	
 	// OI
 	public static int DRIVER_PAD = 0;
+	
+	//Intake
+	public static int INTAKE_MOTOR = 0;
+	public static int INTAKE_BALL_BUTTON = 0;
+	public static int OUTPUT_BALL_BUTTON = 0;
+	public static int BALL_PUSHER_PISTON = 0;
 }
