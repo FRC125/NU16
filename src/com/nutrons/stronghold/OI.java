@@ -1,7 +1,5 @@
 package com.nutrons.stronghold;
 
-import com.nutrons.stronghold.commands.drivetrain.DeployPistonsCmd;
-import com.nutrons.stronghold.commands.drivetrain.RetractPistonsCmd;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -14,12 +12,8 @@ public class OI {
     
 	private Joystick driverPad = new Joystick(RobotMap.DRIVER_PAD);
 	
-	private Button deploy = new JoystickButton(driverPad, 1);
-	private Button retract = new JoystickButton(driverPad, 2);
-	
 	public OI() {
-		deploy.whenPressed(new DeployPistonsCmd());
-		retract.whenReleased(new RetractPistonsCmd());
+		
 	}
 	
 	/**
