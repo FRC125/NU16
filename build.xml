@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="FRC Deployment" default="deploy">
+<project name="FRC Deployment" default="deploygripprofiles">
 
   <!--
   The following properties can be defined to override system level
@@ -24,7 +24,33 @@
   <property file="${user.home}/wpilib/wpilib.properties"/>
   <property file="build.properties"/>
   <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
-  
+  <property name="grip.dir" value="grip"/>
+  <property name="gripprofiles.dir" value="${grip.dir}/profiles"/>
+  <property name="grip.jar" value="${grip.dir}/grip.jar"/>
+  <target name="compile" description="Compile the source code.">
+    <mkdir dir="${build.dir}"/>
+	<property name="userLibs" value=""/>
+    <echo>[athena-custom-compile] Compiling ${src.dir} with classpath=${classpath}:${userLibs} to ${build.dir}</echo>
+	<echo>[athena-custom-compile] Ignoring coprocessor files</echo>
+    <javac srcdir="${src.dir}"
+     destdir="${build.dir}"
+     includeAntRuntime="no"
+     includeJavaRuntime="no"
+     classpath="${classpath}:${userLibs}"
+     target="${ant.java.version}"
+     source="${ant.java.version}"
+     compiler="javac${ant.java.version}"
+     debug="true">
+    	<exclude name="com/nutrons/stronghold/coprocessor/**"/>
+    </javac>
+  </target>
   <import file="${wpilib.ant.dir}/build.xml"/>
-
+  <!--Deploys code along with grip profiles-->
+  <target name="deploygripprofiles" description="deploy with grip profiles" depends="deploy">
+     <scp file="${gripprofiles.dir}/*" todir="${username}@${target}:${deploy.dir}/${gripprofiles.dir}" password="${password}" trust="true"/>
+  </target>
+  <!--Uploads grip.jar to the robot-->
+  <target name="deployg" description="deploy grip.jar to the robot" depends="get-target-ip">
+  	<scp file="${grip.jar}" todir="${username}@${target}:${deploy.dir}/${grip.dir}" password="${password}" trust="true"/>
+  </target>
 </project> 

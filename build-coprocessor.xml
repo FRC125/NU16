@@ -1,0 +1,41 @@
+<project name="coprocessor" basedir="." default="main">
+	<!-- This is the ant build file which compiles code for the coprocessor -->
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="build.dir" value="build-coprocessor"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="${build.dir}/jar"/>
+	<property name="nutrons.dir" value="/com/nutrons/stronghold"/>
+	<property name="main-class" value="com.nutrons.stronghold.coprocessor.Test"/>
+	
+	
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+	<!-- Only code from the specified subdirectories is compiled -->
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+        	<include name="${nutrons.dir}/coprocessor/**"/>
+        	<include name="${nutrons.dir}/shared/**"/>
+		</javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+	
+	<target name="clean-build" depends="clean,jar"/>
+	
+	<target name="main" depends="clean,run"/>
+
+</project>
