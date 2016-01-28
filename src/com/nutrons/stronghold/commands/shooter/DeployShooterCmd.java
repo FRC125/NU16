@@ -1,4 +1,4 @@
-package com.nutrons.stronghold.commands.drivetrain;
+package com.nutrons.stronghold.commands.shooter;
 
 import com.nutrons.stronghold.Robot;
 
@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Camilo Gonzalez
  *
  */
-public class DeployPistonsCmd extends Command {
-
-    public DeployPistonsCmd() {
-        requires(Robot.dt);
+public class DeployShooterCmd extends Command {
+	
+    public DeployShooterCmd() {
+    	requires(Robot.shooter);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.dt.deployPistons();
+    	Robot.shooter.deployShooter();
     }
 
     protected boolean isFinished() {

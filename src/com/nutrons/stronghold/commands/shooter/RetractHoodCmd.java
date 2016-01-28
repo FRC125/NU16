@@ -1,29 +1,27 @@
-package com.nutrons.stronghold.commands.drivetrain;
+package com.nutrons.stronghold.commands.shooter;
 
 import com.nutrons.stronghold.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * 
- * @author Camilo Gonzalez
- *
+ *@author Lydia Xing
  */
-public class RetractPistonsCmd extends Command {
+public class RetractHoodCmd extends Command {
 
-    public RetractPistonsCmd() {
-        requires(Robot.dt);
+    public RetractHoodCmd() {
+        requires(Robot.shooter);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.dt.retractPistons();
+    	Robot.shooter.retractHood();
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {

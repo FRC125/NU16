@@ -31,16 +31,6 @@ public class Drivetrain extends Subsystem {
     private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
     private Encoder rightDriveEncoder = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, RobotMap.RIGHT_DRIVE_ENCODER_B);
     
-    // Solenoids
-    private Solenoid leftSolenoid = new Solenoid(RobotMap.LEFT_SOLENOID);
-    private Solenoid rightSolenoid = new Solenoid(RobotMap.RIGHT_SOLENOID);
-    private Solenoid leftSolenoid2 = new Solenoid(RobotMap.LEFT_SOLENOID2);
-    private Solenoid rightSolenoid2 = new Solenoid(RobotMap.RIGHT_SOLENOID2);
-    private Solenoid leftSolenoid3 = new Solenoid(RobotMap.LEFT_SOLENOID3);
-    private Solenoid rightSolenoid3 = new Solenoid(RobotMap.RIGHT_SOLENOID3);
-    private Solenoid leftSolenoid4 = new Solenoid(RobotMap.LEFT_SOLENOID4);
-    private Solenoid rightSolenoid4 = new Solenoid(RobotMap.RIGHT_SOLENOID4);
-    
     // Constants
     public static final double wheelDiam = 0.5;
     public static final double P_DISTANCE = 0.3;
@@ -140,28 +130,6 @@ public class Drivetrain extends Subsystem {
     	this.imu.zeroYaw();
     }
     
-    public void deployPistons() {
-    	this.leftSolenoid.set(false);
-    	this.rightSolenoid.set(true);
-    	this.leftSolenoid2.set(false);
-    	this.rightSolenoid2.set(true);
-    	this.leftSolenoid3.set(false);
-    	this.rightSolenoid3.set(true);
-    	this.leftSolenoid4.set(false);
-    	this.rightSolenoid4.set(true);
-    }
-    
-    public void retractPistons() {
-    	this.leftSolenoid.set(true);
-    	this.rightSolenoid.set(false);
-    	this.leftSolenoid2.set(true);
-    	this.rightSolenoid2.set(false);
-    	this.leftSolenoid3.set(true);
-    	this.rightSolenoid3.set(false);
-    	this.leftSolenoid4.set(true);
-    	this.rightSolenoid4.set(false);
-    }
-    
     public class EncoderWrapper implements PIDSource {
 
 		@Override
@@ -214,8 +182,7 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double output) {
 			leftDrive.pidWrite(leftDrive.get() + output);
 			rightDrive.pidWrite(rightDrive.get() + output);
-		}
-    	
+		}	
     }
 }
 

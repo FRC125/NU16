@@ -1,15 +1,17 @@
 
 package com.nutrons.stronghold;
 
+import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
+import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
+import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
+import com.nutrons.stronghold.subsystems.Drivetrain;
+import com.nutrons.stronghold.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
-import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
-import com.nutrons.stronghold.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final Drivetrain dt = new Drivetrain();
+	public static final Shooter shooter = new Shooter();
 	public static Compressor compressor;
 	public static OI oi;
 
