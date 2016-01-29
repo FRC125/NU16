@@ -1,14 +1,21 @@
 <project name="coprocessor" basedir="." default="main">
 	<!-- This is the ant build file which compiles code for the coprocessor -->
-	<property name="src.dir" value="${basedir}/src"/>
-	<property name="build.dir" value="build-coprocessor"/>
-	<property name="classes.dir" value="${build.dir}/classes"/>
-	<property name="jar.dir" value="${build.dir}/jar"/>
-	<property name="nutrons.dir" value="/com/nutrons/stronghold"/>
-	<property name="main-class" value="com.nutrons.stronghold.coprocessor.Test"/>
 	
+
+	<property file="build.properties"/>
+	<property file="coprocessor.properties"/>
+	<property file="${user.home}/wpilib/wpilib.properties"/>
+	<property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
 	
-    <target name="clean">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+		  <pathelement location="${wpilib.ant.dir}/ant-contrib.jar"/>
+		</classpath>
+	</taskdef>
+	<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${classloadertask.jar}"/>
+	<classloader loader="system" classpath="${jsch.jar}"/>
+
+	<target name="clean">
         <delete dir="${build.dir}"/>
     </target>
 
@@ -36,6 +43,27 @@
 	
 	<target name="clean-build" depends="clean,jar"/>
 	
-	<target name="main" depends="clean,run"/>
-
+	<target name="deployg" description="deploys grip.jar to the coprocessor">
+		<scp file="${grip.jar}" todir="${username}@${target}:${deploy.dir}/${grip.dir}" password="${password}" trust="true"/>
+	</target>
+	
+	<target name="deploy" depends="jar" description="deploys application and grip profiles to coprocessor">
+		<scp file="${gripprofiles.dir}/*" todir="${username}@${target}:${deploy.dir}/${gripprofiles.dir}" password="${password}" trust="true"/>
+		<sshexec host="${target}"
+		       username="${username}"
+		       password="${password}"
+		       trust="true"
+			   failonerror="false"
+		       command="${deploy.kill.command};"/>
+		<sshexec host="${target}"
+		         username="${username}"
+		         password="${password}"
+		         trust="true"
+		         command="${deploy.run.command}" />
+	</target>
+	
+	<target name="main" depends="clean,deploy"/>
+	
+	<target name="localrun" depends="clean,run"/>
+	
 </project>

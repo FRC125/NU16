@@ -5,6 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GripProcessor {
+	/**
+	 * @author Asher Gottlieb 
+	 **/
 	private static final int gripForceTerminateDelay = 10000;
 	
 	private Process process;
