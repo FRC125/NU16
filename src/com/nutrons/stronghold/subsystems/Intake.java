@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
 
-	private Talon intakeMotor = new Talon(RobotMap.INTAKE_MOTOR);
+	private Talon intakeMotor = new Talon(RobotMap.INTAKE);
 	private Solenoid ballPusherPiston = new Solenoid(RobotMap.BALL_PUSHER_PISTON);
 
 	public void initDefaultCommand() {

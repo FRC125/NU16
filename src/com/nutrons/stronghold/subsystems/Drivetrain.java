@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -35,9 +36,9 @@ public class Drivetrain extends Subsystem {
     public static final double P_DISTANCE = 0.3;
     public static final double I_DISTANCE = 0.0;
     public static final double D_DISTANCE = 0.0;
-    public static final double P_TURN = 0.0001;
-    public static final double I_TURN = 0.01;
-    public static final double D_TURN = 0.05;
+    public static final double P_TURN = 0.01;
+    public static final double I_TURN = 0.0;
+    public static final double D_TURN = 0.1;
     
     // PIDs
     public PIDController driveDistance = new PIDController(P_DISTANCE, I_DISTANCE, D_DISTANCE, new EncoderWrapper(), new DriveDistance());
@@ -166,7 +167,7 @@ public class Drivetrain extends Subsystem {
 
 		@Override
 		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kRate;
+			return PIDSourceType.kDisplacement;
 		}
 
 		@Override
@@ -181,8 +182,7 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double output) {
 			leftDrive.pidWrite(leftDrive.get() + output);
 			rightDrive.pidWrite(rightDrive.get() + output);
-		}
-    	
+		}	
     }
 }
 

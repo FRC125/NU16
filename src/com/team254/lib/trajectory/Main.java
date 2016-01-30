@@ -53,9 +53,9 @@ public class Main {
     final double kWheelbaseWidth = 25.5/12;
     {
       config.dt = .01;
-      config.max_acc = 5.6;
+      config.max_acc = 9.6;
       config.max_jerk = 8.0;
-      config.max_vel = 8.3;
+      config.max_vel = 11.3;
       // Path name must be a valid Java class name.
       final String path_name = "NUTRONS_TEST";
       
