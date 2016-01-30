@@ -1,7 +1,6 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +24,9 @@ public class Shooter extends Subsystem {
 		
 	}
 	
+	/**
+	 * Deploys shooter pistons
+	 */
 	public void deployShooter() {
 		shooter1.set(Value.kForward);
 		shooter2.set(Value.kForward);
@@ -32,6 +34,9 @@ public class Shooter extends Subsystem {
 		shooter4.set(Value.kForward);
 	}
 	
+	/**
+	 * Retracts shooter pistons
+	 */
 	public void retractShooter() {
 		shooter1.set(Value.kReverse);
 		shooter2.set(Value.kReverse);
@@ -39,10 +44,16 @@ public class Shooter extends Subsystem {
 		shooter4.set(Value.kReverse);
 	}
 	
+	/**
+	 * Deploy hood piston
+	 */
 	public void deployHood() {
 		hood.set(Value.kForward);
 	}
 	
+	/**
+	 * Retract hood piston
+	 */
 	public void retractHood() {
 		hood.set(Value.kReverse);
 	}
