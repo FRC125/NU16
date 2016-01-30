@@ -14,6 +14,7 @@ public class RobotMap {
 	public static int LEFT_DRIVE_ENCODER_B = 6;
 	public static int RIGHT_DRIVE_ENCODER_A = 4;
 	public static int RIGHT_DRIVE_ENCODER_B = 3;
+	public static int ARM = 1;
 	
 	// OI
 	public static int DRIVER_PAD = 0;
