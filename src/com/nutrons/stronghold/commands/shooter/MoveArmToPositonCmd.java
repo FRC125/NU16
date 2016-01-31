@@ -18,6 +18,7 @@ public class MoveArmToPositonCmd extends Command {
     }
 
     protected void initialize() {
+    	Robot.shooter.startArm();
     	Robot.shooter.moveArmToPosition(position);
     }
 
@@ -25,12 +26,14 @@ public class MoveArmToPositonCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return Robot.shooter.isArmAtTarget();
     }
 
     protected void end() {
+    	Robot.shooter.stopArm();
     }
 
     protected void interrupted() {
+    	this.end();
     }
 }

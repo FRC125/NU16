@@ -5,11 +5,11 @@ import com.nutrons.stronghold.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *@author Lydia Xing
+ *@author Camilo Gonzalez
  */
-public class OutputBallCmd extends Command {
+public class RetractJawCmd extends Command {
 
-    public OutputBallCmd() {
+    public RetractJawCmd() {
         requires(Robot.intake);
     }
 
@@ -17,7 +17,7 @@ public class OutputBallCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.intake.outputBall();
+    	Robot.intake.retractJaw();
     }
 
     protected boolean isFinished() {
@@ -25,7 +25,7 @@ public class OutputBallCmd extends Command {
     }
 
     protected void end() {
-    	
+    
     }
 
     protected void interrupted() {

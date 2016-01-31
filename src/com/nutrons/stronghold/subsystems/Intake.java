@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 
 	private Talon intakeMotor = new Talon(RobotMap.INTAKE);
-	private Solenoid ballPusherPiston = new Solenoid(RobotMap.BALL_PUSHER_PISTON);
+	private Solenoid jawPiston = new Solenoid(RobotMap.BALL_PUSHER_PISTON);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new IntakeBallCmd());
@@ -35,10 +35,17 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Push a ball
+	 * Open the jaw
 	 */
-	public void pushBall() {
-		this.ballPusherPiston.set(true);
+	public void deployJaw() {
+		this.jawPiston.set(true);
+	}
+	
+	/**
+	 * Close the jaw
+	 */
+	public void retractJaw() {
+		this.jawPiston.set(false);
 	}
 	
 	/**

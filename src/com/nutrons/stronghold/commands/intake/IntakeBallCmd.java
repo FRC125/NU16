@@ -21,14 +21,14 @@ public class IntakeBallCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     protected void end() {
-    	Robot.intake.stopIntakeMotor();
+    	
     }
 
     protected void interrupted() {
-    	this.end();
+    	
     }
 }
