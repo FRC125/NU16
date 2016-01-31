@@ -1,10 +1,11 @@
-
 package com.nutrons.stronghold.subsystems;
 
 import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.TankDriveCmd;
-
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -12,8 +13,6 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -24,8 +23,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
     
     // Motors
-	private Talon leftDrive = new Talon(RobotMap.LEFT_DRIVE);
-    private Talon rightDrive = new Talon(RobotMap.RIGHT_DRIVE);
+	public CANTalon leftDrive = new CANTalon(RobotMap.LEFT_DRIVE);
+    public CANTalon rightDrive = new CANTalon(RobotMap.RIGHT_DRIVE);
 	
     // Sensors
     private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
@@ -64,6 +63,25 @@ public class Drivetrain extends Subsystem {
     
     public void initDefaultCommand() {
         setDefaultCommand(new TankDriveCmd());
+    }
+    
+    /**
+     * Sets drivetrain to be used to follow a motion profile
+     */
+    public void motionProfileMode() {
+    	this.leftDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	this.rightDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	
+    	this.leftDrive.changeControlMode(TalonControlMode.MotionProfile);
+    	this.rightDrive.changeControlMode(TalonControlMode.MotionProfile);
+    }
+    
+    /**
+     * Sets drivetrain to be controlled by joystick input
+     */
+    public void operatorMode() {
+    	this.leftDrive.changeControlMode(TalonControlMode.PercentVbus);
+    	this.rightDrive.changeControlMode(TalonControlMode.PercentVbus);
     }
     
     /**
