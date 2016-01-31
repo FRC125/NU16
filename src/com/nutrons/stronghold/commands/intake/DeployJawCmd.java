@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *@author Lydia Xing
  */
-public class PushBallCmd extends Command {
+public class DeployJawCmd extends Command {
 
-    public PushBallCmd() {
+    public DeployJawCmd() {
         requires(Robot.intake);
     }
 
@@ -17,7 +17,7 @@ public class PushBallCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.intake.pushBall();
+    	Robot.intake.deployJaw();
     }
 
     protected boolean isFinished() {
@@ -25,7 +25,6 @@ public class PushBallCmd extends Command {
     }
 
     protected void end() {
-    	Robot.intake.stopIntakeMotor();
     }
 
     protected void interrupted() {

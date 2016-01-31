@@ -32,20 +32,10 @@ public class Shooter extends Subsystem {
     private double P_ARM = 0.1;
     private double I_ARM = 0.0;
     private double D_ARM = 0.0;
+    private int POS_TOLERANCE = 1;
     
     public Shooter() {
-    	this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	arm.reverseSensor(false);
-    	arm.configNominalOutputVoltage(+0.0f, -0.0f); 
-        arm.configPeakOutputVoltage(+12.0f, 0.0f);
-        
-        arm.setProfile(0);
-        arm.setF(F_ARM);
-        arm.setP(P_ARM);
-        arm.setI(I_ARM);
-        arm.setD(D_ARM);
-
-        arm.changeControlMode(TalonControlMode.Position);
+    	this.startArm();
     }
     
 	public void initDefaultCommand() {
@@ -100,4 +90,39 @@ public class Shooter extends Subsystem {
 	public void zeroArm() {
 		arm.setPosition(0);
 	}
+	
+	/**
+	 * Checks if arm reached its goal
+	 * @return arm status
+	 */
+	public boolean isArmAtTarget() {
+		return Math.abs(arm.getClosedLoopError()) < this.POS_TOLERANCE;
+	}
+	
+	/**
+	 * Sets up arm to be used in Positon Mode
+	 */
+	public void startArm() {
+		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	this.arm.reverseSensor(false);
+    	this.arm.configNominalOutputVoltage(+0.0f, -0.0f); 
+        this.arm.configPeakOutputVoltage(+12.0f, 0.0f);
+        
+        this.arm.setProfile(0);
+        this.arm.setF(F_ARM);
+        this.arm.setP(P_ARM);
+        this.arm.setI(I_ARM);
+        this.arm.setD(D_ARM);
+        
+        this.arm.changeControlMode(TalonControlMode.Position);
+	}
+	
+	/**
+	 * Stops arm from moving
+	 */
+	public void stopArm() {
+		this.arm.changeControlMode(TalonControlMode.PercentVbus);
+		this.arm.set(0.0);
+	}
+	
 }

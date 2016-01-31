@@ -2,7 +2,7 @@ package com.nutrons.stronghold;
 
 import com.nutrons.stronghold.commands.intake.IntakeBallCmd;
 import com.nutrons.stronghold.commands.intake.OutputBallCmd;
-import com.nutrons.stronghold.commands.intake.PushBallCmd;
+import com.nutrons.stronghold.commands.intake.DeployJawCmd;
 import com.nutrons.stronghold.commands.intake.StopIntakeMotorCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,7 +27,7 @@ public class OI {
 		intakeBallButton.whenReleased(new StopIntakeMotorCmd());
 		outputBallButton.whileHeld(new OutputBallCmd());
 		outputBallButton.whenReleased(new StopIntakeMotorCmd());
-		pushBallButton.whenPressed(new PushBallCmd());
+		pushBallButton.whenPressed(new DeployJawCmd());
 	}
 	
 	/**
