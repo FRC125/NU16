@@ -1,6 +1,7 @@
 
 package com.nutrons.stronghold;
 
+import com.nutrons.lib.utils.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,6 +31,9 @@ public class Robot extends IterativeRobot {
 	public static final Shooter shooter = new Shooter();
 	public static Compressor compressor;
 	public static OI oi;
+	
+	public NetworkTable network;
+	public  static Camera camera;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -40,6 +45,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		compressor = new Compressor();
+		camera = new Camera(network.getTable("vision"));
+		
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new DriveDistanceCmd(12.0));
         chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));
