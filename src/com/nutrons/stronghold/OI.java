@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * 
+ * @author Camilo Gonzalez
+ *
  */
-
 public class OI {
     
 	private Joystick driverPad = new Joystick(RobotMap.DRIVER_PAD);
@@ -46,4 +47,3 @@ public class OI {
 		return -driverPad.getRawAxis(5);
 	}
 }
-

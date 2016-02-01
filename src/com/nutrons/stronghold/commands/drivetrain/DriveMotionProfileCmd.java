@@ -2,7 +2,6 @@ package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.controllers.MotionProfile;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -26,26 +25,26 @@ public class DriveMotionProfileCmd extends Command {
     protected void initialize() {
     	Robot.dt.motionProfileMode();
     	
-    	leftProfile = new MotionProfile(Robot.dt.leftDrive);
-    	rightProfile = new MotionProfile(Robot.dt.rightDrive);
+    	this.leftProfile = new MotionProfile(Robot.dt.leftDrive);
+    	this.rightProfile = new MotionProfile(Robot.dt.rightDrive);
     	
-    	leftProfile.startMotionProfile();
-    	rightProfile.startMotionProfile();
+    	this.leftProfile.startMotionProfile();
+    	this.rightProfile.startMotionProfile();
     }
 
     protected void execute() {
-    	leftProfile.control();
-    	rightProfile.control();
+    	this.leftProfile.control();
+    	this.rightProfile.control();
     	
-    	leftSetOutput = leftProfile.getSetValue();
-    	rightSetOutput = rightProfile.getSetValue();
+    	this.leftSetOutput = leftProfile.getSetValue();
+    	this.rightSetOutput = rightProfile.getSetValue();
     	
     	Robot.dt.leftDrive.set(leftSetOutput.value);
     	Robot.dt.rightDrive.set(rightSetOutput.value);
     }
 
     protected boolean isFinished() {
-        return leftProfile.getSetValue() == CANTalon.SetValueMotionProfile.Hold && rightProfile.getSetValue() == CANTalon.SetValueMotionProfile.Hold;
+        return this.leftProfile.getSetValue() == CANTalon.SetValueMotionProfile.Hold && this.rightProfile.getSetValue() == CANTalon.SetValueMotionProfile.Hold;
     }
 
     protected void end() {

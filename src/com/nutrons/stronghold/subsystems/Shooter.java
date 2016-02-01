@@ -1,7 +1,6 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;

@@ -23,7 +23,6 @@
  */
 package com.nutrons.stronghold.controllers;
 
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;

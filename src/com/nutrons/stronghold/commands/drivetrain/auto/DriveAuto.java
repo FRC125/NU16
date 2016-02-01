@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.commands.drivetrain.DrivePathCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.team254.lib.trajectory.io.TextFileDeserializer;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -48,4 +45,3 @@ public class DriveAuto extends CommandGroup {
 		}
 	}
 }
-

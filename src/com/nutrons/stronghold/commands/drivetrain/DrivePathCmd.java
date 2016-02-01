@@ -25,8 +25,9 @@ public class DrivePathCmd extends Command {
     protected void initialize() {
     	Robot.dt.resetEncoders();
     	Robot.dt.zeroGyro();
-    	trajectoryDriveController = new TrajectoryDriveController();
-    	trajectoryDriveController.loadProfile(this.path.getLeftWheelTrajectory(), this.path.getRightWheelTrajectory(), 1.0, this.heading);
+    	
+    	this.trajectoryDriveController = new TrajectoryDriveController();
+    	this.trajectoryDriveController.loadProfile(this.path.getLeftWheelTrajectory(), this.path.getRightWheelTrajectory(), 1.0, this.heading);
     }
 
     protected void execute() {
@@ -36,7 +37,7 @@ public class DrivePathCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return trajectoryDriveController.onTarget();
+        return this.trajectoryDriveController.onTarget();
     }
 
     protected void end() {

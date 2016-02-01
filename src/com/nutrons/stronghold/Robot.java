@@ -1,4 +1,3 @@
-
 package com.nutrons.stronghold;
 
 import com.nutrons.lib.utils.Camera;
