@@ -18,6 +18,8 @@ public class DriveDistanceCmd extends Command {
     }
 
     protected void initialize() {
+    	Robot.dt.motionProfileMode();
+    	
     	Robot.dt.resetEncoders();
     	Robot.dt.zeroGyro();
     	Robot.dt.driveDistance.setAbsoluteTolerance(1);
@@ -32,6 +34,7 @@ public class DriveDistanceCmd extends Command {
     	
     	Robot.dt.driveDistance.enable();
     	Robot.dt.turnToAngle.enable();
+    	
     }
 
     protected void execute() {

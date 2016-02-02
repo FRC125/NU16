@@ -15,6 +15,7 @@ public class TankDriveCmd extends Command {
     }
 
     protected void initialize() {
+    	Robot.dt.operatorMode();
     }
 
     protected void execute() {
