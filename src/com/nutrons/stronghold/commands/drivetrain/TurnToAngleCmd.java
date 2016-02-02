@@ -13,13 +13,13 @@ public class TurnToAngleCmd extends Command {
 	private double angle;
 	
     public TurnToAngleCmd(double angle) {
-    	Robot.dt.motionProfileMode();
-    	
         requires(Robot.dt);
         this.angle = angle;
     }
 
     protected void initialize() {
+    	Robot.dt.operatorMode();
+    	
     	Robot.dt.zeroGyro();
     	Robot.dt.turnToAngle.setAbsoluteTolerance(2);
     	Robot.dt.turnToAngle.setInputRange(-360.0, 360.0);
