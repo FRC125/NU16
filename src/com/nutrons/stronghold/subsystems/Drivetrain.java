@@ -96,6 +96,23 @@ public class Drivetrain extends Subsystem {
     public void stop() {
     	this.driveLR(0, 0);
     }
+    
+    /**
+     * Gets position of the leftDrive encoder
+     * @return Encoder distance
+     */
+    public double getLeftEncoder() {
+    	return this.leftDrive.getEncPosition();
+    }
+    
+    /**
+     * Gets position of the rightDrive encoder
+     * @return Encoder distance
+     */
+    public double getRightEncoder() {
+    	return this.rightDrive.getEncPosition();
+    }
+    
     /**
      * 
      * @param Joystick input value
@@ -109,11 +126,11 @@ public class Drivetrain extends Subsystem {
             double mapping;
             if (Math.abs(input) <= 0.75) {
                 mapping = 0.95 * ((0.5 * Math.pow(Math.abs(input), 2.0)) + 0.2);
-                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                mapping = (input >= 0) ? mapping : -mapping;
                 return mapping;
             } else {
                 mapping = 2.16 * Math.abs(input) - 1.16;
-                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                mapping = (input >= 0) ? mapping : -mapping;
                 return mapping;
             }
         }
