@@ -12,7 +12,7 @@ public class Camera {
 	private NetworkTable table;
 	
 	public Camera(NetworkTable table) {
-		
+		this.table = table;
 	}
 	
 	public double getDistanceToTargetInFeet() {
