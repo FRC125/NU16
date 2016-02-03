@@ -96,6 +96,28 @@ public class Drivetrain extends Subsystem {
     public void stop() {
     	this.driveLR(0, 0);
     }
+    /**
+     * 
+     * @param Joystick input value
+     * @return Returns ramped motor power value
+     */
+    public double mapJoystickToPowerOutput(double input) {
+        if (Math.abs(input) < 0.05) {
+            // Stop if joystick is near zero
+            return 0.0;
+        } else {
+            double mapping;
+            if (Math.abs(input) <= 0.75) {
+                mapping = 0.95 * ((0.5 * Math.pow(Math.abs(input), 2.0)) + 0.2);
+                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                return mapping;
+            } else {
+                mapping = 2.16 * Math.abs(input) - 1.16;
+                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                return mapping;
+            }
+        }
+    }
     
     /**
      * Returns the current gyro angle
