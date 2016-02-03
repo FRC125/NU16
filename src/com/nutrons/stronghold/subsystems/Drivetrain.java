@@ -49,8 +49,7 @@ public class Drivetrain extends Subsystem {
     	
     	this.leftDrive.setF(this.F_DRIVE);
     	this.leftDrive.setF(this.P_DRIVE);
-    	
-    	
+    	  	
     	try {
     		Port p = SerialPort.Port.kUSB;
     		serialPort = new SerialPort(57600, p);
