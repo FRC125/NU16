@@ -2,6 +2,8 @@ package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.intake.IntakeBallCmd;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,16 +14,29 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
 
+	// Motors
 	private Talon intakeMotor = new Talon(RobotMap.INTAKE);
+	
+	// Solenoids
 	private Solenoid jawPiston = new Solenoid(RobotMap.BALL_PUSHER_PISTON);
+	
+	// Sensors
+	private DigitalInput banner = new DigitalInput(RobotMap.INTAKE_BANNER);
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new IntakeBallCmd());
 	}
-
+	
+	/**
+	 * Use banner sensor to detect ball
+	 */
+	private boolean isballPresent() {
+		return this.banner.get();
+	}
+	
 	/**
 	 * Intake a ball
-	 */
+	 *
 	public void intakeBall() {
 		this.intakeMotor.set(1);
 	}

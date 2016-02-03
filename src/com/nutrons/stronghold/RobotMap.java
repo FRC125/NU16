@@ -28,6 +28,7 @@ public class RobotMap {
 	public static int SHOOTER_SOLENOID_4B = 7;
 	public static int HOOD_SOLENOID_A = 8;
 	public static int HOOD_SOLENOID_B = 9;
+	public static int INTAKE_BANNER = 10;
 	
 	// OI
 	public static int DRIVER_PAD = 0;
