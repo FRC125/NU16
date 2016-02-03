@@ -1,8 +1,6 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
-import com.nutrons.stronghold.commands.intake.IntakeBallCmd;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -24,7 +22,7 @@ public class Intake extends Subsystem {
 	private DigitalInput banner = new DigitalInput(RobotMap.INTAKE_BANNER);
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new IntakeBallCmd());
+		
 	}
 	
 	/**
