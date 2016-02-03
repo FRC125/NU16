@@ -47,8 +47,26 @@ public class Drivetrain extends Subsystem {
     	this.leftDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	this.rightDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	
+    	this.leftDrive.reverseSensor(false);
+    	this.leftDrive.configNominalOutputVoltage(+0.0f, -0.0f); 
+        this.leftDrive.configPeakOutputVoltage(+12.0f, 0.0f);
+        
+        this.rightDrive.reverseSensor(false);
+    	this.rightDrive.configNominalOutputVoltage(+0.0f, -0.0f); 
+        this.rightDrive.configPeakOutputVoltage(+12.0f, 0.0f);
+    	
     	this.leftDrive.setF(this.F_DRIVE);
     	this.leftDrive.setF(this.P_DRIVE);
+    	this.leftDrive.setP(this.P_DRIVE);
+    	this.leftDrive.setI(this.I_DRIVE);
+    	this.leftDrive.setD(this.D_DRIVE);
+    	
+    	this.rightDrive.setF(this.F_DRIVE);
+    	this.rightDrive.setF(this.P_DRIVE);
+    	this.rightDrive.setP(this.P_DRIVE);
+    	this.rightDrive.setI(this.I_DRIVE);
+    	this.rightDrive.setD(this.D_DRIVE);
+
     	  	
     	try {
     		Port p = SerialPort.Port.kUSB;

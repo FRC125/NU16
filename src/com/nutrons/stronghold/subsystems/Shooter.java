@@ -80,7 +80,7 @@ public class Shooter extends Subsystem {
 	 * @param pos Positon arm must go to
 	 */
 	public void moveArmToPosition(double pos) {
-		arm.setPosition(pos);
+		arm.setSetpoint(pos);
 	}
 	
 	/**
