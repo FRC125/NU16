@@ -25,22 +25,17 @@ public class Drivetrain extends Subsystem {
     // Motors
 	public CANTalon leftDrive = new CANTalon(RobotMap.LEFT_DRIVE);
     public CANTalon rightDrive = new CANTalon(RobotMap.RIGHT_DRIVE);
-	
-    // Sensors
-    private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
-    private Encoder rightDriveEncoder = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, RobotMap.RIGHT_DRIVE_ENCODER_B);
     
     // Constants
-    public static final double wheelDiam = 0.5;
-    public static final double P_DISTANCE = 0.3;
-    public static final double I_DISTANCE = 0.0;
-    public static final double D_DISTANCE = 0.0;
     public static final double P_TURN = 0.01;
     public static final double I_TURN = 0.0;
     public static final double D_TURN = 0.1;
     
-    // PIDs
-    public PIDController driveDistance = new PIDController(P_DISTANCE, I_DISTANCE, D_DISTANCE, new EncoderWrapper(), new DriveDistance());
+    public static final double F_DRIVE = 0.0;
+    public static final double P_DRIVE = 0.5;
+    public static final double I_DRIVE = 0.0;
+    public static final double D_DRIVE = 0.0;
+    
     public PIDController turnToAngle = new PIDController(P_TURN, I_TURN, D_TURN, new GyroWrapper(), new TurnToAngle());
     
     // Navx
@@ -49,8 +44,12 @@ public class Drivetrain extends Subsystem {
     private AHRS imu;
     
     public Drivetrain() {
-    	this.leftDriveEncoder.setDistancePerPulse((wheelDiam * Math.PI)/256.0);
-    	this.rightDriveEncoder.setDistancePerPulse((wheelDiam * Math.PI)/256.0);
+    	this.leftDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	this.rightDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	
+    	this.leftDrive.setF(this.F_DRIVE);
+    	this.leftDrive.setF(this.P_DRIVE);
+    	
     	
     	try {
     		Port p = SerialPort.Port.kUSB;
@@ -69,9 +68,6 @@ public class Drivetrain extends Subsystem {
      * Sets drivetrain to be used to follow a motion profile
      */
     public void motionProfileMode() {
-    	this.leftDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	this.rightDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	
     	this.leftDrive.changeControlMode(TalonControlMode.MotionProfile);
     	this.rightDrive.changeControlMode(TalonControlMode.MotionProfile);
     }
@@ -102,30 +98,6 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
-     * Returns the distance traveled by the left side of the drivetrain in feet
-     * @return Distance in feet
-     */
-    public double getLeftDistanceInFeet() {
-    	return this.leftDriveEncoder.getDistance();
-    }
-    
-    /**
-     * Returns the distance traveled by the right side of the drivetrain in feet
-     * @return Distance in feet
-     */
-    public double getRightDistanceInFeet() {
-    	return this.rightDriveEncoder.getDistance();
-    }
-    
-    /**
-     * Resets both the left and drive encoder
-     */
-    public void resetEncoders() {
-    	this.leftDriveEncoder.reset();
-    	this.rightDriveEncoder.reset();
-    }
-    
-    /**
      * Returns the current gyro angle
      * @return Angle in degrees
      */
@@ -146,34 +118,6 @@ public class Drivetrain extends Subsystem {
      */
     public void zeroGyro() {
     	this.imu.zeroYaw();
-    }
-    
-    public class EncoderWrapper implements PIDSource {
-
-		@Override
-		public void setPIDSourceType(PIDSourceType pidSource) {
-			
-		}
-
-		@Override
-		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kDisplacement;
-		}
-
-		@Override
-		public double pidGet() {
-			return getLeftDistanceInFeet();
-		}
-    }
-    
-    public class DriveDistance implements PIDOutput {
-    	
-		@Override
-		public void pidWrite(double output) {
-			leftDrive.pidWrite(output);
-			rightDrive.pidWrite(-output);
-		}
-    	
     }
     
     public class GyroWrapper implements PIDSource {

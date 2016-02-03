@@ -1,7 +1,6 @@
 package com.nutrons.stronghold;
 
 import com.nutrons.lib.utils.Camera;
-import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
 import com.nutrons.stronghold.subsystems.Drivetrain;
@@ -47,7 +46,6 @@ public class Robot extends IterativeRobot {
 		camera = new Camera(network.getTable("vision"));
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new DriveDistanceCmd(12.0));
         chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));
         chooser.addObject("Drive path", new DriveAuto());
         SmartDashboard.putData("Auto mode", chooser);
