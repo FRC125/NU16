@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Camera {
 	
-	private NetworkTable table;
+	public NetworkTable table;
 	
 	public Camera(NetworkTable table) {
 		this.table = table;

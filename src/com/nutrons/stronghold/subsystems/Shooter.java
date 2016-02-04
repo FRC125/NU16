@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	
 	// Motors
-	private CANTalon arm = new CANTalon(RobotMap.ARM);
+	public CANTalon arm = new CANTalon(RobotMap.ARM);
 	
 	// Solenoids
 	private DoubleSolenoid shooter1 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_1A, RobotMap.SHOOTER_SOLENOID_1B);
