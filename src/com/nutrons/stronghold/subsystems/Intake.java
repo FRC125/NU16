@@ -28,7 +28,7 @@ public class Intake extends Subsystem {
 	/**
 	 * Use banner sensor to detect ball
 	 */
-	private boolean isballPresent() {
+	public boolean isballPresent() {
 		return this.banner.get();
 	}
 	

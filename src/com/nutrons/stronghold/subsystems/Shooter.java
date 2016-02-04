@@ -17,14 +17,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	
 	// Motors
-	private CANTalon arm = new CANTalon(RobotMap.ARM);
+	public CANTalon arm = new CANTalon(RobotMap.ARM);
 	
 	// Solenoids
 	private DoubleSolenoid shooter1 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_1A, RobotMap.SHOOTER_SOLENOID_1B);
 	private DoubleSolenoid shooter2 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_2A, RobotMap.SHOOTER_SOLENOID_2B);
 	private DoubleSolenoid shooter3 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_3A, RobotMap.SHOOTER_SOLENOID_3B);
 	private DoubleSolenoid shooter4 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_4A, RobotMap.SHOOTER_SOLENOID_4B);
-    private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.HOOD_SOLENOID_A, RobotMap.HOOD_SOLENOID_A);
+    private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.HOOD_SOLENOID_A, RobotMap.HOOD_SOLENOID_B);
 	
     // Constants
     private double F_ARM = 0.0;
