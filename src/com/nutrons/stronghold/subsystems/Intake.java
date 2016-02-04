@@ -33,16 +33,16 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Intake a ball
-	 *
-	public void intakeBall() {
+	 * Intake ball
+	 */
+	public void rotateRollersIn() {
 		this.intakeMotor.set(1);
 	}
 
 	/**
 	 * Output a ball
 	 */
-	public void outputBall() {
+	public void rotateRollersOut() {
 		this.intakeMotor.set(-1);
 	}
 	

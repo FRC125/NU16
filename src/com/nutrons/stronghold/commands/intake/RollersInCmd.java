@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *@author Lydia Xing
  */
-public class OutputBallCmd extends Command {
+public class RollersInCmd extends Command {
 
-    public OutputBallCmd() {
+    public RollersInCmd() {
         requires(Robot.intake);
     }
 
@@ -16,7 +16,7 @@ public class OutputBallCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.intake.outputBall();
+    	Robot.intake.rotateRollersIn();
     }
 
     protected boolean isFinished() {

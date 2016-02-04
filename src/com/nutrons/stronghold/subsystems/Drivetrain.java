@@ -47,10 +47,27 @@ public class Drivetrain extends Subsystem {
     	this.leftDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	this.rightDrive.setFeedbackDevice(FeedbackDevice.QuadEncoder);
     	
+    	this.leftDrive.reverseSensor(false);
+    	this.leftDrive.configNominalOutputVoltage(+0.0f, -0.0f); 
+        this.leftDrive.configPeakOutputVoltage(+12.0f, 0.0f);
+        
+        this.rightDrive.reverseSensor(false);
+    	this.rightDrive.configNominalOutputVoltage(+0.0f, -0.0f); 
+        this.rightDrive.configPeakOutputVoltage(+12.0f, 0.0f);
+    	
     	this.leftDrive.setF(this.F_DRIVE);
     	this.leftDrive.setF(this.P_DRIVE);
+    	this.leftDrive.setP(this.P_DRIVE);
+    	this.leftDrive.setI(this.I_DRIVE);
+    	this.leftDrive.setD(this.D_DRIVE);
     	
-    	
+    	this.rightDrive.setF(this.F_DRIVE);
+    	this.rightDrive.setF(this.P_DRIVE);
+    	this.rightDrive.setP(this.P_DRIVE);
+    	this.rightDrive.setI(this.I_DRIVE);
+    	this.rightDrive.setD(this.D_DRIVE);
+
+    	  	
     	try {
     		Port p = SerialPort.Port.kUSB;
     		serialPort = new SerialPort(57600, p);
@@ -96,6 +113,23 @@ public class Drivetrain extends Subsystem {
     public void stop() {
     	this.driveLR(0, 0);
     }
+    
+    /**
+     * Gets position of the leftDrive encoder
+     * @return Encoder distance
+     */
+    public double getLeftEncoder() {
+    	return this.leftDrive.getEncPosition();
+    }
+    
+    /**
+     * Gets position of the rightDrive encoder
+     * @return Encoder distance
+     */
+    public double getRightEncoder() {
+    	return this.rightDrive.getEncPosition();
+    }
+    
     /**
      * 
      * @param Joystick input value
@@ -109,11 +143,11 @@ public class Drivetrain extends Subsystem {
             double mapping;
             if (Math.abs(input) <= 0.75) {
                 mapping = 0.95 * ((0.5 * Math.pow(Math.abs(input), 2.0)) + 0.2);
-                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                mapping = (input >= 0) ? mapping : -mapping;
                 return mapping;
             } else {
                 mapping = 2.16 * Math.abs(input) - 1.16;
-                mapping = (input >= 0) ? mapping : -mapping; // Change to negative if the input was negative
+                mapping = (input >= 0) ? mapping : -mapping;
                 return mapping;
             }
         }
