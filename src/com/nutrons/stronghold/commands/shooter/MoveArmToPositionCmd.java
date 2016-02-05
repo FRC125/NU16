@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Camilo Gonzalez
  *
  */
-public class MoveArmToPositonCmd extends Command {
+public class MoveArmToPositionCmd extends Command {
 
 	private double position;
 	
-    public MoveArmToPositonCmd(double positon) {
+    public MoveArmToPositionCmd(double positon) {
         requires(Robot.dt);
         this.position = positon;
     }
