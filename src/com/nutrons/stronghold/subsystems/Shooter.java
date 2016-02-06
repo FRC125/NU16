@@ -24,7 +24,6 @@ public class Shooter extends Subsystem {
 	private DoubleSolenoid shooter2 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_2A, RobotMap.SHOOTER_SOLENOID_2B);
 	private DoubleSolenoid shooter3 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_3A, RobotMap.SHOOTER_SOLENOID_3B);
 	private DoubleSolenoid shooter4 = new DoubleSolenoid(RobotMap.SHOOTER_SOLENOID_4A, RobotMap.SHOOTER_SOLENOID_4B);
-    private DoubleSolenoid hood = new DoubleSolenoid(RobotMap.HOOD_SOLENOID_A, RobotMap.HOOD_SOLENOID_A);
 	
     // Constants
     private double F_ARM = 0.0;
@@ -59,20 +58,6 @@ public class Shooter extends Subsystem {
 		shooter2.set(Value.kReverse);
 		shooter3.set(Value.kReverse);
 		shooter4.set(Value.kReverse);
-	}
-	
-	/**
-	 * Deploy hood piston
-	 */
-	public void deployHood() {
-		hood.set(Value.kForward);
-	}
-	
-	/**
-	 * Retract hood piston
-	 */
-	public void retractHood() {
-		hood.set(Value.kReverse);
 	}
 	
 	/**

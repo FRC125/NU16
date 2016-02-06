@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  * 
- * @author Abdul Mezrouh, Camilo Gonzalez, Andreas Jeonard
+ * @author Abdul Mezrouh, Camilo Gonzalez, Andreas Leonard
  *
  */
 public class SpitBall extends CommandGroup {
