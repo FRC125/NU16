@@ -1,5 +1,8 @@
 package com.nutrons.stronghold.commands.shooter;
 
+import com.nutrons.stronghold.commands.intake.CloseJawCmd;
+import com.nutrons.stronghold.commands.intake.OpenJawCmd;
+import com.nutrons.stronghold.commands.intake.StopIntakeMotorCmd;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
@@ -11,9 +14,13 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class ShootBall extends CommandGroup {
     
     public  ShootBall() {
-    	addSequential(new DeployHoodCmd());
-    	addSequential(new WaitCommand(0.1));
+    	addSequential(new StopIntakeMotorCmd());
+    	addSequential(new CloseJawCmd());
+    	addSequential(new MoveArmToShootingPositionCmd());
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new OpenJawCmd());
     	addSequential(new DeployShooterCmd());
-    	addSequential(new WaitCommand(1.0));
+    	addSequential(new WaitCommand(0.5));
+    	addSequential(new RetractShooterCmd());
     }
 }
