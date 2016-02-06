@@ -14,9 +14,9 @@ public class IntakeBall extends CommandGroup {
     
     public  IntakeBall() {
         addSequential(new MoveArmToIntakePositionCmd());
-        addSequential(new RollersOutCmd());
-        addSequential(new WaitCommand(0.5));
-        addSequential(new OpenJawCmd());
+        addSequential(new CloseJawCmd());
+        addSequential(new RollersInCmd());
+        addSequential(new WaitCommand(1.0));
         addSequential(new StopIntakeMotorCmd());
     }
 }
