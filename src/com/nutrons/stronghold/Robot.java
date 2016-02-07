@@ -6,10 +6,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
-import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
-import com.nutrons.stronghold.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,8 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	public static final Drivetrain dt = new Drivetrain();
+	
 	public static Compressor compressor;
 	public static OI oi;
 
@@ -37,9 +32,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		compressor = new Compressor();
         chooser = new SendableChooser();
-        chooser.addDefault("Default Auto", new DriveDistanceCmd(6.0));
-        chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));
-        chooser.addObject("Drive path", new DriveAuto());
+        
         SmartDashboard.putData("Auto mode", chooser);
     }
 	
