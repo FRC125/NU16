@@ -6,6 +6,7 @@ import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -46,9 +47,9 @@ public class Robot extends IterativeRobot {
 		camera = new Camera(network.getTable("vision"));
 		
         chooser = new SendableChooser();
+        chooser.addDefault("Default Program", new DriveAuto());
         chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));
         chooser.addObject("Drive path", new DriveAuto());
-        SmartDashboard.putData("Auto mode", chooser);
     }
 	
 	/**
@@ -62,6 +63,7 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	/**
@@ -96,6 +98,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateSmartDashboard();
     }
 
     public void teleopInit() {
@@ -111,6 +114,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        updateSmartDashboard();
     }
     
     /**
@@ -118,5 +122,18 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        updateSmartDashboard();
+    }
+    
+    public void updateSmartDashboard() {
+    	SmartDashboard.putData("Auto mode", chooser);
+    	
+    	SmartDashboard.putNumber("Heading Angle", Robot.dt.getGyroInDegrees());
+    	SmartDashboard.putBoolean("Banner Sensor Status", Robot.intake.isballPresent());
+    	SmartDashboard.putNumber("Left Encoder Distance", Robot.dt.leftDrive.getPosition());
+    	SmartDashboard.putNumber("Right Encoder Distance", Robot.dt.rightDrive.getPosition());
+    	SmartDashboard.putNumber("Camera's Distance To Target", camera.getDistanceToTargetInFeet());
+    	SmartDashboard.putNumber("Camera's Angle To Target", camera.getAngleToTarget());
+    	SmartDashboard.putNumber("Arm's Current Position", Robot.shooter.arm.getPosition());
     }
 }
