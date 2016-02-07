@@ -69,7 +69,7 @@ public class Drivetrain extends Subsystem {
 
     	  	
     	try {
-    		Port p = SerialPort.Port.kUSB;
+    		Port p = SerialPort.Port.kMXP;
     		serialPort = new SerialPort(57600, p);
     		imu = new AHRS(serialPort, update_rate_hz);
     	}catch(Exception e) {
