@@ -1,7 +1,7 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
-
+import com.nutrons.stronghold.commands.shooter.MoveArmToPositionCmd;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +20,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
-    
+		setDefaultCommand(new MoveArmToPositionCmd());
 	}
 	
 	public void driveArm(double power) {

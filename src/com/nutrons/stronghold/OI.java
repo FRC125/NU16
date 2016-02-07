@@ -1,8 +1,6 @@
 package com.nutrons.stronghold;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -10,5 +8,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
+	private Joystick driverPad = new Joystick(0);
+	
+	public OI() {
+		
+	}
+	
+	public double getLeftJoystickY() {
+		return this.driverPad.getRawAxis(1);
+	}
 }
 
