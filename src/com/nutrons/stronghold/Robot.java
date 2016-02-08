@@ -1,6 +1,7 @@
 
 package com.nutrons.stronghold;
 
+import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -24,6 +25,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	public static Shooter shooter;
+	public static Drivetrain dt;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -36,6 +38,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		compressor = new Compressor();
 		shooter = new Shooter();
+		dt = new Drivetrain();
 		
         chooser = new SendableChooser();
         
