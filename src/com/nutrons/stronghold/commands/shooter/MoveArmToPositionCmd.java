@@ -19,7 +19,7 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.shooter.driveArm(Robot.oi.getLeftJoystickY());
+    	Robot.shooter.driveArm(12 * Robot.oi.getLeftJoystickY());
     }
 
     protected boolean isFinished() {

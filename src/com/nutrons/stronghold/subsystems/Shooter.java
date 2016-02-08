@@ -17,6 +17,8 @@ public class Shooter extends Subsystem {
 
 	public Shooter() {
 		this.arm.changeControlMode(TalonControlMode.PercentVbus);
+		this.arm.configNominalOutputVoltage(+0.0f, -0.0f); 
+		this.arm.configPeakOutputVoltage(+12.0f, 0.0f);
 	}
 	
 	public void initDefaultCommand() {
@@ -27,4 +29,3 @@ public class Shooter extends Subsystem {
 		this.arm.set(power);
 	}
 }
-

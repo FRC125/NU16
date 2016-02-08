@@ -18,4 +18,3 @@ public class OI {
 		return this.driverPad.getRawAxis(1);
 	}
 }
-
