@@ -1,6 +1,6 @@
 package com.nutrons.stronghold.subsystems;
 
-import com.nutrons.stronghold.Robot;
+import com.nutrons.lib.DebouncedBoolean;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.shooter.MoveArmToPositionCmd;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -20,6 +20,9 @@ public class Shooter extends Subsystem {
 	
 	// Sensors
 	private DigitalInput zeroButton = new DigitalInput(RobotMap.ZERO_BUTTON);
+	
+	// Utils
+	private DebouncedBoolean zeroButtonDebouncedBoolean = new DebouncedBoolean(5);
 
 	public Shooter() {
 		this.arm.changeControlMode(TalonControlMode.PercentVbus);
@@ -44,6 +47,7 @@ public class Shooter extends Subsystem {
 	 * @return Is the button pressed?
 	 */
 	public boolean isZeroButtonPressed() {
-		return zeroButton.get();
+		this.zeroButtonDebouncedBoolean.feed(this.zeroButton.get());
+		return this.zeroButtonDebouncedBoolean.get();
 	}
 }
