@@ -1,5 +1,6 @@
 package com.nutrons.stronghold.commands.shooter;
 
+import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +20,7 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.shooter.driveArm(12 * Robot.oi.getLeftJoystickY());
+    	Robot.shooter.driveArm(Utils.deadband(Robot.oi.getLeftJoystickY(), 0.05, 0.0));
     }
 
     protected boolean isFinished() {
