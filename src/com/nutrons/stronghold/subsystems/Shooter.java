@@ -47,7 +47,7 @@ public class Shooter extends Subsystem {
 	 * @return Is the button pressed?
 	 */
 	public boolean isZeroButtonPressed() {
-		this.zeroButtonDebouncedBoolean.feed(this.zeroButton.get());
+		this.zeroButtonDebouncedBoolean.feed(!this.zeroButton.get());
 		return this.zeroButtonDebouncedBoolean.get();
 	}
 }

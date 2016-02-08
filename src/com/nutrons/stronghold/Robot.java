@@ -24,8 +24,8 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	public static OI oi;
 	
-	public static Shooter shooter;
-	public static Drivetrain dt;
+	public static Shooter shooter = new Shooter();
+	public static Drivetrain dt = new Drivetrain();
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -37,8 +37,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		compressor = new Compressor();
-		shooter = new Shooter();
-		dt = new Drivetrain();
 		
         chooser = new SendableChooser();
         
