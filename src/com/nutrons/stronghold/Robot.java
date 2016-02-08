@@ -43,6 +43,8 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         
         SmartDashboard.putData("Auto mode", chooser);
+        
+        updateDashboard();
     }
 	
 	/**
@@ -51,11 +53,12 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	updateDashboard();
     }
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateDashboard();
 	}
 
 	/**
@@ -83,6 +86,7 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        updateDashboard();
     }
 
     /**
@@ -90,6 +94,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateDashboard();
     }
 
     public void teleopInit() {
@@ -98,6 +103,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        updateDashboard();
     }
 
     /**
@@ -105,6 +111,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        updateDashboard();
     }
     
     /**
@@ -112,5 +119,10 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    public void updateDashboard() {
+    	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
+    	SmartDashboard.putBoolean("zeroButton", Robot.shooter.isZeroButtonPressed());
     }
 }
