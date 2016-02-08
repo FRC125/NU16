@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 	
+	// Joysticks
 	private Joystick driverPad = new Joystick(0);
+	
+	// Buttons
 	
 	public OI() {
 		
