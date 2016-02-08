@@ -3,9 +3,11 @@ package com.nutrons.stronghold;
 import com.nutrons.lib.utils.Camera;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.DriveAuto;
+import com.nutrons.stronghold.networktables.DataController;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,7 +34,7 @@ public class Robot extends IterativeRobot {
 	
 	public NetworkTable network;
 	public  static Camera camera;
-
+	public DataController dataController;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -43,7 +45,9 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		compressor = new Compressor();
-		camera = new Camera(network.getTable("vision"));
+		
+		camera = new Camera(NetworkTable.getTable("vision"));
+		dataController = new DataController(NetworkTable.getTable(RobotMap.VISION_TABLE), 1000);
 		
         chooser = new SendableChooser();
         chooser.addObject("Turn to 30 degrees", new TurnToAngleCmd(30.0));

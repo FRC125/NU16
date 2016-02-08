@@ -7,6 +7,7 @@ package com.nutrons.stronghold;
  */
 public class RobotMap {
     
+
 	// PWM
 	public static int LEFT_DRIVE = 4;
 	public static int RIGHT_DRIVE = 3;
@@ -35,4 +36,9 @@ public class RobotMap {
 	public static int INTAKE_BALL_BUTTON = 0;
 	public static int OUTPUT_BALL_BUTTON = 0;
 	public static int BALL_PUSHER_PISTON = 0;
+	
+	//NetworkTables
+	public static final String VISION_TABLE = "visionTable";
+	public static final String VISION_DATA = "data";
+	
 }
