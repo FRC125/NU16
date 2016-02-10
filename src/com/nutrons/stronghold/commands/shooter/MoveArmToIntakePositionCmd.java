@@ -2,6 +2,7 @@ package com.nutrons.stronghold.commands.shooter;
 
 import com.nutrons.stronghold.Robot;
 
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,6 +17,7 @@ public class MoveArmToIntakePositionCmd extends Command {
     }
 
     protected void initialize() {
+    	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 1);
     }
 
     protected void execute() {
@@ -28,6 +30,7 @@ public class MoveArmToIntakePositionCmd extends Command {
 
     protected void end() {
     	Robot.shooter.driveArm(0.0);
+    	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 0);
     }
 
     protected void interrupted() {

@@ -2,6 +2,7 @@ package com.nutrons.stronghold.commands.intake;
 
 import com.nutrons.stronghold.Robot;
 
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
