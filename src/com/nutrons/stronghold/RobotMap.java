@@ -23,5 +23,5 @@ public class RobotMap {
 	public static final int ULTRASONIC_TX = 1;
 	
 	// Relays
-	public static final int LIGHT_RELAY = 0;
+	public static final int LIGHT_RELAY = 1;
 }

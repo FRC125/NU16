@@ -1,0 +1,37 @@
+package com.nutrons.stronghold.commands.drivetrain;
+
+import com.nutrons.stronghold.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+
+/**
+ * 
+ * @author Camilo Gonzalez
+ *
+ */
+public class TurnLightOnCmd extends Command {
+
+    public TurnLightOnCmd() {
+    	requires(Robot.dt);
+    }
+
+    protected void initialize() {
+    	Robot.dt.turnLightOn();
+    }
+
+    protected void execute() {
+    
+    }
+
+    protected boolean isFinished() {
+        return false;
+    }
+
+    protected void end() {
+ 
+    }
+
+    protected void interrupted() {
+
+    }
+}
