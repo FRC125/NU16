@@ -2,6 +2,7 @@ package com.nutrons.stronghold.subsystems;
 
 import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.RobotMap;
+import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -46,7 +47,7 @@ public class Drivetrain extends Subsystem {
     }
 	
     public void initDefaultCommand() {
-    	
+    	setDefaultCommand(new CheesyDriveCmd());
     }
     
     /**
