@@ -32,7 +32,18 @@ public class Drivetrain extends Subsystem {
     	
     }
     
+    /**
+     * Returns the current heading angle in degrees
+     * @return Heading angle in degrees
+     */
     public double getAngleInDegrees() {
-    	return imu.getYaw();
+    	return this.imu.getYaw();
+    }
+    
+    /**
+     * Resets the gyro back to zero
+     */
+    public void resetGyro() {
+    	this.imu.zeroYaw();
     }
 }
