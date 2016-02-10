@@ -80,4 +80,56 @@ public class Drivetrain extends Subsystem {
 		this.rightDriveB.configNominalOutputVoltage(+0.0f, -0.0f); 
 		this.rightDriveB.configPeakOutputVoltage(+12.0f, 0.0f);
     }
+    
+    
+    /**
+     * Drives drivetrain using left and right power
+     * @param leftPower Power number between -1 to 1 for the left side of dt
+     * @param rightPower Power number between -1 to 1 for the right side of dt
+     */
+    public void driveLR(double leftPower, double rightPower) {
+    	this.leftDriveA.set(leftPower);
+    	this.leftDriveB.set(leftPower);
+    	this.rightDriveA.set(-rightPower);
+    	this.rightDriveB.set(-rightPower);
+    }
+    
+    /**
+     * Drive using only one joystick 
+     * @param throttle Power value (power forward/backwards)
+     * @param wheel Power to turn anywhere
+     * @param quickTurn Button to turn fast!
+     */
+    public void driveCheesy(double throttle, double wheel, boolean quickTurn) {
+        double angularPower;
+        double overPower;
+        double rPower;
+        double lPower;
+
+        if (quickTurn) {
+            overPower = 1.0;
+            angularPower = wheel;
+        } else {
+            overPower = 0.0;
+            angularPower = throttle * wheel;
+        }
+        rPower = throttle;
+        lPower = throttle;
+        lPower += angularPower;
+        rPower -= angularPower;
+        if (lPower > 1.0) {
+            rPower -= overPower * (lPower - 1.0);
+            lPower = 1.0;
+        } else if (rPower > 1.0) {
+            lPower -= overPower * (rPower - 1.0);
+            rPower = 1.0;
+        } else if (lPower < -1.0) {
+            rPower += overPower * (-1.0 - rPower);
+            lPower = -1.0;
+        } else if (rPower < -1.0) {
+            lPower += overPower * (-1.0 - rPower);
+            rPower = -1.0;
+        }
+        driveLR(lPower, rPower);
+    }
 }
