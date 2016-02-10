@@ -5,6 +5,8 @@ import com.nutrons.stronghold.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +28,9 @@ public class Drivetrain extends Subsystem {
 	private Byte update_rate_hz = 50;
     private SerialPort serialPort;
     private AHRS imu;
+    
+    // Light
+    private Relay light = new Relay(RobotMap.LIGHT_RELAY);
     
     public Drivetrain() {
     	
@@ -131,5 +136,19 @@ public class Drivetrain extends Subsystem {
             rPower = -1.0;
         }
         driveLR(lPower, rPower);
+    }
+    
+    /**
+     * Turns camera light on
+     */
+    public void turnLightOn() {
+    	this.light.set(Value.kOn);
+    }
+    
+    /**
+     * Turns camera light off
+     */
+    public void turnLightOff() {
+    	this.light.set(Value.kOff);
     }
 }

@@ -21,4 +21,7 @@ public class RobotMap {
 	// Analog Input
 	public static final int ULTRASONIC_RX = 0;
 	public static final int ULTRASONIC_TX = 1;
+	
+	// Relays
+	public static final int LIGHT_RELAY = 0;
 }
