@@ -124,5 +124,6 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
     	SmartDashboard.putBoolean("zeroButton", Robot.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
+    	SmartDashboard.putNumber("error", this.shooter.getArmError());
     }
 }

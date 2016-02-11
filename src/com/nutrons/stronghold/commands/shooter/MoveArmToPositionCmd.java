@@ -18,21 +18,23 @@ public class MoveArmToPositionCmd extends Command {
 
     protected void initialize() {
     	Robot.shooter.zeroArm();
+    	Robot.shooter.armPositionMode();
+    	Robot.shooter.moveArmToPosition(180);
     }
 
     protected void execute() {
-    	Robot.shooter.driveArm(Utils.deadband(Robot.oi.getLeftJoystickY(), 0.05, 0.0) * 0.5);
+    	
     }
 
     protected boolean isFinished() {
-        return false;
+        return Robot.shooter.getArmError() < 2;
     }
 
     protected void end() {
-    
+    	Robot.shooter.stopArm();
     }
 
     protected void interrupted() {
-
+    	this.end();
     }
 }
