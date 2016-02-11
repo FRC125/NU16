@@ -4,6 +4,7 @@ import com.nutrons.lib.DebouncedBoolean;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.shooter.MoveArmToPositionCmd;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -28,6 +29,8 @@ public class Shooter extends Subsystem {
 		this.arm.changeControlMode(TalonControlMode.PercentVbus);
 		this.arm.configNominalOutputVoltage(+0.0f, -0.0f); 
 		this.arm.configPeakOutputVoltage(+12.0f, 0.0f);
+		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		this.arm.configEncoderCodesPerRev(500);
 	}
 	
 	public void initDefaultCommand() {
@@ -40,6 +43,14 @@ public class Shooter extends Subsystem {
 	 */
 	public void driveArm(double power) {
 		this.arm.set(power);
+	}
+	
+	public double getArmPosition() {
+		return this.arm.getPosition();
+	}
+	
+	public void zeroArm() {
+		this.arm.setPosition(0.0);
 	}
 	
 	/**

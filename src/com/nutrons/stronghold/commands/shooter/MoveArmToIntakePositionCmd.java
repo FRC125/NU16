@@ -30,6 +30,7 @@ public class MoveArmToIntakePositionCmd extends Command {
 
     protected void end() {
     	Robot.shooter.driveArm(0.0);
+    	Robot.shooter.zeroArm();
     	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 0);
     }
 

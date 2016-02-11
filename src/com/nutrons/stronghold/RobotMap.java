@@ -12,8 +12,8 @@ public class RobotMap {
 	public static final int LEFT_DRIVE_MOTOR_B = 2;
 	public static final int RIGHT_DRIVE_MOTOR_A = 3;
 	public static final int RIGHT_DRIVE_MOTOR_B = 4;
-	public static final int ARM_MOTOR = 6;
-	public static final int INTAKE_MOTOR = 7;
+	public static final int ARM_MOTOR = 7;
+	public static final int INTAKE_MOTOR = 6;
 	
 	// Digital
 	public static final int ZERO_BUTTON = 0;
@@ -23,5 +23,5 @@ public class RobotMap {
 	public static final int ULTRASONIC_TX = 1;
 	
 	// Relays
-	public static final int LIGHT_RELAY = 1;
+	public static final int LIGHT_RELAY = 3;
 }

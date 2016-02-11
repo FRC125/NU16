@@ -17,10 +17,11 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void initialize() {
+    	Robot.shooter.zeroArm();
     }
 
     protected void execute() {
-    	Robot.shooter.driveArm(Utils.deadband(Robot.oi.getLeftJoystickY(), 0.05, 0.0));
+    	Robot.shooter.driveArm(Utils.deadband(Robot.oi.getLeftJoystickY(), 0.05, 0.0) * 0.5);
     }
 
     protected boolean isFinished() {

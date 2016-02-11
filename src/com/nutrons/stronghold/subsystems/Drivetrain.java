@@ -143,13 +143,13 @@ public class Drivetrain extends Subsystem {
      * Turns camera light on
      */
     public void turnLightOn() {
-    	this.light.set(Value.kForward);
+    	this.light.set(Relay.Value.kForward);
     }
     
     /**
      * Turns camera light off
      */
     public void turnLightOff() {
-    	this.light.set(Value.kOff);
+    	this.light.set(Relay.Value.kOff);
     }
 }

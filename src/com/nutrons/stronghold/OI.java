@@ -24,7 +24,8 @@ public class OI {
 	private Button quickTurnButton = new JoystickButton(this.driverPad, 5);
 	
 	public OI() {
-		testButton.whenPressed(new MoveArmToIntakePositionCmd());
+		testButton.whenPressed(new TurnLightOnCmd());
+		testButton.whenReleased(new TurnLightOffCmd());
 	}
 	
 	public double getLeftJoystickY() {
