@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	
 	// Motors
-	private CANTalon arm = new CANTalon(RobotMap.ARM_MOTOR);
+	public CANTalon arm = new CANTalon(RobotMap.ARM_MOTOR);
 	
 	// Sensors
 	private DigitalInput zeroButton = new DigitalInput(RobotMap.ZERO_BUTTON);
@@ -37,7 +37,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
-		
+		setDefaultCommand(new MoveArmToPositionCmd());
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class Shooter extends Subsystem {
 		this.arm.configNominalOutputVoltage(+0.0f, -0.0f); 
 		this.arm.configPeakOutputVoltage(+12.0f, 0.0f);
 		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		this.arm.configEncoderCodesPerRev((4096/3)/360);
+		//this.arm.configEncoderCodesPerRev();
 	}
 	
 	public void armPositionMode() {
@@ -79,7 +79,6 @@ public class Shooter extends Subsystem {
 		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		this.arm.reverseSensor(true);
 		this.arm.setAllowableClosedLoopErr(5);
-		this.arm.configEncoderCodesPerRev(500);
 		
 		this.arm.setF(this.F_ARM_POSITION);
 		this.arm.setP(this.P_ARM_POSITION);
