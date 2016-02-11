@@ -1,6 +1,7 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.kauailabs.navx_mxp.AHRS;
+import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 
@@ -151,5 +152,10 @@ public class Drivetrain extends Subsystem {
      */
     public void turnLightOff() {
     	this.light.set(Relay.Value.kOff);
+    }
+    
+    public void stop() {
+    	this.setPercentDrive();
+    	Robot.dt.driveLR(0.0, 0.0);
     }
 }

@@ -37,6 +37,10 @@ public class OI {
 		return this.getQuickTurn();
 	}
 	
+	public double getRightJoystickY() {
+	return Utils.deadband(this.driverPad.getRawAxis(5), 0.05, 0.0);
+	}
+	
 	public double getrightJoystickX() {
 		return Utils.deadband(this.driverPad.getRawAxis(4), 0.05, 0.0);
 	}
