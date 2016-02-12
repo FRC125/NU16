@@ -4,11 +4,9 @@ import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;

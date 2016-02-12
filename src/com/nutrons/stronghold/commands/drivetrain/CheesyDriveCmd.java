@@ -20,7 +20,7 @@ public class CheesyDriveCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.dt.driveCheesy(Robot.oi.getLeftJoystickY(), Robot.oi.getrightJoystickX(), false);
+    	Robot.dt.driveCheesy(Robot.oi.getLeftJoystickY(), Robot.oi.getrightJoystickX(), Robot.oi.getQuickTurn());
     }
 
     protected boolean isFinished() {

@@ -2,7 +2,6 @@ package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.lib.DebouncedBoolean;
 import com.nutrons.stronghold.RobotMap;
-import com.nutrons.stronghold.commands.shooter.MoveArmToPositionCmd;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -37,7 +36,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
-		setDefaultCommand(new MoveArmToPositionCmd());
+		
 	}
 	
 	/**

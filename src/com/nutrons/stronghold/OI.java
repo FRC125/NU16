@@ -1,10 +1,10 @@
 package com.nutrons.stronghold;
 
 import com.nutrons.lib.Utils;
+import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.shooter.MoveArmToIntakePositionCmd;
-import com.nutrons.stronghold.commands.shooter.MoveArmToPositionCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -25,7 +25,7 @@ public class OI {
 	private Button quickTurnButton = new JoystickButton(this.driverPad, 5);
 	
 	public OI() {
-		testButton.whenPressed(new MoveArmToPositionCmd());
+		testButton.whenPressed(new MoveArmToPositionCmd(1000));
 		
 	}
 	
@@ -34,7 +34,7 @@ public class OI {
 	}
 	
 	public boolean getQuickTurn() {
-		return this.getQuickTurn();
+		return this.quickTurnButton.get();
 	}
 	
 	public double getRightJoystickY() {

@@ -1,4 +1,4 @@
-package com.nutrons.stronghold.commands.shooter;
+package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.Robot;
@@ -14,18 +14,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MoveArmToPositionCmd extends Command {
 
-    public MoveArmToPositionCmd() {
-    	requires(Robot.shooter);
+	private double position;
+	
+    public MoveArmToPositionCmd(double position) {
+    	requires(Robot.arm);
+    	this.position = position;
     }
 
     protected void initialize() {
-    	Robot.shooter.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder); 
-    	Robot.shooter.arm.reverseSensor(true);
-    	Robot.shooter.arm.changeControlMode(TalonControlMode.Position);
-    	Robot.shooter.arm.set(1000);
-    	Robot.shooter.arm.setPID(0.6, 0.0, 0.0);
-    	Robot.shooter.arm.configPeakOutputVoltage(12.0, -12.0);
-    	Robot.shooter.arm.enable();
+    	Robot.arm.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder); 
+    	Robot.arm.arm.reverseSensor(true);
+    	Robot.arm.arm.changeControlMode(TalonControlMode.Position);
+    	Robot.arm.arm.set(this.position);
+    	Robot.arm.arm.setPID(0.6, 0.0, 0.0);
+    	Robot.arm.arm.configPeakOutputVoltage(12.0, -12.0);
+    	Robot.arm.arm.enable();
     }
 
     protected void execute() {
@@ -38,10 +41,9 @@ public class MoveArmToPositionCmd extends Command {
 
     protected void end() {
     	
-    	Robot.shooter.stopArm();
     }
 
     protected void interrupted() {
-    	this.end();
+    	
     }
 }
