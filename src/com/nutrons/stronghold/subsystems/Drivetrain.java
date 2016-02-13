@@ -6,6 +6,10 @@ import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -32,6 +36,18 @@ public class Drivetrain extends Subsystem {
     // Light
     private Relay light = new Relay(RobotMap.LIGHT_RELAY);
     
+    // Constants
+    public double P_HEADING = 0.01;
+    public double I_HEADING = 0.0;
+    public double D_HEADING = 0.0;
+    
+    public double P_TURN = 0.0065;
+    public double I_TURN = 0.0001;
+    public double D_TURN = 0.0015;
+    
+    private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
+    public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
+    
     public Drivetrain() {
     	
     	this.setPercentDrive();
@@ -43,6 +59,17 @@ public class Drivetrain extends Subsystem {
     	}catch(Exception e) {
     		System.err.println("Cannot initilize Navx in Drivetrain Subsystem!!!");
     	}
+    	/*
+    	this.leftDriveA.setVoltageRampRate(11.8);
+    	this.leftDriveB.setVoltageRampRate(11.8);
+    	this.rightDriveA.setVoltageRampRate(11.8);
+    	this.rightDriveB.setVoltageRampRate(11.8);
+    	*/
+    	
+    	this.holdHeading.setInputRange(-180.0, 180.0);
+    	this.holdHeading.setOutputRange(-1.0, 1.0);
+    	this.holdHeading.setAbsoluteTolerance(5.0);
+    	this.holdHeading.setContinuous();
     }
 	
     public void initDefaultCommand() {
@@ -99,6 +126,7 @@ public class Drivetrain extends Subsystem {
     	this.rightDriveB.set(-rightPower);
     }
     
+    private volatile double headingWheel;
     /**
      * Drive using only one joystick 
      * @param throttle Power value (power forward/backwards)
@@ -106,36 +134,19 @@ public class Drivetrain extends Subsystem {
      * @param quickTurn Button to turn fast!
      */
     public void driveCheesy(double throttle, double wheel, boolean quickTurn) {
-        double angularPower;
-        double overPower;
-        double rPower;
-        double lPower;
-
-        if (quickTurn) {
-            overPower = 1.0;
-            angularPower = wheel;
-        } else {
-            overPower = 0.0;
-            angularPower = throttle * wheel;
+        double coeff = 1.0;
+    	
+        if(Robot.oi.getFastDrivingMode()) coeff = 0.5;
+        
+        if(Robot.oi.getHoldHeadingMode()) {
+        	if(!this.holdHeading.isEnabled()) this.holdHeading.enable();
+        	this.holdHeading.setSetpoint(0.0);
+        	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
+        }else {
+        	this.holdHeading.disable();
+        	wheel *= 0.5;
+        	driveLR((throttle - wheel) * coeff, (throttle + wheel) * coeff);
         }
-        rPower = throttle;
-        lPower = throttle;
-        lPower += angularPower;
-        rPower -= angularPower;
-        if (lPower > 1.0) {
-            rPower -= overPower * (lPower - 1.0);
-            lPower = 1.0;
-        } else if (rPower > 1.0) {
-            lPower -= overPower * (rPower - 1.0);
-            rPower = 1.0;
-        } else if (lPower < -1.0) {
-            rPower += overPower * (-1.0 - rPower);
-            lPower = -1.0;
-        } else if (rPower < -1.0) {
-            lPower += overPower * (-1.0 - rPower);
-            rPower = -1.0;
-        }
-        driveLR(lPower, rPower);
     }
     
     /**
@@ -155,5 +166,39 @@ public class Drivetrain extends Subsystem {
     public void stop() {
     	this.setPercentDrive();
     	Robot.dt.driveLR(0.0, 0.0);
+    }
+    
+    private class GyroWrapper implements PIDSource {
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			return PIDSourceType.kDisplacement;
+		}
+
+		@Override
+		public double pidGet() {
+			return getAngleInDegrees();
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType arg0) {
+
+		}
+	}
+    
+    private class HoldHeadingOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double wheel) {
+			headingWheel = wheel;
+		}
+    }
+    
+    public class TurnToAngleOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double power) {
+			driveLR(-power, power);
+		}
     }
 }

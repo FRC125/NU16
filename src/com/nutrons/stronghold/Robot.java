@@ -4,6 +4,7 @@ package com.nutrons.stronghold;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -42,6 +43,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
+        chooser.addDefault("Auto", new TurnToAngleCmd(45.0));
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -124,7 +126,7 @@ public class Robot extends IterativeRobot {
     
     public void updateDashboard() {
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
-    	SmartDashboard.putBoolean("zeroButton", Robot.shooter.isZeroButtonPressed());
+    	SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
     	SmartDashboard.putNumber("error", this.shooter.getArmError());
     }

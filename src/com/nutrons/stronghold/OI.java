@@ -4,6 +4,8 @@ import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
+import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
+import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
 import com.nutrons.stronghold.commands.shooter.MoveArmToIntakePositionCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,27 +23,36 @@ public class OI {
 	public Joystick driverPad = new Joystick(0);
 	
 	// Buttons
-	private Button testButton = new JoystickButton(this.driverPad, 1);
-	private Button quickTurnButton = new JoystickButton(this.driverPad, 5);
+	private Button quickTurnButton = new JoystickButton(this.driverPad, 6);
+	private Button fastDrivingModeButton = new JoystickButton(driverPad, 5);
+	private Button holdHeadingModeButton = new JoystickButton(driverPad, 1);
+	private Button turnToAngleButton = new JoystickButton(driverPad, 3);
 	
 	public OI() {
-		testButton.whenPressed(new MoveArmToPositionCmd(1000));
-		
+		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
 	}
 	
 	public double getLeftJoystickY() {
-		return Utils.deadband(this.driverPad.getRawAxis(1), 0.05, 0.0);
+		return Utils.deadband(this.driverPad.getRawAxis(1), 0.005, 0.0);
+	}
+	
+	public double getRightJoystickY() {
+	return Utils.deadband(this.driverPad.getRawAxis(5), 0.005, 0.0);
+	}
+	
+	public double getrightJoystickX() {
+		return Utils.deadband(this.driverPad.getRawAxis(4), 0.05, 0.0);
 	}
 	
 	public boolean getQuickTurn() {
 		return this.quickTurnButton.get();
 	}
 	
-	public double getRightJoystickY() {
-	return Utils.deadband(this.driverPad.getRawAxis(5), 0.05, 0.0);
+	public boolean getFastDrivingMode() {
+		return this.fastDrivingModeButton.get();
 	}
 	
-	public double getrightJoystickX() {
-		return Utils.deadband(this.driverPad.getRawAxis(4), 0.05, 0.0);
+	public boolean getHoldHeadingMode() {
+		return this.holdHeadingModeButton.get();
 	}
 }
