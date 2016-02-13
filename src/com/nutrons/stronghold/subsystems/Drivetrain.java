@@ -6,6 +6,7 @@ import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -28,10 +29,13 @@ public class Drivetrain extends Subsystem {
 	private CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
 	private CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
 	
-	// navx gyro
+	//Sensors
 	private Byte update_rate_hz = 50;
     private SerialPort serialPort;
     private AHRS imu;
+    
+    private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
+    private Encoder rightDriveEncoder = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, RobotMap.RIGHT_DRIVE_ENCODER_B);
     
     // Light
     private Relay light = new Relay(RobotMap.LIGHT_RELAY);
@@ -45,8 +49,13 @@ public class Drivetrain extends Subsystem {
     public double I_TURN = 0.0001;
     public double D_TURN = 0.0015;
     
+    public double P_DISTANCE = 0.001;
+    public double I_DISTANCE = 0.0;
+    public double D_DISTANCE = 0.0;
+    
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
+    public PIDController driveDistance = new PIDController(this.P_DISTANCE, this.I_DISTANCE, this.D_DISTANCE, new EncoderWrapper(), new DriveDistanceOutput());
     
     public Drivetrain() {
     	
@@ -64,6 +73,9 @@ public class Drivetrain extends Subsystem {
     	this.holdHeading.setOutputRange(-1.0, 1.0);
     	this.holdHeading.setAbsoluteTolerance(5.0);
     	this.holdHeading.setContinuous();
+    	
+    	this.leftDriveEncoder.setDistancePerPulse(256.0);
+    	this.rightDriveEncoder.setDistancePerPulse(256.0);
     }
 	
     public void initDefaultCommand() {
@@ -127,7 +139,7 @@ public class Drivetrain extends Subsystem {
      * @param wheel Power to turn anywhere
      * @param quickTurn Button to turn fast!
      */
-    public void driveCheesy(double throttle, double wheel) {
+    public void driveCheesy(double throttle, double wheel, boolean holdHeading) {
         double coeff = 1.0;
     	
         if(Robot.oi.getSlowDrivingMode()) coeff = 0.7;
@@ -136,7 +148,7 @@ public class Drivetrain extends Subsystem {
         	driveLR(-0.9, 0.9);
         }
         
-        if(Robot.oi.getHoldHeadingMode()) {
+        if(holdHeading) {
         	if(!this.holdHeading.isEnabled()) this.holdHeading.enable();
         	this.holdHeading.setSetpoint(0.0);
         	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
@@ -147,6 +159,10 @@ public class Drivetrain extends Subsystem {
         }
     }
     
+    /**
+     * Drives drivetrain straight
+     * @param throttle
+     */
     public void driveHoldingHeading(double throttle) {
     	throttle *= -1.0;
     	if(!this.holdHeading.isEnabled()){
@@ -157,6 +173,9 @@ public class Drivetrain extends Subsystem {
     	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
     }
     
+    /**
+     * Disables hold heading PID
+     */
     public void disableHoldHeading() {
     	this.holdHeading.disable();
     	this.holdHeading.reset();
@@ -179,6 +198,19 @@ public class Drivetrain extends Subsystem {
     public void stop() {
     	this.setPercentDrive();
     	Robot.dt.driveLR(0.0, 0.0);
+    }
+    
+    public double getLeftDistance() {
+    	return this.leftDriveEncoder.getDistance();
+    }
+    
+    public double getRightDistance() {
+    	return this.rightDriveEncoder.getDistance();
+    }
+    
+    public void resetEncoders() {
+    	this.leftDriveEncoder.reset();
+    	this.rightDriveEncoder.reset();
     }
     
     private class GyroWrapper implements PIDSource {
@@ -213,5 +245,31 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double power) {
 			driveLR(-power, power);
 		}
+    }
+    
+    public class EncoderWrapper implements PIDSource {
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			return PIDSourceType.kDisplacement;
+		}
+
+		@Override
+		public double pidGet() {
+			return getLeftDistance();
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType arg0) {
+			
+		}
+	}
+    public class DriveDistanceOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double throttle) {
+			driveCheesy(throttle, 0, true);
+		}
+    	
     }
 }

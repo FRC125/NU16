@@ -17,6 +17,10 @@ public class RobotMap {
 	
 	// Digital
 	public static final int ZERO_BUTTON = 0;
+	public static final int LEFT_DRIVE_ENCODER_A = 1;
+	public static final int LEFT_DRIVE_ENCODER_B = 2;
+	public static final int RIGHT_DRIVE_ENCODER_A = 3;
+	public static final int RIGHT_DRIVE_ENCODER_B = 4;
 	
 	// Analog Input
 	public static final int ULTRASONIC_RX = 0;

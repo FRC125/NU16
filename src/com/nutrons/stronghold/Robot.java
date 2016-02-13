@@ -4,6 +4,7 @@ package com.nutrons.stronghold;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
@@ -45,7 +46,8 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
         chooser.addDefault("Auto", new TurnToAngleCmd(45.0));
-        chooser.addDefault("Terrain test auto", new TerrainAutoTest());
+        chooser.addObject("Drive distance", new DriveDistanceCmd(10.0));
+        chooser.addObject("Terrain test auto", new TerrainAutoTest());
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -131,5 +133,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
     	SmartDashboard.putNumber("error", this.shooter.getArmError());
+    	SmartDashboard.putNumber("leftDistance", this.dt.getLeftDistance());
+    	SmartDashboard.putNumber("rightDistance", this.dt.getRightDistance());
     }
 }
