@@ -136,7 +136,7 @@ public class Drivetrain extends Subsystem {
     public void driveCheesy(double throttle, double wheel, boolean quickTurn) {
         double coeff = 1.0;
     	
-        if(Robot.oi.getFastDrivingMode()) coeff = 0.5;
+        if(Robot.oi.getSlowDrivingMode()) coeff = 0.5;
         
         if(Robot.oi.getHoldHeadingMode()) {
         	if(!this.holdHeading.isEnabled()) this.holdHeading.enable();
@@ -144,9 +144,24 @@ public class Drivetrain extends Subsystem {
         	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
         }else {
         	this.holdHeading.disable();
-        	wheel *= 0.5;
+        	wheel *= 0.25;
         	driveLR((throttle - wheel) * coeff, (throttle + wheel) * coeff);
         }
+    }
+    
+    public void driveHoldingHeading(double throttle) {
+    	throttle *= -1.0;
+    	if(!this.holdHeading.isEnabled()){
+    		this.holdHeading.reset();
+    		this.holdHeading.enable();
+    	}
+    	this.holdHeading.setSetpoint(0.0);
+    	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
+    }
+    
+    public void disableHoldHeading() {
+    	this.holdHeading.disable();
+    	this.holdHeading.reset();
     }
     
     /**

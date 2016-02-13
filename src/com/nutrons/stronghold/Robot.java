@@ -5,6 +5,7 @@ import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
+import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
         chooser.addDefault("Auto", new TurnToAngleCmd(45.0));
+        chooser.addDefault("Terrain test auto", new TerrainAutoTest());
         
         SmartDashboard.putData("Auto mode", chooser);
         

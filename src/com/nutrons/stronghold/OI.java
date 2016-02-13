@@ -30,6 +30,7 @@ public class OI {
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
+		turnToAngleButton.whenPressed(new TurnToAngleCmd(180.0));
 	}
 	
 	public double getLeftJoystickY() {
@@ -48,7 +49,7 @@ public class OI {
 		return this.quickTurnButton.get();
 	}
 	
-	public boolean getFastDrivingMode() {
+	public boolean getSlowDrivingMode() {
 		return this.fastDrivingModeButton.get();
 	}
 	
