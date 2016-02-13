@@ -59,12 +59,6 @@ public class Drivetrain extends Subsystem {
     	}catch(Exception e) {
     		System.err.println("Cannot initilize Navx in Drivetrain Subsystem!!!");
     	}
-    	/*
-    	this.leftDriveA.setVoltageRampRate(11.8);
-    	this.leftDriveB.setVoltageRampRate(11.8);
-    	this.rightDriveA.setVoltageRampRate(11.8);
-    	this.rightDriveB.setVoltageRampRate(11.8);
-    	*/
     	
     	this.holdHeading.setInputRange(-180.0, 180.0);
     	this.holdHeading.setOutputRange(-1.0, 1.0);
@@ -133,10 +127,14 @@ public class Drivetrain extends Subsystem {
      * @param wheel Power to turn anywhere
      * @param quickTurn Button to turn fast!
      */
-    public void driveCheesy(double throttle, double wheel, boolean quickTurn) {
+    public void driveCheesy(double throttle, double wheel) {
         double coeff = 1.0;
     	
-        if(Robot.oi.getSlowDrivingMode()) coeff = 0.5;
+        if(Robot.oi.getSlowDrivingMode()) coeff = 0.7;
+        
+        if(Robot.oi.getQuickTurn()) {
+        	driveLR(-0.9, 0.9);
+        }
         
         if(Robot.oi.getHoldHeadingMode()) {
         	if(!this.holdHeading.isEnabled()) this.holdHeading.enable();
@@ -144,7 +142,7 @@ public class Drivetrain extends Subsystem {
         	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
         }else {
         	this.holdHeading.disable();
-        	wheel *= 0.25;
+        	wheel = wheel * 0.35;
         	driveLR((throttle - wheel) * coeff, (throttle + wheel) * coeff);
         }
     }
