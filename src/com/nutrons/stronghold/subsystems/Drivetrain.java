@@ -5,6 +5,7 @@ import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
@@ -24,18 +25,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
     
 	// Motors
-	private CANTalon leftDriveA = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_A);
-	private CANTalon leftDriveB = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_B);
-	private CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
-	private CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
+	public CANTalon leftDriveA = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_A);
+	public CANTalon leftDriveB = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_B);
+	public CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
+	public CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
 	
 	//Sensors
 	private Byte update_rate_hz = 50;
     private SerialPort serialPort;
     private AHRS imu;
-    
-    private Encoder leftDriveEncoder = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, RobotMap.LEFT_DRIVE_ENCODER_B);
-    private Encoder rightDriveEncoder = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, RobotMap.RIGHT_DRIVE_ENCODER_B);
     
     // Light
     private Relay light = new Relay(RobotMap.LIGHT_RELAY);
@@ -55,7 +53,6 @@ public class Drivetrain extends Subsystem {
     
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
-    public PIDController driveDistance = new PIDController(this.P_DISTANCE, this.I_DISTANCE, this.D_DISTANCE, new EncoderWrapper(), new DriveDistanceOutput());
     
     public Drivetrain() {
     	
@@ -74,8 +71,35 @@ public class Drivetrain extends Subsystem {
     	this.holdHeading.setAbsoluteTolerance(5.0);
     	this.holdHeading.setContinuous();
     	
-    	this.leftDriveEncoder.setDistancePerPulse(256.0);
-    	this.rightDriveEncoder.setDistancePerPulse(256.0);
+    	this.leftDriveB.changeControlMode(TalonControlMode.Follower);
+    	this.leftDriveB.set(this.leftDriveA.getDeviceID());
+    	
+    	this.rightDriveA.changeControlMode(TalonControlMode.Follower);
+    	this.rightDriveA.set(this.rightDriveB.getDeviceID());
+    	
+    	this.leftDriveA.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	this.rightDriveB.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	
+    	this.leftDriveA.configEncoderCodesPerRev((int)(256 / 0.14));
+    	this.rightDriveB.configEncoderCodesPerRev((int)(256 / 0.14));
+    	
+    	this.leftDriveA.configNominalOutputVoltage(+0.0f, -0.0f); 
+		this.leftDriveA.configPeakOutputVoltage(12.0f, -12.0f);
+		
+		this.leftDriveB.configNominalOutputVoltage(+0.0f, -0.0f); 
+		this.leftDriveB.configPeakOutputVoltage(12.0f, -12.0f);
+		
+		this.rightDriveA.configNominalOutputVoltage(+0.0f, -0.0f); 
+		this.rightDriveA.configPeakOutputVoltage(12.0f, -12.0f);
+		
+		this.rightDriveB.configNominalOutputVoltage(+0.0f, -0.0f); 
+		this.rightDriveB.configPeakOutputVoltage(12.0f, -12.0f);
+		
+		this.leftDriveA.reverseOutput(true);
+		this.leftDriveA.reverseSensor(true);
+    	
+    	this.leftDriveA.setPID(0.01, 0.0, 0.0);
+    	this.rightDriveB.setPID(0.01, 0.0, 0.0);
     }
 	
     public void initDefaultCommand() {
@@ -102,21 +126,7 @@ public class Drivetrain extends Subsystem {
      */
     public void setPercentDrive() {
     	this.leftDriveA.changeControlMode(TalonControlMode.PercentVbus);
-    	this.leftDriveB.changeControlMode(TalonControlMode.PercentVbus);
-    	this.rightDriveA.changeControlMode(TalonControlMode.PercentVbus);
     	this.rightDriveB.changeControlMode(TalonControlMode.PercentVbus);
-    	
-    	this.leftDriveA.configNominalOutputVoltage(+0.0f, -0.0f); 
-		this.leftDriveA.configPeakOutputVoltage(+12.0f, 0.0f);
-		
-		this.leftDriveB.configNominalOutputVoltage(+0.0f, -0.0f); 
-		this.leftDriveB.configPeakOutputVoltage(+12.0f, 0.0f);
-		
-		this.rightDriveA.configNominalOutputVoltage(+0.0f, -0.0f); 
-		this.rightDriveA.configPeakOutputVoltage(+12.0f, 0.0f);
-		
-		this.rightDriveB.configNominalOutputVoltage(+0.0f, -0.0f); 
-		this.rightDriveB.configPeakOutputVoltage(+12.0f, 0.0f);
     }
     
     
@@ -127,8 +137,6 @@ public class Drivetrain extends Subsystem {
      */
     public void driveLR(double leftPower, double rightPower) {
     	this.leftDriveA.set(leftPower);
-    	this.leftDriveB.set(leftPower);
-    	this.rightDriveA.set(-rightPower);
     	this.rightDriveB.set(-rightPower);
     }
     
@@ -201,16 +209,16 @@ public class Drivetrain extends Subsystem {
     }
     
     public double getLeftDistance() {
-    	return this.leftDriveEncoder.getDistance();
+    	return this.leftDriveA.getPosition();
     }
     
     public double getRightDistance() {
-    	return this.rightDriveEncoder.getDistance();
+    	return this.rightDriveB.getPosition();
     }
     
     public void resetEncoders() {
-    	this.leftDriveEncoder.reset();
-    	this.rightDriveEncoder.reset();
+    	this.leftDriveA.setPosition(0.0);
+    	this.rightDriveB.setPosition(0.0);
     }
     
     private class GyroWrapper implements PIDSource {
@@ -245,31 +253,5 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double power) {
 			driveLR(-power, power);
 		}
-    }
-    
-    public class EncoderWrapper implements PIDSource {
-
-		@Override
-		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kDisplacement;
-		}
-
-		@Override
-		public double pidGet() {
-			return getLeftDistance();
-		}
-
-		@Override
-		public void setPIDSourceType(PIDSourceType arg0) {
-			
-		}
-	}
-    public class DriveDistanceOutput implements PIDOutput {
-
-		@Override
-		public void pidWrite(double throttle) {
-			driveCheesy(throttle, 0, true);
-		}
-    	
-    }
+    }    
 }

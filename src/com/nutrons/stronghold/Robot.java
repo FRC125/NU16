@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
         chooser.addDefault("Auto", new TurnToAngleCmd(45.0));
-        chooser.addObject("Drive distance", new DriveDistanceCmd(10.0));
+        chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("Terrain test auto", new TerrainAutoTest());
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -130,10 +130,10 @@ public class Robot extends IterativeRobot {
     
     public void updateDashboard() {
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
-    	SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
-    	SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
-    	SmartDashboard.putNumber("error", this.shooter.getArmError());
+    	//SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
+    	//SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
+    	//SmartDashboard.putNumber("error", this.shooter.getArmError());
     	SmartDashboard.putNumber("leftDistance", this.dt.getLeftDistance());
-    	SmartDashboard.putNumber("rightDistance", this.dt.getRightDistance());
+    	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     }
 }

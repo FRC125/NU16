@@ -2,6 +2,7 @@ package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
 
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -16,7 +17,8 @@ public class CheesyDriveCmd extends Command {
     }
 
     protected void initialize() {
-    
+    	Robot.dt.leftDriveA.changeControlMode(TalonControlMode.PercentVbus);
+    	Robot.dt.rightDriveB.changeControlMode(TalonControlMode.PercentVbus);
     }
 
     protected void execute() {

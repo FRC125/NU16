@@ -2,6 +2,7 @@ package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
 
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveDistanceCmd extends Command {
 
 	double distance;
+	double error = .1;
 	
     public DriveDistanceCmd(double distance) {
         requires(Robot.dt);
@@ -19,17 +21,20 @@ public class DriveDistanceCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.dt.driveDistance.reset();
-    	Robot.dt.driveDistance.setInputRange(-distance, distance);
-    	Robot.dt.driveDistance.setOutputRange(-1.0, 1.0);
-    	Robot.dt.driveDistance.setAbsoluteTolerance(1.0);
-    	Robot.dt.driveDistance.setPercentTolerance(5.0);
-    	Robot.dt.driveDistance.setSetpoint(this.distance);
-    	Robot.dt.driveDistance.enable();
+    	Robot.dt.resetEncoders();
+    	
+    	Robot.dt.leftDriveA.changeControlMode(TalonControlMode.Position);
+    	Robot.dt.rightDriveB.changeControlMode(TalonControlMode.Position);
+    	
+    	Robot.dt.leftDriveA.set(this.distance);
+    	Robot.dt.rightDriveB.set(this.distance);
+    	
+    	Robot.dt.leftDriveA.enable();
+    	Robot.dt.rightDriveB.enable();
     }
 
     protected void execute() {
-    
+    	System.out.println("DRIVE DISTANCE!!!!!!!!");
     }
 
     protected boolean isFinished() {
@@ -37,10 +42,12 @@ public class DriveDistanceCmd extends Command {
     }
 
     protected void end() {
-    
+    	Robot.dt.leftDriveA.disable();
+    	Robot.dt.rightDriveB.disable();
+    	Robot.dt.stop();
     }
 
     protected void interrupted() {
-    
+    	this.end();
     }
 }

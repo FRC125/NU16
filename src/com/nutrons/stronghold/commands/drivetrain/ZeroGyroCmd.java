@@ -15,6 +15,7 @@ public class ZeroGyroCmd extends Command {
 
     protected void initialize() {
     	Robot.dt.resetGyro();
+    	Robot.dt.resetEncoders();
     }
 
     protected void execute() {
