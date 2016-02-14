@@ -22,13 +22,13 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.arm.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder); 
-    	Robot.arm.arm.reverseSensor(true);
-    	Robot.arm.arm.changeControlMode(TalonControlMode.Position);
-    	Robot.arm.arm.set(this.position);
-    	Robot.arm.arm.setPID(0.6, 0.0, 0.0);
-    	Robot.arm.arm.configPeakOutputVoltage(12.0, -12.0);
-    	Robot.arm.arm.enable();
+    	Robot.arm.arm1.setFeedbackDevice(FeedbackDevice.QuadEncoder); 
+    	Robot.arm.arm1.reverseSensor(true);
+    	Robot.arm.arm1.changeControlMode(TalonControlMode.Position);
+    	Robot.arm.arm1.set(this.position);
+    	Robot.arm.arm1.setPID(0.6, 0.0, 0.0);
+    	Robot.arm.arm1.configPeakOutputVoltage(12.0, -12.0);
+    	Robot.arm.arm1.enable();
     }
 
     protected void execute() {

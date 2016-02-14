@@ -1,4 +1,4 @@
-package com.nutrons.stronghold.commands.shooter;
+package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
 
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveArmToIntakePositionCmd extends Command {
 
     public MoveArmToIntakePositionCmd() {
-    	requires(Robot.shooter);
+    	requires(Robot.arm);
     }
 
     protected void initialize() {
@@ -21,7 +21,7 @@ public class MoveArmToIntakePositionCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.shooter.driveArm(0.15);
+    	Robot.arm.driveArm(0.15);
     }
 
     protected boolean isFinished() {
@@ -29,8 +29,8 @@ public class MoveArmToIntakePositionCmd extends Command {
     }
 
     protected void end() {
-    	Robot.shooter.driveArm(0.0);
-    	Robot.shooter.zeroArm();
+    	Robot.arm.driveArm(0.0);
+    	Robot.arm.zeroArm();
     	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 0);
     }
 

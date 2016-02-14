@@ -1,12 +1,12 @@
 package com.nutrons.stronghold;
 
 import com.nutrons.lib.Utils;
+import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
-import com.nutrons.stronghold.commands.shooter.MoveArmToIntakePositionCmd;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

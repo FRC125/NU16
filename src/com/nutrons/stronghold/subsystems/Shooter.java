@@ -18,9 +18,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 	
-	// Motors
-	public CANTalon arm = new CANTalon(RobotMap.ARM_MOTOR);
-	
 	// Solenoids
 	private DoubleSolenoid shooter1 = new DoubleSolenoid(RobotMap.SHOOTER1_A, RobotMap.SHOOTER1_B);
 	private Solenoid shooter2 = new Solenoid(RobotMap.SHOOTER2);
@@ -32,37 +29,9 @@ public class Shooter extends Subsystem {
 	
 	// Utils
 	private DebouncedBoolean zeroButtonDebouncedBoolean = new DebouncedBoolean(5);
-
-	// Constants
-	private static double P_ARM_POSITION = 0.001;
-	private static double I_ARM_POSITION = 0.0;
-	private static double D_ARM_POSITION = 0.0;
-	private static double F_ARM_POSITION = 0.0;
-	
-	
-	public Shooter() {
-		this.armPositionMode();
-	}
 	
 	public void initDefaultCommand() {
 		
-	}
-	
-	/**
-	 * drives arm with a power from -1 to 1
-	 * @param power Arm power
-	 */
-	public void driveArm(double power) {
-		this.arm.set(power);
-	}
-	
-	public double getArmPosition() {
-		return this.arm.getPosition();
-	}
-	
-	public void zeroArm() {
-		this.arm.setPosition(0.0);
-		this.arm.clearIAccum();
 	}
 	
 	/**
@@ -72,39 +41,6 @@ public class Shooter extends Subsystem {
 	public boolean isZeroButtonPressed() {
 		this.zeroButtonDebouncedBoolean.feed(!this.zeroButton.get());
 		return this.zeroButtonDebouncedBoolean.get();
-	}
-	
-	public void armPercentMode() {
-		this.arm.changeControlMode(TalonControlMode.PercentVbus);
-		this.arm.configNominalOutputVoltage(+0.0f, -0.0f); 
-		this.arm.configPeakOutputVoltage(+12.0f, 0.0f);
-		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		//this.arm.configEncoderCodesPerRev();
-	}
-	
-	public void armPositionMode() {
-		this.arm.changeControlMode(TalonControlMode.Position);
-		this.arm.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		this.arm.reverseSensor(true);
-		this.arm.setAllowableClosedLoopErr(5);
-		
-		this.arm.setF(this.F_ARM_POSITION);
-		this.arm.setP(this.P_ARM_POSITION);
-		this.arm.setI(this.I_ARM_POSITION);
-		this.arm.setD(this.D_ARM_POSITION);
-	}
-	
-	public void moveArmToPosition(double pos) {
-		this.arm.set(pos);
-	}
-	
-	public double getArmError() {
-		return Math.abs(this.arm.getClosedLoopError());
-	}
-	
-	public void stopArm() {
-		this.armPercentMode();
-		this.arm.set(0.0);
 	}
 	
 	public void fireShooter() {
