@@ -22,6 +22,16 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_ENCODER_A = 3;
 	public static final int RIGHT_DRIVE_ENCODER_B = 4;
 	
+	// Solenoids
+	public static final int SHOOTER1_A = 0;
+	public static final int SHOOTER1_B = 1;
+	public static final int SHOOTER2_A = 2;
+	public static final int SHOOTER2_B = 3;
+	public static final int SHOOTER3_A = 4;
+	public static final int SHOOTER3_B = 5;
+	public static final int SHOOTER4_A = 6;
+	public static final int SHOOTER4_B = 7;
+	
 	// Analog Input
 	public static final int ULTRASONIC_RX = 0;
 	public static final int ULTRASONIC_TX = 1;

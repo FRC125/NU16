@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -17,6 +19,12 @@ public class Shooter extends Subsystem {
 	
 	// Motors
 	public CANTalon arm = new CANTalon(RobotMap.ARM_MOTOR);
+	
+	// Solenoids
+	private DoubleSolenoid shooter1 = new DoubleSolenoid(RobotMap.SHOOTER1_A, RobotMap.SHOOTER1_B);
+	private DoubleSolenoid shooter2 = new DoubleSolenoid(RobotMap.SHOOTER2_A, RobotMap.SHOOTER2_B);
+	private DoubleSolenoid shooter3 = new DoubleSolenoid(RobotMap.SHOOTER3_A, RobotMap.SHOOTER3_B);
+	private DoubleSolenoid shooter4 = new DoubleSolenoid(RobotMap.SHOOTER4_A, RobotMap.SHOOTER4_B);
 	
 	// Sensors
 	private DigitalInput zeroButton = new DigitalInput(RobotMap.ZERO_BUTTON);
@@ -96,5 +104,19 @@ public class Shooter extends Subsystem {
 	public void stopArm() {
 		this.armPercentMode();
 		this.arm.set(0.0);
+	}
+	
+	public void fireShooter() {
+		this.shooter1.set(Value.kForward);
+		this.shooter2.set(Value.kForward);
+		this.shooter3.set(Value.kForward);
+		this.shooter4.set(Value.kForward);
+	}
+	
+	public void retractShooter() {
+		this.shooter1.set(Value.kReverse);
+		this.shooter2.set(Value.kReverse);
+		this.shooter3.set(Value.kReverse);
+		this.shooter4.set(Value.kReverse);
 	}
 }
