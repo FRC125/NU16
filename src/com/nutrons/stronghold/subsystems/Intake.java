@@ -5,6 +5,7 @@ import com.nutrons.lib.Ultrasonic;
 import com.nutrons.stronghold.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -16,6 +17,9 @@ public class Intake extends Subsystem {
 
 	// Motors
 	private CANTalon rollers = new CANTalon(RobotMap.INTAKE_MOTOR);
+	
+	// Solenoids
+	private Solenoid jaw = new Solenoid(RobotMap.JAW);
 	
 	// Sensors
 	private Ultrasonic isBallCenter = new Ultrasonic(RobotMap.ULTRASONIC_RX, RobotMap.ULTRASONIC_TX);
@@ -56,5 +60,13 @@ public class Intake extends Subsystem {
 	public boolean isBallCentered() {
 		this.isBallCenterDebouncedBoolean.feed(this.isBallCenter.getDistance() < this.BALL_CENTER_MARGIN);
 		return this.isBallCenterDebouncedBoolean.get();
+	}
+	
+	public void openJaw() {
+		this.jaw.set(true);
+	}
+	
+	public void closeJaw() {
+		this.jaw.set(false);
 	}
 }
