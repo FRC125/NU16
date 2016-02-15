@@ -8,27 +8,26 @@ package com.nutrons.stronghold;
 public class RobotMap {
     
 	// CAN
-	public static final int LEFT_DRIVE_MOTOR_A = 1;
-	public static final int LEFT_DRIVE_MOTOR_B = 2;
-	public static final int RIGHT_DRIVE_MOTOR_A = 3;
-	public static final int RIGHT_DRIVE_MOTOR_B = 4;
-	public static final int ARM_1_MOTOR = 5;
+	public static final int LEFT_DRIVE_MOTOR_A = 4;
+	public static final int LEFT_DRIVE_MOTOR_B = 5;
+	public static final int RIGHT_DRIVE_MOTOR_A = 2;
+	public static final int RIGHT_DRIVE_MOTOR_B = 1;
+	public static final int ARM_1_MOTOR = 7;
 	public static final int ARM_2_MOTOR = 6;
-	public static final int INTAKE_MOTOR = 7;
+	public static final int INTAKE_MOTOR = 3;
 	
 	// Digital
 	public static final int ZERO_BUTTON = 0;
-	public static final int LEFT_DRIVE_ENCODER_A = 1;
-	public static final int LEFT_DRIVE_ENCODER_B = 2;
-	public static final int RIGHT_DRIVE_ENCODER_A = 3;
-	public static final int RIGHT_DRIVE_ENCODER_B = 4;
 	
 	// Solenoids
-	public static final int SHOOTER1 = 0;
-	public static final int SHOOTER2 = 1;
+	public static final int SHOOTER1_A = 0;
+	public static final int SHOOTER1_B = 6;
+	public static final int SHOOTER2_A = 1;
+	public static final int SHOOTER2_B = 7;
 	public static final int SHOOTER3 = 2;
 	public static final int SHOOTER4 = 3;
-	public static final int JAW = 4;
+	public static final int JAW_A = 4;
+	public static final int JAW_B = 5;
 	
 	// Analog Input
 	public static final int ULTRASONIC_RX = 0;

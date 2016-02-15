@@ -16,7 +16,7 @@ public class SpitRollersCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.intake.driveRollers(-1.0);
+    	Robot.intake.driveRollers(1.0);
     }
 
     protected void execute() {

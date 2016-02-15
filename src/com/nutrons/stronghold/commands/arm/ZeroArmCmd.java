@@ -1,30 +1,28 @@
-package com.nutrons.stronghold.commands.intake;
+package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * 
- * @author Camilo Gonzalez
  *
  */
-public class CloseJawCmd extends Command {
+public class ZeroArmCmd extends Command {
 
-    public CloseJawCmd() {
-        requires(Robot.intake);
-    }
-
-    protected void initialize() {
-    	Robot.intake.closeJaw();
-    }
-
-    protected void execute() {
+    public ZeroArmCmd() {
     	
     }
 
+    protected void initialize() {
+    	Robot.arm.zeroArm();
+    }
+
+    protected void execute() {
+    
+    }
+
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     protected void end() {

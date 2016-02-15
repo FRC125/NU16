@@ -16,7 +16,7 @@ public class SuckRollersCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.intake.driveRollers(1.0);
+    	Robot.intake.driveRollers(-1.0);
     }
 
     protected void execute() {
@@ -24,7 +24,7 @@ public class SuckRollersCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     protected void end() {

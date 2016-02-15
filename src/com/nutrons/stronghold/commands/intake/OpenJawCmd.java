@@ -20,11 +20,11 @@ public class OpenJawCmd extends Command {
     }
 
     protected void execute() {
-    	
+    	System.out.println("RUNNING OPEN JAW!!!!");
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {

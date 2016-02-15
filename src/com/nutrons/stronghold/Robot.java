@@ -26,12 +26,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	public static Compressor compressor;
-	public static OI oi;
+	
 	
 	public static Drivetrain dt = new Drivetrain();
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
+	
+	public static OI oi;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -52,6 +54,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto mode", chooser);
         
         updateDashboard();
+        
     }
 	
 	/**
@@ -131,9 +134,11 @@ public class Robot extends IterativeRobot {
     public void updateDashboard() {
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
     	//SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
-    	//SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
-    	//SmartDashboard.putNumber("error", this.shooter.getArmError());
+    	SmartDashboard.putNumber("armPosition", this.arm.getArmPosition());
+    	SmartDashboard.putNumber("error", this.arm.getArmError());
     	SmartDashboard.putNumber("leftDistance", this.dt.getLeftDistance());
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
+    	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
+    	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
     }
 }

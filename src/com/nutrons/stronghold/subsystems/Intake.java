@@ -5,6 +5,9 @@ import com.nutrons.lib.Ultrasonic;
 import com.nutrons.stronghold.RobotMap;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -19,13 +22,16 @@ public class Intake extends Subsystem {
 	private CANTalon rollers = new CANTalon(RobotMap.INTAKE_MOTOR);
 	
 	// Solenoids
-	private Solenoid jaw = new Solenoid(RobotMap.JAW);
+	private DoubleSolenoid jaw = new DoubleSolenoid(RobotMap.JAW_A, RobotMap.JAW_B);
 	
 	// Sensors
 	private Ultrasonic isBallCenter = new Ultrasonic(RobotMap.ULTRASONIC_RX, RobotMap.ULTRASONIC_TX);
 	
 	// Utils
 	private DebouncedBoolean isBallCenterDebouncedBoolean = new DebouncedBoolean(10);
+	
+	// Power Distribution Board
+	public PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	// Constants
 	public static final double BALL_CENTER_MARGIN = 5.0;
@@ -63,10 +69,14 @@ public class Intake extends Subsystem {
 	}
 	
 	public void openJaw() {
-		this.jaw.set(true);
+		this.jaw.set(Value.kForward);
 	}
 	
 	public void closeJaw() {
-		this.jaw.set(false);
+		this.jaw.set(Value.kReverse);
+	}
+	
+	public double getRollersCurrent() {
+		return this.pdp.getCurrent(13);
 	}
 }

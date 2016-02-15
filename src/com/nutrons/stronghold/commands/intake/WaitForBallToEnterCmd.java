@@ -9,29 +9,27 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Camilo Gonzalez
  *
  */
-public class CloseJawCmd extends Command {
+public class WaitForBallToEnterCmd extends Command {
 
-    public CloseJawCmd() {
+    public WaitForBallToEnterCmd() {
         requires(Robot.intake);
     }
 
     protected void initialize() {
-    	Robot.intake.closeJaw();
     }
 
     protected void execute() {
-    	
     }
 
     protected boolean isFinished() {
-        return false;
+        return Robot.intake.getRollersCurrent() > 9.0;
     }
 
     protected void end() {
-    
+
     }
 
     protected void interrupted() {
-
+    
     }
 }
