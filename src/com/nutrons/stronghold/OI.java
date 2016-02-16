@@ -44,8 +44,8 @@ public class OI {
 	private Button closeJawButton = new JoystickButton(this.operatorPad, 8);
 	private Button fireButton = new JoystickButton(this.operatorPad, 5);
 	private Button retractShooterButton = new JoystickButton(this.operatorPad, 7);
-	private Button intakeBallButton = new JoystickButton(this.operatorPad, 3);
-	private Button spitBallButton = new JoystickButton(this.operatorPad, 2);
+	private Button intakeBallButton = new JoystickButton(this.operatorPad, 2);
+	private Button spitBallButton = new JoystickButton(this.operatorPad, 3);
 	private Button zeroArmButton = new JoystickButton(this.operatorPad, 10);
 	private Button moveArmToIntakeButton = new JoystickButton(this.operatorPad, 15);
 	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 13);
@@ -60,10 +60,10 @@ public class OI {
 		this.fireButton.whenPressed(new FireBallCmd());
 		this.retractShooterButton.whenPressed(new RetractShooterCmd());
 		
-		this.intakeBallButton.whenPressed(new SpitRollersCmd());
+		this.spitBallButton.whenPressed(new SpitRollersCmd());
 		this.intakeBallButton.whenReleased(new StopRollersCmd());
 		
-		this.spitBallButton.whenPressed(new SuckRollersCmd());
+		this.intakeBallButton.whenPressed(new SuckRollersCmd());
 		this.spitBallButton.whenReleased(new StopRollersCmd());
 		
 		this.zeroArmButton.whenPressed(new ZeroArmCmd());
@@ -71,7 +71,7 @@ public class OI {
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1715.0));
-		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-250.0));
+		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-400.0));
 	}
 	
 	public double getLeftJoystickY() {
