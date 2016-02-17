@@ -42,10 +42,10 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void end() {
-    	
+    	Robot.arm.stop();
     }
 
     protected void interrupted() {
-    	
+    	this.end();
     }
 }

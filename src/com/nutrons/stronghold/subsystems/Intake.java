@@ -69,11 +69,11 @@ public class Intake extends Subsystem {
 	}
 	
 	public void openJaw() {
-		this.jaw.set(Value.kForward);
+		this.jaw.set(Value.kReverse);
 	}
 	
 	public void closeJaw() {
-		this.jaw.set(Value.kReverse);
+		this.jaw.set(Value.kForward);
 	}
 	
 	public double getRollersCurrent() {

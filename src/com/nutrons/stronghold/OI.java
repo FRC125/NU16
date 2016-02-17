@@ -40,8 +40,8 @@ public class OI {
 	private Button invertButton = new JoystickButton(driverPad, 6);
 	
 	// Buttons operator
-	private Button openJawButton = new JoystickButton(this.operatorPad, 6);
-	private Button closeJawButton = new JoystickButton(this.operatorPad, 8);
+	private Button openJawButton = new JoystickButton(this.operatorPad, 8);
+	private Button closeJawButton = new JoystickButton(this.operatorPad, 6);
 	private Button fireButton = new JoystickButton(this.operatorPad, 5);
 	private Button retractShooterButton = new JoystickButton(this.operatorPad, 7);
 	private Button intakeBallButton = new JoystickButton(this.operatorPad, 2);

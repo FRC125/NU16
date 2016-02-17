@@ -1,7 +1,9 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.lib.DebouncedBoolean;
+import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
+import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmWithJoystickCmd;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -42,7 +44,7 @@ public class Arm extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	//setDefaultCommand(new MoveArmWithJoystickCmd());
+    	setDefaultCommand(new MoveArmToIntakePositionCmd());
     }
     
     public void driveArm(double power) {
@@ -68,5 +70,13 @@ public class Arm extends Subsystem {
     
     public double getArmError() {
     	return this.arm1.getClosedLoopError();
+    }
+    
+    public void stop() {
+    	this.arm1.changeControlMode(TalonControlMode.PercentVbus);
+    	this.arm2.changeControlMode(TalonControlMode.Follower);
+    	this.arm2.set(Robot.arm.arm1.getDeviceID());
+    	this.arm2.setInverted(true);
+    	this.arm1.set(0.0);
     }
 }
