@@ -4,6 +4,9 @@ import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -16,6 +19,7 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  * 
@@ -29,14 +33,12 @@ public class Drivetrain extends Subsystem {
 	public CANTalon leftDriveB = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_B);
 	public CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
 	public CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
-	
-	//Sensors
-	private Byte update_rate_hz = 50;
-    private SerialPort serialPort;
-    private AHRS imu;
     
     // Light
     private Relay light = new Relay(RobotMap.LIGHT_RELAY);
+    
+    // Arduino gyro
+    private Gyro gyro = new AnalogGyro(1);
     
     // Constants
     public double P_HEADING = 0.01;
@@ -57,14 +59,6 @@ public class Drivetrain extends Subsystem {
     public Drivetrain() {
     	
     	this.setPercentDrive();
-    	
-    	try {
-    		Port p = SerialPort.Port.kMXP;
-    		this.serialPort = new SerialPort(57600, p);
-    		this.imu = new AHRS(this.serialPort, this.update_rate_hz);
-    	}catch(Exception e) {
-    		System.err.println("Cannot initilize Navx in Drivetrain Subsystem!!!");
-    	}
     	
     	this.holdHeading.setInputRange(-180.0, 180.0);
     	this.holdHeading.setOutputRange(-1.0, 1.0);
@@ -111,14 +105,14 @@ public class Drivetrain extends Subsystem {
      * @return Heading angle in degrees
      */
     public double getAngleInDegrees() {
-    	return this.imu.getYaw();
+    	return this.gyro.getAngle();
     }
     
     /**
      * Resets the gyro back to zero
      */
     public void resetGyro() {
-    	this.imu.zeroYaw();
+    	this.gyro.reset();
     }
     
     /**
