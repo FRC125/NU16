@@ -4,6 +4,7 @@ package com.nutrons.stronghold;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+import com.nutrons.stronghold.subsystems.LoggingSubsystem;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.json.simple.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
+	public static LoggingSubsystem log = new LoggingSubsystem();
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -131,5 +134,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.shooter.getArmPosition());
     	SmartDashboard.putNumber("error", this.shooter.getArmError());
+    	
+    	
     }
 }
