@@ -41,9 +41,9 @@ public class Drivetrain extends Subsystem {
     private Gyro gyro = new AnalogGyro(1);
     
     // Constants
-    public double P_HEADING = 0.01;
+    public double P_HEADING = 0.025;
     public double I_HEADING = 0.0;
-    public double D_HEADING = 0.0;
+    public double D_HEADING = 0.01;
     
     public double P_TURN = 0.0065;
     public double I_TURN = 0.0001;
@@ -92,8 +92,8 @@ public class Drivetrain extends Subsystem {
 		this.leftDriveA.reverseOutput(true);
 		this.leftDriveA.reverseSensor(true);
     	
-    	this.leftDriveA.setPID(0.01, 0.0, 0.0);
-    	this.rightDriveB.setPID(0.01, 0.0, 0.0);
+    	this.leftDriveA.setPID(0.02, 0.0, 0.08);
+    	this.rightDriveB.setPID(0.02, 0.0, 0.08);
     }
 	
     public void initDefaultCommand() {

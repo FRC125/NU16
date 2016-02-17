@@ -26,8 +26,17 @@ public class DriveDistanceCmd extends Command {
     	Robot.dt.leftDriveA.changeControlMode(TalonControlMode.Position);
     	Robot.dt.rightDriveB.changeControlMode(TalonControlMode.Position);
     	
+    	Robot.dt.leftDriveA.configEncoderCodesPerRev((int)(256 / 0.14));
+    	Robot.dt.rightDriveB.configEncoderCodesPerRev((int)(256 / 0.14));
+    	
+    	Robot.dt.leftDriveA.enableBrakeMode(true);
+    	Robot.dt.rightDriveB.enableBrakeMode(true);
+    	
     	Robot.dt.leftDriveA.set(this.distance);
     	Robot.dt.rightDriveB.set(this.distance);
+    	
+    	Robot.dt.leftDriveA.setPID(0.016, 0.0, 0.08);
+    	Robot.dt.rightDriveB.setPID(0.016, 0.0, 0.08);
     	
     	Robot.dt.leftDriveA.enable();
     	Robot.dt.rightDriveB.enable();
@@ -45,6 +54,8 @@ public class DriveDistanceCmd extends Command {
     	Robot.dt.leftDriveA.disable();
     	Robot.dt.rightDriveB.disable();
     	Robot.dt.stop();
+    	Robot.dt.leftDriveA.enableBrakeMode(false);
+    	Robot.dt.rightDriveB.enableBrakeMode(false);
     }
 
     protected void interrupted() {
