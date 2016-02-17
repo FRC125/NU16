@@ -15,6 +15,7 @@ public class VisionDataUpdater implements Runnable{
 	private VisionCommunicationMode mode;
 	private boolean continueChecking;
 	private NetworkTable network;
+	private int updateFrequency;
 	
 	/** @param dc the DataController to update 
 	 *  @param network the networktable where vision related data is stored
@@ -24,6 +25,7 @@ public class VisionDataUpdater implements Runnable{
 		this.dc = dc;
 		this.mode = mode;
 		this.network = network;
+		this.updateFrequency = RobotMap.UPDATE_FREQUENCY;
 	}
 	
 	/** invoke this to stop the Thread **/
@@ -33,16 +35,10 @@ public class VisionDataUpdater implements Runnable{
 	
 	public void run() {
 		this.network.putNumber("whichData", this.mode.ID());
-		
 		this.continueChecking = true;
+		this.network.putBoolean("updateInProgress", true);
 		while(continueChecking){
-			this.network.putBoolean("updateInProgress", true);
 			if(!this.network.getBoolean("updateInProgress", false)){
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 				switch(this.mode){
 					case ALIGNMENT:
 						updateAlignmentData();
@@ -52,6 +48,12 @@ public class VisionDataUpdater implements Runnable{
 						updateAlignmentData();
 						updateRelativeTargetData();
 				}
+				this.network.putBoolean("updateInProgress", true);
+			}
+			try {
+				Thread.sleep(this.updateFrequency);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

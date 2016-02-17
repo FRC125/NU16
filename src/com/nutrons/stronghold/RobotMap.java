@@ -40,5 +40,5 @@ public class RobotMap {
 	//NetworkTables
 	public static final String VISION_TABLE = "visionTable";
 	public static final String VISION_DATA = "data";
-	
+	public static final int UPDATE_FREQUENCY = 0;
 }
