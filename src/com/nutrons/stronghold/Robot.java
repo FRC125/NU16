@@ -4,6 +4,7 @@ package com.nutrons.stronghold;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+import com.nutrons.lib.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,6 +35,8 @@ public class Robot extends IterativeRobot {
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
+	
+	public  Camera camera = new Camera(NetworkTable.getTable("vision"));
 	
 	public static OI oi;
 
@@ -143,5 +147,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
+    	SmartDashboard.putNumber("cameraAngle", this.camera.getAngle());
+    	SmartDashboard.putNumber("cameraDistance", this.camera.getDistance());
     }
 }
