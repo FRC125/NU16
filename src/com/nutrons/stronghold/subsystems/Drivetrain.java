@@ -159,9 +159,24 @@ public class Drivetrain extends Subsystem {
         	driveLR((throttle * 0.5 * invert) - (headingWheel * invert), (throttle * 0.5 * invert) + (headingWheel * invert));
         }else {
         	this.holdHeading.disable();
-        	wheel = wheel * 0.35;
-        	driveLR(((throttle * invert ) - (wheel * invert)) * coeff, ((throttle * invert) + (wheel * invert)) * coeff);
+        	wheel = wheel * 0.45;
+        	driveLR(((throttle) - (wheel)) * coeff * invert , ((throttle) + (wheel)) * coeff * invert );
         }
+        
+        
+        double angularPower;
+        double overPower;
+        double rPower;
+        double lPower;
+
+        if (Robot.oi.getQuickTurn()) {
+            overPower = 1.0;
+            angularPower = wheel;
+        } else {
+            overPower = 0.0;
+            angularPower = throttle * wheel;
+        }
+        
     }
     
     /**
