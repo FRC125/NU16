@@ -4,6 +4,7 @@ package com.nutrons.stronghold;
 import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
+import com.team254.lib.util.VisionServer;
 import com.nutrons.lib.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
@@ -36,8 +37,6 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
 	
-	public Camera camera = new Camera(NetworkTable.getTable("vision"));
-	
 	public static OI oi;
 
     Command autonomousCommand;
@@ -52,7 +51,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Auto", new TurnToAngleCmd(45.0));
+        chooser.addDefault("Auto", new TurnToAngleCmd(90.0));
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("Terrain test auto", new TerrainAutoTest());
         chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
@@ -142,11 +141,14 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
     	//SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.arm.getArmPosition());
-    	SmartDashboard.putNumber("error", this.arm.getArmError());
+    	SmartDashboard.putNumber("ArmError", this.arm.getArmError());
     	SmartDashboard.putNumber("leftDistance", this.dt.getLeftDistance());
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
-    	SmartDashboard.putNumber("cameraAngle", this.camera.getAngle());
+    	SmartDashboard.putString("cameraAngle", VisionServer.getInstance().getAngle());
+    	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
+    	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
+    	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     }
 }

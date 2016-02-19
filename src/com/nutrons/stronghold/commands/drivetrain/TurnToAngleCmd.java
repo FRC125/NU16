@@ -1,5 +1,6 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
+import com.nutrons.lib.MovingAverage;
 import com.nutrons.stronghold.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,6 +14,8 @@ public class TurnToAngleCmd extends Command {
 
 	private double angle;
 	
+	private MovingAverage errors = new MovingAverage(10);
+	
     public TurnToAngleCmd(double angle) {
     	requires(Robot.dt);
     	
@@ -22,12 +25,13 @@ public class TurnToAngleCmd extends Command {
     protected void initialize() {
     	Robot.dt.resetGyro();
     	Robot.dt.turnToAngle.reset();
+    	Robot.dt.turnToAngle.setSetpoint(this.angle);
     	Robot.dt.turnToAngle.setInputRange(-180.0, 180.0);
     	Robot.dt.turnToAngle.setOutputRange(-1.0, 1.0);
-    	Robot.dt.turnToAngle.setAbsoluteTolerance(5.0);
-    	Robot.dt.turnToAngle.setPercentTolerance(5.0);
-    	Robot.dt.turnToAngle.setSetpoint(this.angle);
+    	Robot.dt.turnToAngle.setAbsoluteTolerance(10.0);
+    	//Robot.dt.turnToAngle.setPercentTolerance(5.0);
     	Robot.dt.turnToAngle.setContinuous();
+    	
     	Robot.dt.turnToAngle.enable();
     }
 
@@ -36,7 +40,7 @@ public class TurnToAngleCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return Math.abs(Robot.dt.turnToAngle.getError()) < 5.0;
+        return errors.getAverage(Math.abs(this.angle - Robot.dt.getAngleInDegrees())) < 5.0;
     }
 
     protected void end() {

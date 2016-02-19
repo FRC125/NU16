@@ -47,8 +47,8 @@ public class Drivetrain extends Subsystem {
     public double D_HEADING = 0.01;
     
     public double P_TURN = 0.0065;
-    public double I_TURN = 0.0001;
-    public double D_TURN = 0.0015;
+    public double I_TURN = 0.0;
+    public double D_TURN = 0.0;
     
     public double P_DISTANCE = 0.001;
     public double I_DISTANCE = 0.0;
@@ -65,6 +65,8 @@ public class Drivetrain extends Subsystem {
     	this.holdHeading.setOutputRange(-1.0, 1.0);
     	this.holdHeading.setAbsoluteTolerance(5.0);
     	this.holdHeading.setContinuous();
+    	
+    	this.turnToAngle.setAbsoluteTolerance(10.0);
     	
     	this.leftDriveB.changeControlMode(TalonControlMode.Follower);
     	this.leftDriveB.set(this.leftDriveA.getDeviceID());
