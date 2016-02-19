@@ -12,6 +12,7 @@ import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -30,11 +31,11 @@ public class Robot extends IterativeRobot {
 	
 	public static Compressor compressor;
 	
-	
 	public static Drivetrain dt = new Drivetrain();
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
+	public static NetworkTable table;
 	
 	public Camera camera = new Camera(NetworkTable.getTable("vision"));
 	
@@ -58,9 +59,19 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
         
         SmartDashboard.putData("Auto mode", chooser);
+       
         
         updateDashboard();
-        
+    	table = NetworkTable.getTable("/Users/Brian/AppData/Roaming/Microsoft/Windows/Network Shortcuts/ween");
+        double[] defaultValue = new double[0];
+        while (true) {
+        	double[] areas = table.getNumberArray("area", defaultValue);
+            for(double area : areas){
+            	System.out.print(area + " ");
+            }
+        	System.out.println();
+        	Timer.delay(1);
+        }
     }
 	
 	/**
