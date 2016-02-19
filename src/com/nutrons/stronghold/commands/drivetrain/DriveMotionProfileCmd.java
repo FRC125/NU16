@@ -19,7 +19,10 @@ public class DriveMotionProfileCmd extends Command {
 	private CANTalon.SetValueMotionProfile leftSetOutput;
 	private CANTalon.SetValueMotionProfile rightSetOutput;
 	
-    public DriveMotionProfileCmd() {
+	private double[][] profile;
+	private int length;
+	
+    public DriveMotionProfileCmd(double[][] profile, int length) {
         requires(Robot.dt);        
     }
 
@@ -27,8 +30,8 @@ public class DriveMotionProfileCmd extends Command {
     	Robot.dt.leftDriveA.changeControlMode(TalonControlMode.MotionProfile);
     	Robot.dt.rightDriveB.changeControlMode(TalonControlMode.MotionProfile);
     	
-    	this.leftProfile = new MotionProfile(Robot.dt.leftDriveA);
-    	this.rightProfile = new MotionProfile(Robot.dt.rightDriveB);
+    	this.leftProfile = new MotionProfile(Robot.dt.leftDriveA, this.profile, this.length);
+    	this.rightProfile = new MotionProfile(Robot.dt.rightDriveB, this.profile, this.length);
     	
     	this.leftProfile.startMotionProfile();
     	this.rightProfile.startMotionProfile();

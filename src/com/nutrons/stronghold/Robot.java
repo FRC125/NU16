@@ -10,6 +10,7 @@ import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
+import com.nutrons.stronghold.controllers.OverTerrainDefenceProfile;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Auto", new TurnToAngleCmd(90.0));
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("Terrain test auto", new TerrainAutoTest());
-        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
+        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd(OverTerrainDefenceProfile.Points, OverTerrainDefenceProfile.kNumPoints));
         
         SmartDashboard.putData("Auto mode", chooser);
         
