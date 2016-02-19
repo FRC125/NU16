@@ -1,5 +1,6 @@
 package com.nutrons.stronghold.subsystems;
 
+import com.kauailabs.nav6.frc.IMU;
 import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;

@@ -70,7 +70,7 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1715.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1700.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-500.0));
 	}
 	

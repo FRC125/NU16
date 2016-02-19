@@ -16,6 +16,8 @@ public class MoveArmWithJoystickCmd extends Command {
 
     protected void initialize() {
     	Robot.arm.arm1.changeControlMode(TalonControlMode.PercentVbus);
+    	Robot.arm.arm2.changeControlMode(TalonControlMode.Follower);
+    	Robot.arm.arm2.set(Robot.arm.arm1.getDeviceID());
     	Robot.arm.arm2.setInverted(true);
     }
 
