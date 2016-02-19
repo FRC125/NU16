@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
 	
-	public  Camera camera = new Camera(NetworkTable.getTable("vision"));
+	public Camera camera = new Camera(NetworkTable.getTable("vision"));
 	
 	public static OI oi;
 
@@ -148,6 +148,5 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
     	SmartDashboard.putNumber("cameraAngle", this.camera.getAngle());
-    	SmartDashboard.putNumber("cameraDistance", this.camera.getDistance());
     }
 }

@@ -11,7 +11,7 @@ public class Camera {
 	}
 	
 	public double getAngle() {
-		return this.table.getNumber("offsetAngle", -1.0);
+		return this.table.getNumber("angle", -1.0);
 	}
 	
 	public double getDistance() {
