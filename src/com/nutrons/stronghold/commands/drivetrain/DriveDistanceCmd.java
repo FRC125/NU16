@@ -47,7 +47,7 @@ public class DriveDistanceCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return false;//Math.abs(Robot.dt.leftDriveA.getClosedLoopError()) < 3.0;
     }
 
     protected void end() {

@@ -1,5 +1,5 @@
 package com.nutrons.stronghold.controllers;			
-public class GeneratedMotionProfile {			
+public class OverTerrainDefenceProfile {			
 	public static final int kNumPoints =160;		
 	// Position (rotations)	Velocity (RPM)	Duration (ms)
 	public static double [][]Points = new double[][]{		
