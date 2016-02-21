@@ -49,7 +49,7 @@ public class DriveMotionProfileCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return Robot.dt.leftDriveA.getClosedLoopError() < 3.0;
     }
 
     protected void end() {

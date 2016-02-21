@@ -8,10 +8,14 @@ import com.team254.lib.util.VisionServer;
 import com.nutrons.lib.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
+import com.nutrons.stronghold.commands.drivetrain.Nothing;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
+import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.controllers.OverTerrainDefenceProfile;
 import com.nutrons.stronghold.subsystems.Arm;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,6 +24,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,7 +43,12 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
 	
+	CameraServer server = CameraServer.getInstance();
+	
 	public static OI oi;
+	
+	// From server
+	private static double cameraAngle = 5000.0;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -54,12 +64,17 @@ public class Robot extends IterativeRobot {
         chooser = new SendableChooser();
         chooser.addDefault("Auto", new TurnToAngleCmd(90.0));
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
-        chooser.addObject("Terrain test auto", new TerrainAutoTest());
+        chooser.addObject("low bar no camera auto", new LowBarAuto());
+        chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
+        chooser.addObject("Do nothing", new Nothing());
         chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd(OverTerrainDefenceProfile.Points, OverTerrainDefenceProfile.kNumPoints));
         
         SmartDashboard.putData("Auto mode", chooser);
         
         updateDashboard();
+        
+        server.setQuality(50);
+        server.startAutomaticCapture("cam1");
         
     }
 	
@@ -139,6 +154,8 @@ public class Robot extends IterativeRobot {
     }
     
     public void updateDashboard() {
+    	this.cameraAngle = Double.valueOf(VisionServer.getInstance().getAngle());
+    	
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
     	//SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.arm.getArmPosition());
@@ -147,9 +164,15 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
-    	SmartDashboard.putString("cameraAngle", VisionServer.getInstance().getAngle());
+    	SmartDashboard.putNumber("cameraAngle", this.cameraAngle);
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
+    	
+    	server = CameraServer.getInstance();
+    }
+    
+    public static double getCameraAngle() {
+    	return cameraAngle;
     }
 }

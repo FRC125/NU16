@@ -50,6 +50,7 @@ public class OI {
 	private Button moveArmToIntakeButton = new JoystickButton(this.operatorPad, 15);
 	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 13);
 	private Button moveArmToSavePosButton = new JoystickButton(this.operatorPad, 4);
+	private Button lightButton = new JoystickButton(this.operatorPad, 12);
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
@@ -70,8 +71,11 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1700.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1790.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-500.0));
+		
+		this.lightButton.whenPressed(new TurnLightOnCmd());
+		this.lightButton.whenReleased(new TurnLightOffCmd());
 	}
 	
 	public double getLeftJoystickY() {

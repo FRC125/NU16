@@ -11,8 +11,8 @@ public class VisionServer implements Runnable {
 
     private static VisionServer s_instance = null;
     
-    private volatile double angle = -8000.0;
-    private volatile String message = "-8000.0";
+    private volatile double angle = 5000.0;
+    private volatile String message = "5000.0";
     
     public static VisionServer getInstance() {
         if (s_instance == null) {
