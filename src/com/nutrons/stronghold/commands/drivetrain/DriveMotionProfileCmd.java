@@ -23,7 +23,9 @@ public class DriveMotionProfileCmd extends Command {
 	private int length;
 	
     public DriveMotionProfileCmd(double[][] profile, int length) {
-        requires(Robot.dt);        
+        requires(Robot.dt);   
+        this.profile = profile;
+        this.length = length;
     }
 
     protected void initialize() {

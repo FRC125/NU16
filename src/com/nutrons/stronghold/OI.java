@@ -4,6 +4,7 @@ import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
+import com.nutrons.stronghold.commands.drivetrain.AimCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -51,6 +52,7 @@ public class OI {
 	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 13);
 	private Button moveArmToSavePosButton = new JoystickButton(this.operatorPad, 4);
 	private Button lightButton = new JoystickButton(this.operatorPad, 12);
+	private Button aim = new JoystickButton(this.operatorPad, 11);
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
@@ -76,6 +78,8 @@ public class OI {
 		
 		this.lightButton.whenPressed(new TurnLightOnCmd());
 		this.lightButton.whenReleased(new TurnLightOffCmd());
+		
+		this.aim.whenPressed(new AimCmd());
 	}
 	
 	public double getLeftJoystickY() {

@@ -73,6 +73,8 @@ public class Robot extends IterativeRobot {
         
         updateDashboard();
         
+        this.arm.setpoint = this.arm.getArmPosition();
+        
         server.setQuality(50);
         server.startAutomaticCapture("cam1");
         

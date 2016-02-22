@@ -107,8 +107,8 @@ public class MotionProfile {
 	public MotionProfile(CANTalon talon, double[][] profile, int length) {
 		_talon = talon;
 		
-		_profile = profile;
-		_length = length;
+		this._profile = profile;
+		this._length = length;
 		
 		/*
 		 * since our MP is 10ms per point, set the control frame rate and the
@@ -239,7 +239,7 @@ public class MotionProfile {
 	/** Start filling the MPs to all of the involved Talons. */
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
-		startFilling(_profile, _length);
+		startFilling(this._profile, this._length);
 	}
 
 	private void startFilling(double[][] profile, int totalCnt) {
