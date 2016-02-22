@@ -5,6 +5,9 @@ import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
 import com.team254.lib.util.VisionServer;
+
+import java.io.IOException;
+
 import com.nutrons.lib.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
@@ -49,6 +52,9 @@ public class Robot extends IterativeRobot {
 	
 	// From server
 	private static double cameraAngle = 5000.0;
+	
+	// Grip network table
+	private final NetworkTable grip = NetworkTable.getTable("grip");
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -78,6 +84,16 @@ public class Robot extends IterativeRobot {
         server.setQuality(50);
         server.startAutomaticCapture("cam1");
         
+        /*
+         * Connects to grip
+         * This should automatically initilize everything for vision
+         */
+        
+        try {
+            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 	
 	/**
@@ -128,6 +144,13 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         updateDashboard();
+        
+        /**
+         * This will display the target's x-value
+         */
+        for (double centerX : grip.getNumberArray("myContoursReport/centerX", new double[0])) {
+            System.out.println("Got contour with x-value=" + centerX);
+        }
     }
 
     public void teleopInit() {
@@ -166,7 +189,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
-    	SmartDashboard.putNumber("cameraAngle", this.cameraAngle);
+    	SmartDashboard.putNumber("cameraAngle", this.getCameraAngle());
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());

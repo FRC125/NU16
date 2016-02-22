@@ -22,8 +22,6 @@ public class AimCmd extends Command {
     public AimCmd() {
     	requires(Robot.dt);
     	this.angle = Robot.getCameraAngle();
-    	
-    	this.angle = angle;
     }
 
     protected void initialize() {
