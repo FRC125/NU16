@@ -33,7 +33,6 @@ public class AimCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.dt.turnLightOn();
     	Robot.dt.resetGyro();
     	Robot.dt.aimShot.reset();
     	Robot.dt.aimShot.setSetpoint(this.angle);
