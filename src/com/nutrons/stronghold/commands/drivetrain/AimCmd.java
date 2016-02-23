@@ -21,7 +21,7 @@ public class AimCmd extends Command {
 	
     public AimCmd() {
     	requires(Robot.dt);
-    	this.angle = Robot.getAngle((int)(Robot.gripX));
+    	this.angle = Robot.getAngle();
     	System.out.println(this.angle);
     	/*
     	if(this.angle > 0 ) {

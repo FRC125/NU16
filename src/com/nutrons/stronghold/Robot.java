@@ -214,22 +214,22 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
-    	SmartDashboard.putNumber("cameraAngle", this.getCameraAngle());
+    	SmartDashboard.putNumber("cameraAngleBeaglebone", this.getCameraAngleFromBeaglebone());
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
-    	SmartDashboard.putNumber("AngeToTurnAim", getAngle((int)(gripX)));
+    	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
     	
     	server = CameraServer.getInstance();
     }
     
-    public static double getCameraAngle() {
+    public static double getCameraAngleFromBeaglebone() {
     	return cameraAngle;
     }
     
-    public static double getAngle(int centerX){
+    public static double getAngle(){
         double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
         double intercept = -RobotMap.CAMERA_FOV/2;
-        return (centerX)*slope+intercept;
+        return (Robot.gripX)*slope+intercept;
     }
 }
