@@ -55,9 +55,9 @@ public class Robot extends IterativeRobot {
 	public static double gripX = 0.0;
 	public static double[] temp;
 	
-	// Grip network table
+	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
-	private ProcessBuilder gripProcess;
+	private Process gripProcess;
 	
 	private final double[]  DUMMY = {5000};
 
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
          */
         
         try {
-            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+            this.gripProcess = new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,6 +108,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
     	updateDashboard();
+    	this.gripProcess.destroy();
     }
 	
 	public void disabledPeriodic() {
