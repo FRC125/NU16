@@ -95,6 +95,7 @@ public class Robot extends IterativeRobot {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        updateGripNetwork();
     }
 	
 	/**
@@ -137,6 +138,7 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        updateGripNetwork();
         updateDashboard();
     }
 
@@ -146,7 +148,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         updateDashboard();
-        
+        updateGripNetwork();
         
     }
 
@@ -156,6 +158,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        updateGripNetwork();
         updateDashboard();
         Robot.arm.zeroArm();
     }
@@ -165,31 +168,8 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        updateGripNetwork();
         updateDashboard();
-        
-        /**
-         * This will display the target's x-value
-         */
-        for (double centerX : grip.getNumberArray("myContoursReport/centerX", new double[0])) {
-            //System.out.println("Got contour with x-value=" + centerX);
-        }
-        
-        
-        
-        Robot.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
-       
-        if(Robot.temp.length != 0) {
-        	Robot.gripX = Robot.temp[0];
-        	
-        	//System.out.println("!_________GETTING THE VAL:: " + this.gripX);
-        }else {
-        	Robot.gripX = 0.0;
-        }
-        /*
-        if(this.gripX.length == 0) {
-        	this.gripX[0] = 0;
-        }
-        */
     }
     
     /**
@@ -197,6 +177,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        updateGripNetwork();
     }
     
     public void updateDashboard() {
@@ -217,10 +198,22 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
     	
     	server = CameraServer.getInstance();
+    	
+    	
     }
     
     public static double getCameraAngleFromBeaglebone() {
     	return cameraAngle;
+    }
+    
+    private void updateGripNetwork() {
+    	Robot.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+        
+        if(Robot.temp.length != 0) {
+        	Robot.gripX = Robot.temp[0];
+        }else {
+        	Robot.gripX = 0.0;
+        }
     }
     
     public static double getAngle(){
