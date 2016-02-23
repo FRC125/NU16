@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	
 	// From server
 	private static double cameraAngle = 5000.0;
-	public static double gripX = 0.0;
+	public static volatile double gripX = 0.0;
 	public static double[] temp;
 	
 	// Grip network
