@@ -5,10 +5,7 @@ import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
 import com.team254.lib.util.VisionServer;
-
 import java.io.IOException;
-
-import com.nutrons.lib.Camera;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.commands.drivetrain.Nothing;
@@ -17,7 +14,6 @@ import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.controllers.OverTerrainDefenceProfile;
 import com.nutrons.stronghold.subsystems.Arm;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -84,7 +80,7 @@ public class Robot extends IterativeRobot {
         
         updateDashboard();
         
-        this.arm.setpoint = this.arm.getArmPosition();
+        Robot.arm.setpoint = this.arm.getArmPosition();
         
         server.setQuality(50);
         server.startAutomaticCapture("cam1");
@@ -180,14 +176,14 @@ public class Robot extends IterativeRobot {
         
         
         
-        this.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+        Robot.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
        
-        if(this.temp.length != 0) {
-        	this.gripX = this.temp[0];
+        if(Robot.temp.length != 0) {
+        	Robot.gripX = Robot.temp[0];
         	
         	//System.out.println("!_________GETTING THE VAL:: " + this.gripX);
         }else {
-        	this.gripX = 0.0;
+        	Robot.gripX = 0.0;
         }
         /*
         if(this.gripX.length == 0) {
