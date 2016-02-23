@@ -9,6 +9,7 @@ import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
+import com.nutrons.stronghold.commands.drivetrain.auto.Aim;
 import com.nutrons.stronghold.commands.intake.CloseJawCmd;
 import com.nutrons.stronghold.commands.intake.IntakeBallAndMoveToSavePos;
 import com.nutrons.stronghold.commands.intake.OpenJawCmd;
@@ -79,7 +80,7 @@ public class OI {
 		this.lightButton.whenPressed(new TurnLightOnCmd());
 		this.lightButton.whenReleased(new TurnLightOffCmd());
 		
-		this.aim.whenPressed(new AimCmd());
+		this.aim.whenPressed(new Aim());
 	}
 	
 	public double getLeftJoystickY() {

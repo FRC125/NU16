@@ -47,7 +47,7 @@ public class Arm extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new MoveArmToPositionCmd(this.setpoint));
+    	setDefaultCommand(new MoveArmToIntakePositionCmd());
     }
     
     public void driveArm(double power) {

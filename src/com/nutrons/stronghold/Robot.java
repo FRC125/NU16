@@ -52,9 +52,14 @@ public class Robot extends IterativeRobot {
 	
 	// From server
 	private static double cameraAngle = 5000.0;
+	public static double gripX = 0.0;
+	public static double[] temp;
 	
 	// Grip network table
-	private final NetworkTable grip = NetworkTable.getTable("grip");
+	private final NetworkTable grip = NetworkTable.getTable("GRIP");
+	private ProcessBuilder gripProcess;
+	
+	private final double[]  DUMMY = {5000};
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -68,7 +73,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Auto", new TurnToAngleCmd(90.0));
+        chooser.addDefault("Auto", new TurnToAngleCmd(-90.0));
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("low bar no camera auto", new LowBarAuto());
         chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
@@ -145,12 +150,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         updateDashboard();
         
-        /**
-         * This will display the target's x-value
-         */
-        for (double centerX : grip.getNumberArray("myContoursReport/centerX", new double[0])) {
-            System.out.println("Got contour with x-value=" + centerX);
-        }
+        
     }
 
     public void teleopInit() {
@@ -169,6 +169,30 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         updateDashboard();
+        
+        /**
+         * This will display the target's x-value
+         */
+        for (double centerX : grip.getNumberArray("myContoursReport/centerX", new double[0])) {
+            //System.out.println("Got contour with x-value=" + centerX);
+        }
+        
+        
+        
+        this.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+       
+        if(this.temp.length != 0) {
+        	this.gripX = this.temp[0];
+        	
+        	//System.out.println("!_________GETTING THE VAL:: " + this.gripX);
+        }else {
+        	this.gripX = 0.0;
+        }
+        /*
+        if(this.gripX.length == 0) {
+        	this.gripX[0] = 0;
+        }
+        */
     }
     
     /**
@@ -193,11 +217,18 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
+    	SmartDashboard.putNumber("AngeToTurnAim", getAngle((int)(gripX)));
     	
     	server = CameraServer.getInstance();
     }
     
     public static double getCameraAngle() {
     	return cameraAngle;
+    }
+    
+    public static double getAngle(int centerX){
+        double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
+        double intercept = -RobotMap.CAMERA_FOV/2;
+        return (centerX)*slope+intercept;
     }
 }

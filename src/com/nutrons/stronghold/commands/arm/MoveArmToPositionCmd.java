@@ -34,7 +34,7 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void execute() {
-    	System.out.println("PID is running!!!!!");
+    	//System.out.println("PID is running!!!!!");
     }
 
     protected boolean isFinished() {

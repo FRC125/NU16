@@ -21,21 +21,28 @@ public class AimCmd extends Command {
 	
     public AimCmd() {
     	requires(Robot.dt);
-    	this.angle = Robot.getCameraAngle();
+    	this.angle = Robot.getAngle((int)(Robot.gripX));
+    	System.out.println(this.angle);
+    	/*
+    	if(this.angle > 0 ) {
+    		Robot.dt.aimInvert = -1.0;
+    	}else {
+    		Robot.dt.aimInvert = 1.0;
+    	}
+    	*/
     }
 
     protected void initialize() {
     	Robot.dt.turnLightOn();
     	Robot.dt.resetGyro();
-    	Robot.dt.turnToAngle.reset();
-    	Robot.dt.turnToAngle.setSetpoint(this.angle);
-    	Robot.dt.turnToAngle.setInputRange(-180.0, 180.0);
-    	Robot.dt.turnToAngle.setOutputRange(-1.0, 1.0);
-    	Robot.dt.turnToAngle.setAbsoluteTolerance(10.0);
-    	//Robot.dt.turnToAngle.setPercentTolerance(5.0);
-    	Robot.dt.turnToAngle.setContinuous();
-    	
-    	Robot.dt.turnToAngle.enable();
+    	Robot.dt.aimShot.reset();
+    	Robot.dt.aimShot.setSetpoint(this.angle);
+    	Robot.dt.aimShot.setInputRange(-180.0, 180.0);
+    	Robot.dt.aimShot.setOutputRange(-1.0, 1.0);
+    	Robot.dt.aimShot.setAbsoluteTolerance(1.0);
+    	Robot.dt.aimShot.setContinuous();
+    	Robot.dt.aimShot.setPID(0.05, 0.002, 0.00);
+    	Robot.dt.aimShot.enable();
     	timer.reset();
     	timer.start();
     }
@@ -45,11 +52,11 @@ public class AimCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return errors.getAverage(Math.abs(this.angle - Robot.dt.getAngleInDegrees())) < 5.0 || timer.get() < 4.0;
+        return  timer.get() > 10.0;
     }
 
     protected void end() {
-    	Robot.dt.turnToAngle.disable();
+    	Robot.dt.aimShot.disable();
     	Robot.dt.stop();
     	timer.stop();
     	timer.reset();

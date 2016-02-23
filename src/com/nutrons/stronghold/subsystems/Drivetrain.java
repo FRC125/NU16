@@ -54,8 +54,11 @@ public class Drivetrain extends Subsystem {
     public double I_DISTANCE = 0.0;
     public double D_DISTANCE = 0.0;
     
+    public static double aimInvert = 1.0;
+    
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
+    public PIDController aimShot = new PIDController(0.02, 0.0, 0.0, new GyroWrapper(), new AimShotOutput());
     
     public Drivetrain() {
     	
@@ -163,7 +166,7 @@ public class Drivetrain extends Subsystem {
         }else {
         	this.holdHeading.disable();
         	wheel = wheel * 0.45;
-        	driveLR(((throttle) - (wheel)) * coeff * invert , ((throttle) + (wheel)) * coeff * invert );
+        	driveLR(((throttle* invert) - (wheel)) * coeff  , ((throttle* invert) + (wheel)) * coeff);
         }
         
         
@@ -268,5 +271,15 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double power) {
 			driveLR(-power, power);
 		}
-    }    
+    }
+   
+    
+    public class AimShotOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double power) {
+			driveLR(-power * aimInvert, power * aimInvert);
+		}
+    	
+    }
 }
