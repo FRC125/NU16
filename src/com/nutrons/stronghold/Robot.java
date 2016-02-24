@@ -7,6 +7,7 @@ import com.nutrons.stronghold.subsystems.Shooter;
 import com.team254.lib.util.VisionServer;
 import java.io.IOException;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
+import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.commands.drivetrain.Nothing;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -75,6 +76,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
         chooser.addObject("Do nothing", new Nothing());
         chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
+        chooser.addObject("Drive 10ft", new DriveDistancePIDCmd(10.0, 2.0));
         
         SmartDashboard.putData("Auto mode", chooser);
         
