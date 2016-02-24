@@ -49,7 +49,8 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
-	public static double[] temp;
+	public static double[] centerXArray;
+	private static double[] gripAreaArray;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
@@ -208,10 +209,19 @@ public class Robot extends IterativeRobot {
     }
     
     private void updateGripNetwork() {
-    	Robot.temp = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+    	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+        Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
         
-        if(Robot.temp.length != 0) {
-        	Robot.gripX = Robot.temp[0];
+        if(Robot.centerXArray.length != 0) {
+        	double maxArea = 0;
+        	int maxIndex = 0;
+        	for(int i = 0; i < Robot.gripAreaArray.length; i++){
+        		if(Robot.gripAreaArray[i]>maxArea){
+        			maxArea = Robot.gripAreaArray[i];
+        			maxIndex = i;
+        		}
+        	}
+        	Robot.gripX = Robot.centerXArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
         }
