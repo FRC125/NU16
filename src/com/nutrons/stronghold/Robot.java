@@ -74,7 +74,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("low bar no camera auto", new LowBarAuto());
         chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
         chooser.addObject("Do nothing", new Nothing());
-        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd(OverTerrainDefenceProfile.Points, OverTerrainDefenceProfile.kNumPoints));
+        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -196,6 +196,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
+    	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	
     	server = CameraServer.getInstance();
     	
@@ -220,5 +221,9 @@ public class Robot extends IterativeRobot {
         double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
         double intercept = -RobotMap.CAMERA_FOV/2;
         return (Robot.gripX)*slope+intercept;
+    }
+    
+    public static boolean isTargetSeen() {
+    	return Math.abs(getAngle()) != 27.0;
     }
 }

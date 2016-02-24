@@ -68,10 +68,6 @@ public class MotionProfile {
 	 * decide to switch to MP mode.
 	 */
 	private CANTalon.SetValueMotionProfile _setValue = CANTalon.SetValueMotionProfile.Disable;
-	
-	private double[][] _profile;
-	private int _length;
-	
 	/**
 	 * How many trajectory points do we wait for before firing the motion
 	 * profile.
@@ -104,12 +100,8 @@ public class MotionProfile {
 	 * @param talon
 	 *            reference to Talon object to fetch motion profile status from.
 	 */
-	public MotionProfile(CANTalon talon, double[][] profile, int length) {
+	public MotionProfile(CANTalon talon) {
 		_talon = talon;
-		
-		this._profile = profile;
-		this._length = length;
-		
 		/*
 		 * since our MP is 10ms per point, set the control frame rate and the
 		 * notifer to half that
@@ -239,7 +231,7 @@ public class MotionProfile {
 	/** Start filling the MPs to all of the involved Talons. */
 	private void startFilling() {
 		/* since this example only has one talon, just update that one */
-		startFilling(this._profile, this._length);
+		startFilling(GeneratedMotionProfile.Points, GeneratedMotionProfile.kNumPoints);
 	}
 
 	private void startFilling(double[][] profile, int totalCnt) {

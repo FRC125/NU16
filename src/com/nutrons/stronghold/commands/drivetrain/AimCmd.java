@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AimCmd extends Command {
-
-	private double angle;
 	
 	private Timer timer = new Timer();
 	
@@ -21,37 +19,29 @@ public class AimCmd extends Command {
 	
     public AimCmd() {
     	requires(Robot.dt);
-    	this.angle = Robot.getAngle();
-    	System.out.println(this.angle);
-    	/*
-    	if(this.angle > 0 ) {
-    		Robot.dt.aimInvert = -1.0;
-    	}else {
-    		Robot.dt.aimInvert = 1.0;
-    	}
-    	*/
     }
 
     protected void initialize() {
     	Robot.dt.resetGyro();
     	Robot.dt.aimShot.reset();
-    	Robot.dt.aimShot.setSetpoint(this.angle);
+    	Robot.dt.aimShot.setSetpoint(Robot.getAngle());
     	Robot.dt.aimShot.setInputRange(-180.0, 180.0);
     	Robot.dt.aimShot.setOutputRange(-1.0, 1.0);
     	Robot.dt.aimShot.setAbsoluteTolerance(1.0);
     	Robot.dt.aimShot.setContinuous();
-    	Robot.dt.aimShot.setPID(0.05, 0.002, 0.00);
+    	Robot.dt.aimShot.setPID(0.05, 0.01, 0.1);
     	Robot.dt.aimShot.enable();
     	timer.reset();
     	timer.start();
     }
 
     protected void execute() {
+    	System.out.println(Robot.dt.aimShot.getSetpoint());
     
     }
 
     protected boolean isFinished() {
-        return  timer.get() > 10.0;
+        return  timer.get() > 3.0;
     }
 
     protected void end() {
