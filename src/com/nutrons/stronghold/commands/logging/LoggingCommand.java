@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.io.IOException; 
 import java.io.OutputStreamWriter;
 import org.json.simple.JSONObject;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 /**
  *
@@ -17,10 +20,11 @@ import org.json.simple.JSONObject;
 public class LoggingCommand extends Command {
 	//objects are delcared as global so values are saved after methods end
 	private JSONObject obj;
-	private OutputStreamWriter out;
+	private PrintWriter out;
 	private Socket s;
 	private InetAddress address;
 	private Timer t;
+	
      
 	//the constructor is dependent on  a subsystem (log) from the Robot.java
     public LoggingCommand() {
@@ -34,7 +38,7 @@ public class LoggingCommand extends Command {
     	obj = new JSONObject();
 
         try {
-        	out = new OutputStreamWriter(s.getOutputStream(), StandardCharsets.UTF_8);
+        	out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream(), StandardCharsets.UTF_8)), true);
             InetAddress address= InetAddress.getByName("10.103.56.254");
             s = new Socket(address, 4444);
         } catch (IOException i) {
@@ -51,27 +55,18 @@ public class LoggingCommand extends Command {
        obj.put("SlowDrivingMode", Robot.oi.getSlowDrivingMode());
        obj.put("HoldHeadingMode", Robot.oi.getHoldHeadingMode());
   	   obj.put("Timestamp", t.getFPGATimestamp());
-  	   
-  	   try {
-		out.write(obj.toString());
-  	   } catch (IOException e) {
-		e.printStackTrace();
-  	   }
+  	   out.write(obj.toString()); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
-
+    
     // Called once after isFinished returns true
     protected void end() {
-    	try {
 			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
+		
     	try {
 			s.close();
 		} catch (IOException e) {
