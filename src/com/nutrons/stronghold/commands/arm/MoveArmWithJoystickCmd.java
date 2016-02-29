@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * 
+ * @author Camilo Gonzalez
  *
  */
 public class MoveArmWithJoystickCmd extends Command {
@@ -30,8 +32,10 @@ public class MoveArmWithJoystickCmd extends Command {
     }
 
     protected void end() {
+    
     }
 
     protected void interrupted() {
+    
     }
 }

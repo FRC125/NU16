@@ -4,14 +4,10 @@ import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
-import com.nutrons.stronghold.commands.drivetrain.AimCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.Aim;
-import com.nutrons.stronghold.commands.intake.CloseJawCmd;
-import com.nutrons.stronghold.commands.intake.IntakeBallAndMoveToSavePos;
 import com.nutrons.stronghold.commands.intake.OpenJawCmd;
 import com.nutrons.stronghold.commands.intake.SpitRollersCmd;
 import com.nutrons.stronghold.commands.intake.StopRollersCmd;
@@ -19,7 +15,6 @@ import com.nutrons.stronghold.commands.intake.SuckRollersCmd;
 import com.nutrons.stronghold.commands.shooter.FireBallCmd;
 import com.nutrons.stronghold.commands.shooter.RetractShooterAndJaw;
 import com.nutrons.stronghold.commands.shooter.RetractShooterCmd;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -114,5 +109,4 @@ public class OI {
 	public boolean getInvertButton() {
 		return this.invertButton.get();
 	}
-	
 }

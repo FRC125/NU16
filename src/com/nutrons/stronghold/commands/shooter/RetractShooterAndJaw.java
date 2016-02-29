@@ -1,7 +1,6 @@
 package com.nutrons.stronghold.commands.shooter;
 
 import com.nutrons.stronghold.commands.intake.CloseJawCmd;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

@@ -16,6 +16,10 @@ public class DebouncedBoolean {
 		count = 0;
 	}
 	
+	/**
+	 * Adds value to DebouncedBoolean
+	 * @param in New value
+	 */
 	public void feed(boolean in) {
 		if(state) {
 			state = in;
@@ -32,10 +36,17 @@ public class DebouncedBoolean {
 		}
 	}
 	
+	/**
+	 * Returns calculated boolean average
+	 * @return Boolean average
+	 */
 	public boolean get() {
 		return state;
 	}
 	
+	/**
+	 * Resets average
+	 */
 	public void reset() {
 		count = 0;
 	}

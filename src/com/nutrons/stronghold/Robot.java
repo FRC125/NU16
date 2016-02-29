@@ -8,11 +8,10 @@ import com.team254.lib.util.VisionServer;
 import java.io.IOException;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
-import com.nutrons.stronghold.commands.drivetrain.Nothing;
+import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
-import com.nutrons.stronghold.controllers.OverTerrainDefenceProfile;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -23,7 +22,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,13 +34,10 @@ public class Robot extends IterativeRobot {
 	
 	public static Compressor compressor;
 	
-	
 	public static Drivetrain dt = new Drivetrain();
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
-	
-	CameraServer server = CameraServer.getInstance();
 	
 	public static OI oi;
 	
@@ -74,7 +69,7 @@ public class Robot extends IterativeRobot {
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("low bar no camera auto", new LowBarAuto());
         chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
-        chooser.addObject("Do nothing", new Nothing());
+        chooser.addObject("Do nothing", new DoNothingAuto());
         chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -82,9 +77,6 @@ public class Robot extends IterativeRobot {
         updateDashboard();
         
         Robot.arm.setpoint = this.arm.getArmPosition();
-        
-        server.setQuality(50);
-        server.startAutomaticCapture("cam1");
         
         /*
          * Connects to grip
@@ -198,10 +190,6 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
-    	
-    	server = CameraServer.getInstance();
-    	
-    	
     }
     
     public static double getCameraAngleFromBeaglebone() {

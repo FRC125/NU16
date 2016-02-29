@@ -1,14 +1,8 @@
 package com.nutrons.stronghold.subsystems;
 
-import com.nutrons.lib.DebouncedBoolean;
 import com.nutrons.stronghold.RobotMap;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -29,6 +23,9 @@ public class Shooter extends Subsystem {
 		
 	}
 	
+	/**
+	 * Fires catapult
+	 */
 	public void fireShooter() {
 		this.shooter1.set(Value.kForward);
 		this.shooter2.set(Value.kForward);
@@ -36,6 +33,9 @@ public class Shooter extends Subsystem {
 		this.shooter4.set(true);
 	}
 	
+	/**
+	 * Retracts catapult
+	 */
 	public void retractShooter() {
 		this.shooter1.set(Value.kReverse);
 		this.shooter2.set(Value.kReverse);

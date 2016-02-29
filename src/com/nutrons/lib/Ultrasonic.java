@@ -3,6 +3,11 @@ package com.nutrons.lib;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 
+/**
+ * 
+ * @author John Zhang
+ *
+ */
 public class Ultrasonic {
 	
 	private AnalogInput input;
@@ -15,6 +20,10 @@ public class Ultrasonic {
 		output.set(true);
 	}
 	
+	/**
+	 * Gets ultrasonic distance
+	 * @return Distance to object
+	 */
 	public double getDistance() {
 		return input.getVoltage() / SCALE;
 	}
