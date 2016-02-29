@@ -4,6 +4,8 @@ import com.nutrons.lib.DebouncedBoolean;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
+import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -33,7 +35,7 @@ public class Arm extends Subsystem {
 	private static double D_ARM_POSITION = 0.0;
 	private static double F_ARM_POSITION = 0.0;
 		
-	public static double setpoint = 0.0;
+	public static volatile double setpoint = 0.0;
 	
 	public void Arm() {
 		this.arm1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -44,7 +46,7 @@ public class Arm extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new MoveArmToIntakePositionCmd());
+    	setDefaultCommand(new MoveArmToPositionCmd(setpoint));
     }
     
     /**

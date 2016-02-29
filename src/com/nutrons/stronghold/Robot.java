@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
         
         updateDashboard();
         
-        Robot.arm.setpoint = this.arm.getArmPosition();
+        Arm.setpoint = this.arm.getArmPosition();
         
         /*
          * Connects to grip
@@ -130,6 +130,7 @@ public class Robot extends IterativeRobot {
 		} */
     	
     	// schedule the autonomous command (example)
+        Arm.setpoint = this.arm.getArmPosition();
         if (autonomousCommand != null) autonomousCommand.start();
         updateGripNetwork();
         updateDashboard();
@@ -150,6 +151,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
+    	Arm.setpoint = this.arm.getArmPosition();
         if (autonomousCommand != null) autonomousCommand.cancel();
         updateGripNetwork();
         updateDashboard();
