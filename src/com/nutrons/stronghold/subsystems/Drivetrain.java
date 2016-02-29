@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
@@ -54,8 +55,11 @@ public class Drivetrain extends Subsystem {
     public double I_DISTANCE = 0.0;
     public double D_DISTANCE = 0.0;
     
+    public static double aimInvert = 1.0;
+    
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
+    public PIDController aimShot = new PIDController(0.02, 0.0, 0.0, new GyroWrapper(), new AimShotOutput());
     
     public Drivetrain() {
     	
@@ -162,8 +166,8 @@ public class Drivetrain extends Subsystem {
         	driveLR((throttle * 0.5 * invert) - (headingWheel * invert), (throttle * 0.5 * invert) + (headingWheel * invert));
         }else {
         	this.holdHeading.disable();
-        	wheel = wheel * 0.45;
-        	driveLR(((throttle) - (wheel)) * coeff * invert , ((throttle) + (wheel)) * coeff * invert );
+        	wheel = wheel * 0.6;
+        	driveLR(((throttle* invert) - (wheel)) * coeff  , ((throttle* invert) + (wheel)) * coeff);
         }
         
         
@@ -268,5 +272,15 @@ public class Drivetrain extends Subsystem {
 		public void pidWrite(double power) {
 			driveLR(-power, power);
 		}
-    }    
+    }
+   
+    
+    public class AimShotOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double power) {
+			driveLR(-power * aimInvert, power * aimInvert);
+		}
+    	
+    }
 }

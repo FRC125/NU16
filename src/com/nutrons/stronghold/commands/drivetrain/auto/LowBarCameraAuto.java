@@ -17,12 +17,6 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class LowBarCameraAuto extends CommandGroup {
     
     public  LowBarCameraAuto() {
-    	addSequential(new MoveArmToIntakePositionCmd());
-    	addSequential(new DriveMotionProfileCmd(OverTerrainDefenceProfile.Points, OverTerrainDefenceProfile.kNumPoints));
-    	addSequential(new WaitCommand(4));
-    	addSequential(new AimRobot());
-    	addSequential(new OpenJawCmd());
-    	addSequential(new WaitCommand(0.5));
-    	addSequential(new FireBallCmd());
+    	
     }
 }

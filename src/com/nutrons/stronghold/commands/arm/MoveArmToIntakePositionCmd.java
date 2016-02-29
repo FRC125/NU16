@@ -26,7 +26,7 @@ public class MoveArmToIntakePositionCmd extends Command {
     }
 
     protected void execute() {
-    	Robot.arm.driveArm(0.125);
+    	Robot.arm.driveArm(0.4);
     }
 
     protected boolean isFinished() {

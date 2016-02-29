@@ -35,4 +35,7 @@ public class RobotMap {
 	
 	// Relays
 	public static final int LIGHT_RELAY = 3;
+	
+	public static final double CAMERA_PIXEL_WIDTH = 640.0;
+	public static final double CAMERA_FOV = 54.0;
 }

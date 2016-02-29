@@ -22,7 +22,7 @@ public class VisionServer implements Runnable {
     }
     
     public String getAngle() {
-    	System.out.println(this.message);
+    	//System.out.println(this.message);
     	return this.message;
     }
     private DatagramSocket socket;

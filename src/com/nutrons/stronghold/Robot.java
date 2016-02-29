@@ -5,7 +5,7 @@ import com.nutrons.stronghold.subsystems.Drivetrain;
 import com.nutrons.stronghold.subsystems.Intake;
 import com.nutrons.stronghold.subsystems.Shooter;
 import com.team254.lib.util.VisionServer;
-import com.nutrons.lib.Camera;
+import java.io.IOException;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.commands.drivetrain.Nothing;
@@ -14,7 +14,6 @@ import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.controllers.OverTerrainDefenceProfile;
 import com.nutrons.stronghold.subsystems.Arm;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -49,6 +48,15 @@ public class Robot extends IterativeRobot {
 	
 	// From server
 	private static double cameraAngle = 5000.0;
+	public static volatile double gripX = 0.0;
+	public static double[] centerXArray;
+	private static double[] gripAreaArray;
+	
+	// Grip network
+	private final NetworkTable grip = NetworkTable.getTable("GRIP");
+	private Process gripProcess;
+	
+	private final double[]  DUMMY = {5000};
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -62,20 +70,33 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Auto", new TurnToAngleCmd(90.0));
+        chooser.addDefault("Auto", new TurnToAngleCmd(-90.0));
         chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
         chooser.addObject("low bar no camera auto", new LowBarAuto());
         chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
         chooser.addObject("Do nothing", new Nothing());
-        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd(OverTerrainDefenceProfile.Points, OverTerrainDefenceProfile.kNumPoints));
+        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
         
         SmartDashboard.putData("Auto mode", chooser);
         
         updateDashboard();
         
+        Robot.arm.setpoint = this.arm.getArmPosition();
+        
         server.setQuality(50);
         server.startAutomaticCapture("cam1");
         
+        /*
+         * Connects to grip
+         * This should automatically initilize everything for vision
+         */
+        
+        try {
+            this.gripProcess = new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        updateGripNetwork();
     }
 	
 	/**
@@ -85,6 +106,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
     	updateDashboard();
+    	this.gripProcess.destroy();
     }
 	
 	public void disabledPeriodic() {
@@ -117,6 +139,7 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        updateGripNetwork();
         updateDashboard();
     }
 
@@ -126,6 +149,8 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         updateDashboard();
+        updateGripNetwork();
+        
     }
 
     public void teleopInit() {
@@ -134,6 +159,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        updateGripNetwork();
         updateDashboard();
         Robot.arm.zeroArm();
     }
@@ -143,6 +169,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        updateGripNetwork();
         updateDashboard();
     }
     
@@ -151,6 +178,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        updateGripNetwork();
     }
     
     public void updateDashboard() {
@@ -164,15 +192,48 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("RightDistance", this.dt.getRightDistance());
     	SmartDashboard.putBoolean("armSwitch", this.arm.isZeroButtonPressed());
     	SmartDashboard.putNumber("intakeCurrent", this.intake.getRollersCurrent());
-    	SmartDashboard.putNumber("cameraAngle", this.cameraAngle);
+    	SmartDashboard.putNumber("cameraAngleBeaglebone", this.getCameraAngleFromBeaglebone());
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
+    	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
+    	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	
     	server = CameraServer.getInstance();
+    	
+    	
     }
     
-    public static double getCameraAngle() {
+    public static double getCameraAngleFromBeaglebone() {
     	return cameraAngle;
+    }
+    
+    private void updateGripNetwork() {
+    	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+        Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
+        
+        if(Robot.centerXArray.length != 0) {
+        	double maxArea = 0;
+        	int maxIndex = 0;
+        	for(int i = 0; i < Robot.gripAreaArray.length; i++){
+        		if(Robot.gripAreaArray[i]>maxArea){
+        			maxArea = Robot.gripAreaArray[i];
+        			maxIndex = i;
+        		}
+        	}
+        	Robot.gripX = Robot.centerXArray[maxIndex];
+        }else {
+        	Robot.gripX = 0.0;
+        }
+    }
+    
+    public static double getAngle(){
+        double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
+        double intercept = -RobotMap.CAMERA_FOV/2;
+        return (Robot.gripX)*slope+intercept;
+    }
+    
+    public static boolean isTargetSeen() {
+    	return Math.abs(getAngle()) != 27.0;
     }
 }

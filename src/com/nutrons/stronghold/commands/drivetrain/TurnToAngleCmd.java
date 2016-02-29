@@ -31,7 +31,7 @@ public class TurnToAngleCmd extends Command {
     	Robot.dt.turnToAngle.setAbsoluteTolerance(10.0);
     	//Robot.dt.turnToAngle.setPercentTolerance(5.0);
     	Robot.dt.turnToAngle.setContinuous();
-    	
+    	Robot.dt.turnToAngle.setPID(Robot.dt.P_TURN, Robot.dt.I_TURN, Robot.dt.D_TURN);
     	Robot.dt.turnToAngle.enable();
     }
 
@@ -40,7 +40,7 @@ public class TurnToAngleCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return errors.getAverage(Math.abs(this.angle - Robot.dt.getAngleInDegrees())) < 5.0;
+        return false;
     }
 
     protected void end() {
