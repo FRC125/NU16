@@ -64,6 +64,9 @@ public class Drivetrain extends Subsystem {
     	
     	this.turnToAngle.setAbsoluteTolerance(10.0);
     	
+    	this.leftDriveA.changeControlMode(TalonControlMode.PercentVbus);
+    	this.rightDriveB.changeControlMode(TalonControlMode.PercentVbus);
+    	
     	this.leftDriveB.changeControlMode(TalonControlMode.Follower);
     	this.leftDriveB.set(this.leftDriveA.getDeviceID());
     	
@@ -93,6 +96,8 @@ public class Drivetrain extends Subsystem {
     	
     	this.leftDriveA.setPID(0.02, 0.0, 0.08);
     	this.rightDriveB.setPID(0.02, 0.0, 0.08);
+    	
+    	this.disableBreakMode();
     }
 	
     public void initDefaultCommand() {
@@ -244,6 +249,22 @@ public class Drivetrain extends Subsystem {
     public void resetEncoders() {
     	this.leftDriveA.setPosition(0.0);
     	this.rightDriveB.setPosition(0.0);
+    }
+    
+    /**
+     * Changes drivetrain to break mode
+     */
+    public void enableBreakMode() {
+    	this.leftDriveA.enableBrakeMode(true);
+    	this.rightDriveB.enableBrakeMode(true);
+    }
+    
+    /**
+     * Changes drivetrain to coast mode
+     */
+    public void disableBreakMode() {
+    	this.leftDriveA.enableBrakeMode(false);
+    	this.rightDriveB.enableBrakeMode(false);
     }
     
     private class GyroWrapper implements PIDSource {
