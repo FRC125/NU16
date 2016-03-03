@@ -1,8 +1,6 @@
 package com.nutrons.stronghold.commands.arm;
 
-import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.Robot;
-
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,7 +32,7 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected void execute() {
-    	//System.out.println("PID is running!!!!!");
+    	
     }
 
     protected boolean isFinished() {

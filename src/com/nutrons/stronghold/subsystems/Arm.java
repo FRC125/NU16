@@ -5,7 +5,6 @@ import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
-import com.nutrons.stronghold.commands.arm.MoveArmWithJoystickCmd;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -36,7 +35,7 @@ public class Arm extends Subsystem {
 	private static double D_ARM_POSITION = 0.0;
 	private static double F_ARM_POSITION = 0.0;
 		
-	public static double setpoint = 0.0;
+	public static volatile double setpoint = 0.0;
 	
 	public void Arm() {
 		this.arm1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -47,9 +46,13 @@ public class Arm extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new MoveArmToIntakePositionCmd());
+    	setDefaultCommand(new MoveArmToPositionCmd(setpoint));
     }
     
+    /**
+     * Moves arm based on power from -1.0 to 1.0
+     * @param power Power value from -1.0 to 1.0
+     */
     public void driveArm(double power) {
     	this.arm1.set(power);
     }
@@ -63,18 +66,32 @@ public class Arm extends Subsystem {
 		return this.zeroButtonDebouncedBoolean.get();
 	}
     
+	/**
+	 * Zeros arm position
+	 */
     public void zeroArm() {
     	this.arm1.setPosition(0);
     }
     
+    /**
+     * Gets arm current position
+     * @return Current arm position
+     */
     public double getArmPosition() {
     	return this.arm1.getPosition();
     }
     
+    /**
+     * Gets arm position error
+     * @return Arm's error to target
+     */
     public double getArmError() {
     	return this.arm1.getClosedLoopError();
     }
     
+    /**
+     * Stops the arm
+     */
     public void stop() {
     	this.arm1.changeControlMode(TalonControlMode.PercentVbus);
     	this.arm2.changeControlMode(TalonControlMode.Follower);

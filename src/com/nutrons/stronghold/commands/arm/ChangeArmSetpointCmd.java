@@ -1,6 +1,6 @@
-package com.nutrons.stronghold.commands.shooter;
+package com.nutrons.stronghold.commands.arm;
 
-import com.nutrons.stronghold.Robot;
+import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,14 +8,16 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Camilo Gonzalez
  *
  */
-public class FireBallCmd extends Command {
-
-    public FireBallCmd() {
-        requires(Robot.shooter);
+public class ChangeArmSetpointCmd extends Command {
+	
+	private double setpoint;
+	
+    public ChangeArmSetpointCmd(double setpoint) {
+    	this.setpoint = setpoint;
     }
 
     protected void initialize() {
-    	Robot.shooter.fireShooter();
+    	Arm.setpoint = setpoint;
     }
 
     protected void execute() {
@@ -27,7 +29,7 @@ public class FireBallCmd extends Command {
     }
 
     protected void end() {
-   
+    
     }
 
     protected void interrupted() {

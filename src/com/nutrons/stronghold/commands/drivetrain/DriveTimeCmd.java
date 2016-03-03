@@ -1,11 +1,12 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * 
+ * @author Camilo Gonzalez
  *
  */
 public class DriveTimeCmd extends Command {

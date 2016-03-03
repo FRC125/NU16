@@ -1,7 +1,6 @@
 package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
-
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;

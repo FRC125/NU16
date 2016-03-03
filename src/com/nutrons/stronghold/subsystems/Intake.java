@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -68,14 +67,24 @@ public class Intake extends Subsystem {
 		return this.isBallCenterDebouncedBoolean.get();
 	}
 	
+	/**
+	 * Opens robot's jaw
+	 */
 	public void openJaw() {
 		this.jaw.set(Value.kReverse);
 	}
 	
+	/**
+	 * Closes robot's jaw
+	 */
 	public void closeJaw() {
 		this.jaw.set(Value.kForward);
 	}
 	
+	/**
+	 * Gets intake motor's current
+	 * @return
+	 */
 	public double getRollersCurrent() {
 		return this.pdp.getCurrent(13);
 	}

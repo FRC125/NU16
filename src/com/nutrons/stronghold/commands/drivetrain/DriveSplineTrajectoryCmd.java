@@ -2,11 +2,9 @@ package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.lib.TrajectoryWrapper;
 import com.nutrons.stronghold.Robot;
-import com.nutrons.stronghold.controllers.MotionProfile;
 import com.nutrons.stronghold.controllers.SplineProfile;
 import com.team254.lib.trajectory.Path;
 import com.team254.lib.trajectory.io.TextFileDeserializer;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;

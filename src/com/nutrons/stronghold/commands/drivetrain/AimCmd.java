@@ -1,8 +1,6 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
-import com.nutrons.lib.MovingAverage;
 import com.nutrons.stronghold.Robot;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,8 +12,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AimCmd extends Command {
 	
 	private Timer timer = new Timer();
-	
-	private MovingAverage errors = new MovingAverage(10);
 	
     public AimCmd() {
     	requires(Robot.dt);
@@ -36,7 +32,6 @@ public class AimCmd extends Command {
     }
 
     protected void execute() {
-    	System.out.println(Robot.dt.aimShot.getSetpoint());
     
     }
 

@@ -1,7 +1,6 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
-
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -43,7 +42,7 @@ public class DriveDistanceCmd extends Command {
     }
 
     protected void execute() {
-    	System.out.println("DRIVE DISTANCE!!!!!!!!");
+    	
     }
 
     protected boolean isFinished() {

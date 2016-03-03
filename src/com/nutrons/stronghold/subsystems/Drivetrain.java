@@ -1,25 +1,17 @@
 package com.nutrons.stronghold.subsystems;
 
-import com.kauailabs.nav6.frc.IMU;
-import com.kauailabs.navx_mxp.AHRS;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
-
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
@@ -222,19 +214,33 @@ public class Drivetrain extends Subsystem {
     	this.light.set(Relay.Value.kOff);
     }
     
+    /**
+     * Stops drivetrain
+     */
     public void stop() {
     	this.setPercentDrive();
     	Robot.dt.driveLR(0.0, 0.0);
     }
     
+    /**
+     * Gets left drivetrain distance from encoder
+     * @return Left encoder distance
+     */
     public double getLeftDistance() {
     	return this.leftDriveA.getPosition();
     }
     
+    /**
+     * Gets right drivetrain distance from encoder
+     * @return Right encoder distance
+     */
     public double getRightDistance() {
     	return this.rightDriveB.getPosition();
     }
     
+    /**
+     * Resets the encoders
+     */
     public void resetEncoders() {
     	this.leftDriveA.setPosition(0.0);
     	this.rightDriveB.setPosition(0.0);
@@ -274,7 +280,6 @@ public class Drivetrain extends Subsystem {
 		}
     }
    
-    
     public class AimShotOutput implements PIDOutput {
 
 		@Override

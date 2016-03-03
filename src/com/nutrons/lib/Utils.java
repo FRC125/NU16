@@ -1,5 +1,11 @@
 package com.nutrons.lib;
 
+/**
+ * 
+ * @author John Zhang
+ *
+ */
+
 public class Utils {
 	
 	public static double deadband(double value, double deadband, double center) {

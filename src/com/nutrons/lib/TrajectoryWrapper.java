@@ -2,6 +2,11 @@ package com.nutrons.lib;
 
 import com.team254.lib.trajectory.Trajectory;
 
+/**
+ * 
+ * @author Camilo Gonzalez
+ *
+ */
 public class TrajectoryWrapper {
 	
 	private Trajectory trajectory;
@@ -31,6 +36,10 @@ public class TrajectoryWrapper {
 		return this.temp;
 	}
 	
+	/**
+	 * Gets the number of trajectory points
+	 * @return
+	 */
 	public int getNumberOfPoints() {
 		return this.trajectory.getNumSegments();
 	}

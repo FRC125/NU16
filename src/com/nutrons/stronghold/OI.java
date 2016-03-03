@@ -1,17 +1,13 @@
 package com.nutrons.stronghold;
 
 import com.nutrons.lib.Utils;
+import com.nutrons.stronghold.commands.arm.ChangeArmSetpointCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
-import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
-import com.nutrons.stronghold.commands.drivetrain.AimCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.Aim;
-import com.nutrons.stronghold.commands.intake.CloseJawCmd;
-import com.nutrons.stronghold.commands.intake.IntakeBallAndMoveToSavePos;
 import com.nutrons.stronghold.commands.intake.OpenJawCmd;
 import com.nutrons.stronghold.commands.intake.SpitRollersCmd;
 import com.nutrons.stronghold.commands.intake.StopRollersCmd;
@@ -19,7 +15,6 @@ import com.nutrons.stronghold.commands.intake.SuckRollersCmd;
 import com.nutrons.stronghold.commands.shooter.FireBallCmd;
 import com.nutrons.stronghold.commands.shooter.RetractShooterAndJaw;
 import com.nutrons.stronghold.commands.shooter.RetractShooterCmd;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -74,8 +69,8 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1790.0));
-		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-500.0));
+		this.moveArmToShootingPosButton.whenPressed(new ChangeArmSetpointCmd(-1790.0));
+		this.moveArmToSavePosButton.whenPressed(new ChangeArmSetpointCmd(-500.0));
 		
 		this.lightButton.whenPressed(new TurnLightOnCmd());
 		this.lightButton.whenReleased(new TurnLightOffCmd());
@@ -114,5 +109,4 @@ public class OI {
 	public boolean getInvertButton() {
 		return this.invertButton.get();
 	}
-	
 }
