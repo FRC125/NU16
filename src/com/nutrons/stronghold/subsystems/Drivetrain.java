@@ -96,6 +96,8 @@ public class Drivetrain extends Subsystem {
     	
     	this.leftDriveA.setPID(0.02, 0.0, 0.08);
     	this.rightDriveB.setPID(0.02, 0.0, 0.08);
+    	
+    	this.disableBreakMode();
     }
 	
     public void initDefaultCommand() {

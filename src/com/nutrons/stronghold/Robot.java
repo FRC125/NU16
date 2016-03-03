@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit(){
     	updateDashboard();
+    	this.dt.enableBreakMode();
     	this.gripProcess.destroy();
     }
 	
