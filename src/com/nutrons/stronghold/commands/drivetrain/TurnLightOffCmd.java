@@ -16,6 +16,7 @@ public class TurnLightOffCmd extends Command {
 
     protected void initialize() {
     	Robot.dt.turnLightOff();
+    	Robot.dt.visionLightsOff();
     }
 
     protected void execute() {

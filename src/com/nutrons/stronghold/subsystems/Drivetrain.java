@@ -35,6 +35,7 @@ public class Drivetrain extends Subsystem {
     private DigitalOutput leftDriveLightFront = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_FRONT);
     private DigitalOutput rightDriveLightBack = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_BACK);
     private DigitalOutput rightDriveLightFront = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_FRONT);
+    private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
     
     // Arduino gyro
     private Gyro gyro = new AnalogGyro(1);
@@ -179,21 +180,6 @@ public class Drivetrain extends Subsystem {
         	wheel = wheel * 0.6;
         	driveLR(((throttle* invert) - (wheel)) * coeff  , ((throttle* invert) + (wheel)) * coeff);
         }
-        
-        
-        double angularPower;
-        double overPower;
-        double rPower;
-        double lPower;
-
-        if (Robot.oi.getQuickTurn()) {
-            overPower = 1.0;
-            angularPower = wheel;
-        } else {
-            overPower = 0.0;
-            angularPower = throttle * wheel;
-        }
-        
     }
     
     /**
@@ -310,6 +296,20 @@ public class Drivetrain extends Subsystem {
     public void backDriveLightsOff() {
     	this.leftDriveLightBack.set(false);
     	this.rightDriveLightBack.set(false);
+    }
+    
+    /**
+     * Turns vision lights on
+     */
+    public void visionLightsOn() {
+    	this.visionLight.set(true);
+    }
+    
+    /**
+     * Turns vision lighrs off
+     */
+    public void visionLightsOff() {
+    	this.visionLight.set(false);
     }
     
     private class GyroWrapper implements PIDSource {
