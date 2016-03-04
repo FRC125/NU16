@@ -18,6 +18,8 @@ public class CheesyDriveCmd extends Command {
     protected void initialize() {
     	Robot.dt.leftDriveA.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.dt.rightDriveB.changeControlMode(TalonControlMode.PercentVbus);
+    	Robot.dt.frontDriveLightsOn();
+    	Robot.dt.backDriveLightsOff();
     }
 
     protected void execute() {
