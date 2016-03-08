@@ -46,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public static volatile double gripX = 0.0;
 	public static volatile double[] centerXArray;
 	private static volatile double[] gripAreaArray;
+	public static volatile double lastUsedAngle = 0.0;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");

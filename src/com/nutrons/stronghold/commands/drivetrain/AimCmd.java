@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AimCmd extends Command {
 	
+	
 	private Timer timer = new Timer();
 	
     public AimCmd() {
@@ -18,9 +19,11 @@ public class AimCmd extends Command {
     }
 
     protected void initialize() {
+    	
+    	
     	Robot.dt.resetGyro();
     	Robot.dt.aimShot.reset();
-    	Robot.dt.aimShot.setSetpoint(Robot.getAngle());
+    	Robot.dt.aimShot.setSetpoint(Robot.lastUsedAngle = Robot.getAngle());
     	Robot.dt.aimShot.setInputRange(-180.0, 180.0);
     	Robot.dt.aimShot.setOutputRange(-1.0, 1.0);
     	Robot.dt.aimShot.setAbsoluteTolerance(1.0);
