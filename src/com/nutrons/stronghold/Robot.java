@@ -44,8 +44,8 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
-	public static double[] centerXArray;
-	private static double[] gripAreaArray;
+	public static volatile double[] centerXArray;
+	private static volatile double[] gripAreaArray;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
@@ -221,7 +221,7 @@ public class Robot extends IterativeRobot {
     public static double getAngle(){
         double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
         double intercept = -RobotMap.CAMERA_FOV/2;
-        return (Robot.gripX)*slope+intercept;
+        return (Robot.gripX-25.0)*slope+intercept;
     }
     
     public static boolean isTargetSeen() {
