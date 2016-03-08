@@ -18,6 +18,11 @@ public class RobotMap {
 	
 	// Digital
 	public static final int ZERO_BUTTON = 0;
+	public static final int LEFT_DRIVE_LIGHT_BACK = 5;
+	public static final int RIGHT_DRIVE_LIGHT_BACK = 2;
+	public static final int LEFT_DRIVE_LIGHT_FRONT = 3;
+	public static final int RIGHT_DRIVE_LIGHT_FRONT = 4;
+	public static final int VISION_LIGHT = 6;
 	
 	// Solenoids
 	public static final int SHOOTER1_A = 0;

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -30,6 +31,11 @@ public class Drivetrain extends Subsystem {
     
     // Light
     private Relay light = new Relay(RobotMap.LIGHT_RELAY);
+    private DigitalOutput leftDriveLightBack = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_BACK);
+    private DigitalOutput leftDriveLightFront = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_FRONT);
+    private DigitalOutput rightDriveLightBack = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_BACK);
+    private DigitalOutput rightDriveLightFront = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_FRONT);
+    private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
     
     // Arduino gyro
     private Gyro gyro = new AnalogGyro(1);
@@ -149,7 +155,15 @@ public class Drivetrain extends Subsystem {
         double coeff = 1.0;
     	double invert = 1.0;
     	
-    	if(Robot.oi.getInvertButton()) invert = -1.0;
+    	if(Robot.oi.getInvertButton()){
+    		invert = -1.0;
+    		
+    		this.frontDriveLightsOff();
+    		this.backDriveLightsOn();
+    	}else {
+    		this.frontDriveLightsOn();
+    		this.backDriveLightsOff();
+    	}
         
         if(Robot.oi.getSlowDrivingMode()) coeff = 0.7;
         
@@ -166,21 +180,6 @@ public class Drivetrain extends Subsystem {
         	wheel = wheel * 0.6;
         	driveLR(((throttle* invert) - (wheel)) * coeff  , ((throttle* invert) + (wheel)) * coeff);
         }
-        
-        
-        double angularPower;
-        double overPower;
-        double rPower;
-        double lPower;
-
-        if (Robot.oi.getQuickTurn()) {
-            overPower = 1.0;
-            angularPower = wheel;
-        } else {
-            overPower = 0.0;
-            angularPower = throttle * wheel;
-        }
-        
     }
     
     /**
@@ -265,6 +264,52 @@ public class Drivetrain extends Subsystem {
     public void disableBreakMode() {
     	this.leftDriveA.enableBrakeMode(false);
     	this.rightDriveB.enableBrakeMode(false);
+    }
+    
+    /**
+     * Turns front lights on
+     */
+    public void frontDriveLightsOn() {
+    	this.leftDriveLightFront.set(true);
+    	this.rightDriveLightFront.set(true);
+    }
+    
+    /**
+     * Turns rear lights on
+     */
+    public void backDriveLightsOn() {
+    	this.leftDriveLightBack.set(true);
+    	this.rightDriveLightBack.set(true);
+    }
+    
+    /**
+     * turns front lights off
+     */
+    public void frontDriveLightsOff() {
+    	this.leftDriveLightFront.set(false);
+    	this.rightDriveLightFront.set(false);
+    }
+    
+    /**
+     * Turns rear lights off
+     */
+    public void backDriveLightsOff() {
+    	this.leftDriveLightBack.set(false);
+    	this.rightDriveLightBack.set(false);
+    }
+    
+    /**
+     * Turns vision lights on
+     */
+    public void visionLightsOn() {
+    	this.visionLight.set(true);
+    }
+    
+    /**
+     * Turns vision lighrs off
+     */
+    public void visionLightsOff() {
+    	this.visionLight.set(false);
     }
     
     private class GyroWrapper implements PIDSource {
