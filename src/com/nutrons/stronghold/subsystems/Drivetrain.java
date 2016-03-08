@@ -58,6 +58,7 @@ public class Drivetrain extends Subsystem {
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
     public PIDController aimShot = new PIDController(0.02, 0.0, 0.0, new GyroWrapper(), new AimShotOutput());
+    public PIDController driveDistance = new PIDController(0.001, 0.0, 0.0, new EncoderWrapper(), new DriveDistancePIDOutput());
     
     public Drivetrain() {
     	
@@ -354,4 +355,34 @@ public class Drivetrain extends Subsystem {
 		}
     	
     }
+    
+    public class EncoderWrapper implements PIDSource {
+
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			// TODO Auto-generated method stub
+			return PIDSourceType.kDisplacement;
+		}
+
+		@Override
+		public double pidGet() {
+			// TODO Auto-generated method stub
+			return Robot.dt.rightDriveB.getPosition();
+		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType arg0) {
+			// TODO Auto-generated method stub
+		}
+    }
+    
+    public class DriveDistancePIDOutput implements PIDOutput {
+
+		@Override
+		public void pidWrite(double power) {
+			driveHoldingHeading(power);
+		}
+    	
+    }
+    
 }
