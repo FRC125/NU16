@@ -43,4 +43,6 @@ public class RobotMap {
 	
 	public static final double CAMERA_PIXEL_WIDTH = 640.0;
 	public static final double CAMERA_FOV = 54.0;
+	public static final double GRIP_X_OFFSET = -25.0;
+	public static final double GRIP_IGNORE_VALUE = Robot.getAngle(0);
 }

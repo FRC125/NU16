@@ -194,6 +194,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
+    	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
     }
     
     public static double getCameraAngleFromBeaglebone() {
@@ -203,6 +204,11 @@ public class Robot extends IterativeRobot {
     private void updateGripNetwork() {
     	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
         Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
+        // Prevents RoboRIO from using two different frames of data
+        if(Robot.centerXArray.length!=Robot.gripAreaArray.length){
+        	this.updateGripNetwork();
+        	return;
+        }
         
         if(Robot.centerXArray.length != 0) {
         	double maxArea = 0;
@@ -219,13 +225,18 @@ public class Robot extends IterativeRobot {
         }
     }
     
-    public static double getAngle(){
-        double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
+    public static double getAngle(double x){
+    	double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
         double intercept = -RobotMap.CAMERA_FOV/2;
-        return (Robot.gripX-25.0)*slope+intercept;
+        return (x+RobotMap.GRIP_X_OFFSET)*slope+intercept;
+    }
+    
+    
+    public static double getAngle(){
+    	return Robot.getAngle(Robot.gripX);
     }
     
     public static boolean isTargetSeen() {
-    	return Math.abs(getAngle()) != 27.0;
+    	return Math.abs(getAngle()) != RobotMap.GRIP_IGNORE_VALUE;
     }
 }
