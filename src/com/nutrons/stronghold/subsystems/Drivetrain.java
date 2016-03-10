@@ -3,6 +3,8 @@ package com.nutrons.stronghold.subsystems;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -38,7 +40,7 @@ public class Drivetrain extends Subsystem {
     private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
     
     // Arduino gyro
-    private Gyro gyro = new AnalogGyro(1);
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     
     // Constants
     public double P_HEADING = 0.025;
