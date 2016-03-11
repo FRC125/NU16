@@ -7,7 +7,9 @@ import com.nutrons.stronghold.subsystems.Shooter;
 import com.team254.lib.util.VisionServer;
 import java.io.IOException;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
+import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
+import com.nutrons.stronghold.autos.LowBarOneBallAuto;
 import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
@@ -66,18 +68,18 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Auto", new TurnToAngleCmd(-90.0));
-        chooser.addObject("Drive distance", new DriveDistanceCmd(5.0));
-        chooser.addObject("low bar no camera auto", new LowBarAuto());
-        chooser.addObject("Terrain no camera auto", new TerrainAutoTest());
+        chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
+        chooser.addObject("One ball auto", new LowBarOneBallAuto());
+        chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
         chooser.addObject("Do nothing", new DoNothingAuto());
-        chooser.addObject("Drive Trajectory", new DriveMotionProfileCmd());
         
         SmartDashboard.putData("Auto mode", chooser);
         
         updateDashboard();
         
         Arm.setpoint = this.arm.getArmPosition();
+        
+        this.arm.enableBreak();
         
         /*
          * Connects to grip
@@ -101,11 +103,13 @@ public class Robot extends IterativeRobot {
     	updateDashboard();
     	this.dt.enableBreakMode();
     	this.gripProcess.destroy();
+    	this.arm.disableBreak();
     }
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		updateDashboard();
+		this.arm.disableBreak();
 	}
 
 	/**
@@ -136,6 +140,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.start();
         updateGripNetwork();
         updateDashboard();
+        this.arm.enableBreak();
     }
 
     /**
@@ -158,6 +163,7 @@ public class Robot extends IterativeRobot {
         updateGripNetwork();
         updateDashboard();
         Robot.arm.zeroArm();
+        this.arm.enableBreak();
     }
 
     /**
@@ -228,7 +234,7 @@ public class Robot extends IterativeRobot {
     public static double getAngle(double x){
     	double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
         double intercept = -RobotMap.CAMERA_FOV/2;
-        return (x+RobotMap.GRIP_X_OFFSET)*slope+intercept;
+        return (x)*slope+intercept;
     }
     
     

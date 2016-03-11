@@ -16,13 +16,16 @@ public class RobotMap {
 	public static final int ARM_2_MOTOR = 6;
 	public static final int INTAKE_MOTOR = 3;
 	
+	// PWM
+	public static final int CDF_ARM = 0;
+	
 	// Digital
 	public static final int ZERO_BUTTON = 0;
 	public static final int LEFT_DRIVE_LIGHT_BACK = 5;
 	public static final int RIGHT_DRIVE_LIGHT_BACK = 2;
 	public static final int LEFT_DRIVE_LIGHT_FRONT = 3;
 	public static final int RIGHT_DRIVE_LIGHT_FRONT = 4;
-	public static final int VISION_LIGHT = 6;
+	public static final int VISION_LIGHT = 9;
 	
 	// Solenoids
 	public static final int SHOOTER1_A = 0;

@@ -3,6 +3,9 @@ package com.nutrons.stronghold;
 import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.ChangeArmSetpointCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
+import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
+import com.nutrons.stronghold.commands.arm.MoveCDFArmDownCmd;
+import com.nutrons.stronghold.commands.arm.MoveCDFArmUpCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
@@ -35,6 +38,8 @@ public class OI {
 	private Button fastDrivingModeButton = new JoystickButton(driverPad, 5);
 	private Button holdHeadingModeButton = new JoystickButton(driverPad, 1);
 	private Button invertButton = new JoystickButton(driverPad, 6);
+	private Button cdfDown = new JoystickButton(driverPad, 2);
+	private Button cdfUp = new JoystickButton(driverPad, 4);
 	
 	// Buttons operator
 	private Button openJawButton = new JoystickButton(this.operatorPad, 8);
@@ -69,13 +74,16 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new ChangeArmSetpointCmd(-1790.0));
-		this.moveArmToSavePosButton.whenPressed(new ChangeArmSetpointCmd(-500.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
+		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-500.0));
 		
 		this.lightButton.whenPressed(new TurnLightOnCmd());
 		this.lightButton.whenReleased(new TurnLightOffCmd());
 		
 		this.aim.whenPressed(new Aim());
+		
+		cdfDown.whileHeld(new MoveCDFArmDownCmd());
+		cdfUp.whileHeld(new MoveCDFArmUpCmd());
 	}
 	
 	public double getLeftJoystickY() {

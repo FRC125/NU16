@@ -46,7 +46,7 @@ public class Arm extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new MoveArmToPositionCmd(setpoint));
+    	setDefaultCommand(new MoveArmToIntakePositionCmd());
     }
     
     /**
@@ -98,5 +98,15 @@ public class Arm extends Subsystem {
     	this.arm2.set(Robot.arm.arm1.getDeviceID());
     	this.arm2.setInverted(true);
     	this.arm1.set(0.0);
+    }
+    
+    public void enableBreak() {
+    	this.arm1.enableBrakeMode(true);
+    	this.arm2.enableBrakeMode(true);
+    }
+    
+    public void disableBreak() {
+    	this.arm1.enableBrakeMode(false);
+    	this.arm2.enableBrakeMode(false);
     }
 }
