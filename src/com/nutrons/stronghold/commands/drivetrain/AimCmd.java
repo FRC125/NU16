@@ -42,7 +42,7 @@ public class AimCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return  timer.get() > 3.0;
+        return  timer.get() > 1.0;
     }
 
     protected void end() {

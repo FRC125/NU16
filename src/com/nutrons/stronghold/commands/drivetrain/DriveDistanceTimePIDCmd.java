@@ -11,17 +11,15 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Asher
  *
  */
-public class DriveDistancePIDCmd extends Command {
+public class DriveDistanceTimePIDCmd extends Command {
 
-	private double distance;
-	private double tolarence;
+	private double time;
 	
 	private Timer timer = new Timer();
 	
-    public DriveDistancePIDCmd(double distance, double tolarence) {
+    public DriveDistanceTimePIDCmd(double time) {
         requires(Robot.dt);
-        this.distance = distance;
-        this.tolarence = tolarence;
+        this.time = time;
     }
 
     // Called just before this Command runs the first time
@@ -55,7 +53,7 @@ public class DriveDistancePIDCmd extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return  timer.get() > 4.0;
+        return  timer.get() > this.time;
     }
 
     // Called once after isFinished returns true

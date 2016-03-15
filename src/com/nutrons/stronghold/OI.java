@@ -75,7 +75,7 @@ public class OI {
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
-		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-500.0));
+		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
 		
 		this.lightButton.whenPressed(new TurnLightOnCmd());
 		this.lightButton.whenReleased(new TurnLightOffCmd());
