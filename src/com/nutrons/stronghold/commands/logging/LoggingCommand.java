@@ -39,8 +39,8 @@ public class LoggingCommand extends Command {
 
         try {
         	out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(s.getOutputStream(), StandardCharsets.UTF_8)), true);
-            InetAddress address= InetAddress.getByName("10.103.56.254");
-            s = new Socket(address, 4444);
+            InetAddress address= InetAddress.getByName("10.1.25.5");
+            s = new Socket(address, 3232);
         } catch (IOException i) {
         	i.printStackTrace();
         }
@@ -49,6 +49,10 @@ public class LoggingCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+		}
        obj.put("DriveTrain Angle",  Robot.dt.getAngleInDegrees());
        obj.put("LeftJoystickY", Robot.oi.getLeftJoystickY());
        obj.put("RightJoysticky", Robot.oi.getRightJoystickY());
