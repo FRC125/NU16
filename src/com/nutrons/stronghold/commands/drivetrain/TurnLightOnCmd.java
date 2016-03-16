@@ -15,7 +15,6 @@ public class TurnLightOnCmd extends Command {
     }
 
     protected void initialize() {
-    	Robot.dt.turnLightOn();
     	Robot.dt.visionLightsOn();
     }
 

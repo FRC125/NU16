@@ -1,6 +1,8 @@
 package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,13 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class WaitForTargetCmd extends Command {
-
+	
+	private Timer timer = new Timer();
+	
     public WaitForTargetCmd() {
     	
     }
 
     protected void initialize() {
-    
+    	timer.reset();
+    	timer.start();
     }
 
     protected void execute() {
@@ -23,11 +28,12 @@ public class WaitForTargetCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return Robot.isTargetSeen();
+        return Robot.isTargetSeen() || timer.get() > 3.0;
     }
 
     protected void end() {
-    
+    	timer.stop();
+    	timer.reset();
     }
 
     protected void interrupted() {

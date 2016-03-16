@@ -3,6 +3,8 @@ package com.nutrons.stronghold.subsystems;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
@@ -13,6 +15,9 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.SPI.Port;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
@@ -28,9 +33,11 @@ public class Drivetrain extends Subsystem {
 	public CANTalon leftDriveB = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_B);
 	public CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
 	public CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
+	
+	public Victor cdfArmMotor = new Victor(RobotMap.CDF_ARM);
     
     // Light
-    private Relay light = new Relay(RobotMap.LIGHT_RELAY);
+    private Relay cdfArm = new Relay(RobotMap.LIGHT_RELAY);
     private DigitalOutput leftDriveLightBack = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_BACK);
     private DigitalOutput leftDriveLightFront = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_FRONT);
     private DigitalOutput rightDriveLightBack = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_BACK);
@@ -38,7 +45,7 @@ public class Drivetrain extends Subsystem {
     private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
     
     // Arduino gyro
-    private Gyro gyro = new AnalogGyro(1);
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     
     // Constants
     public double P_HEADING = 0.025;
@@ -105,6 +112,8 @@ public class Drivetrain extends Subsystem {
     	this.rightDriveB.setPID(0.02, 0.0, 0.08);
     	
     	this.disableBreakMode();
+    	
+    	this.gyro.calibrate();
     }
 	
     public void initDefaultCommand() {
@@ -194,7 +203,7 @@ public class Drivetrain extends Subsystem {
     		this.holdHeading.enable();
     	}
     	this.holdHeading.setSetpoint(0.0);
-    	driveLR((throttle * 0.5) - headingWheel, (throttle * 0.5) + headingWheel);
+    	driveLR((throttle * 0.75) - headingWheel, (throttle * 0.75) + headingWheel);
     }
     
     /**
@@ -206,17 +215,21 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
-     * Turns camera light on
+     * Moves CDF down
      */
-    public void turnLightOn() {
-    	this.light.set(Relay.Value.kForward);
+    public void MoveCDFArmDown() {
+    	this.cdfArmMotor.set(-0.5);
     }
     
     /**
-     * Turns camera light off
+     * Moves CDF up
      */
-    public void turnLightOff() {
-    	this.light.set(Relay.Value.kOff);
+    public void MoveCDFArmUp() {
+    	this.cdfArmMotor.set(0.5);
+    }
+    
+    public void StopCDF() {
+    	this.cdfArmMotor.set(0);
     }
     
     /**

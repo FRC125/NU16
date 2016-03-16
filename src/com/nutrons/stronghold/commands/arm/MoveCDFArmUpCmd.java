@@ -1,36 +1,34 @@
-package com.nutrons.stronghold.commands.drivetrain;
+package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * 
- * @author Camilo Gonzalez
  *
  */
-public class TurnLightOffCmd extends Command {
+public class MoveCDFArmUpCmd extends Command {
 
-    public TurnLightOffCmd() {
+    public MoveCDFArmUpCmd() {
     	requires(Robot.dt);
     }
 
     protected void initialize() {
-    	Robot.dt.visionLightsOff();
+    	Robot.dt.MoveCDFArmUp();
     }
 
     protected void execute() {
-    
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {
- 
+    	Robot.dt.StopCDF();
     }
 
     protected void interrupted() {
-
+    	this.end();
     }
 }

@@ -1,8 +1,8 @@
 package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -10,32 +10,37 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Camilo Gonzalez
  *
  */
-public class MoveArmToIntakePositionCmd extends Command {
+public class MoveArmToHoldSafeModeCmd extends Command {
 
-    public MoveArmToIntakePositionCmd() {
+	private double position;
+	
+    public MoveArmToHoldSafeModeCmd() {
     	requires(Robot.arm);
+    	this.position = -600.0;
     }
 
     protected void initialize() {
-    	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 1);
-    	Robot.arm.arm1.changeControlMode(TalonControlMode.PercentVbus);
+    	Robot.arm.arm1.setFeedbackDevice(FeedbackDevice.QuadEncoder); 
+    	Robot.arm.arm1.reverseSensor(false);
+    	Robot.arm.arm1.changeControlMode(TalonControlMode.Position);
+    	Robot.arm.arm1.set(this.position);
+    	Robot.arm.arm1.setPID(0.95, 0.0, 0.0);
+    	Robot.arm.arm1.configPeakOutputVoltage(12.0, -12.0);
     	Robot.arm.arm2.changeControlMode(TalonControlMode.Follower);
     	Robot.arm.arm2.set(Robot.arm.arm1.getDeviceID());
-    	Robot.arm.arm2.setInverted(true);
+    	Robot.arm.arm1.enable();
     }
 
     protected void execute() {
-    	Robot.arm.driveArm(0.4);
+    	
     }
 
     protected boolean isFinished() {
-        return Robot.arm.isZeroButtonPressed();
+        return true;
     }
 
     protected void end() {
-    	Robot.arm.arm1.set(0);
-    	Robot.arm.zeroArm();
-    	Robot.oi.driverPad.setRumble(RumbleType.kLeftRumble, 0);
+    	
     }
 
     protected void interrupted() {
