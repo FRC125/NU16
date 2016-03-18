@@ -47,7 +47,9 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
+	public static volatile double gripY = 0.0;
 	public static volatile double[] centerXArray;
+	public static volatile double[] centerYArray;
 	private static volatile double[] gripAreaArray;
 	public static volatile double lastUsedAngle = 0.0;
 	
@@ -201,8 +203,11 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
+    	SmartDashboard.putNumber("AngeToTurnAimWithOffset", getAngle() +2.0);
+    	SmartDashboard.putNumber("DistanceToTarget", getDistanceToTarget());
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
+    	SmartDashboard.putNumber("gripY", Robot.gripY);
     }
     
     public static double getCameraAngleFromBeaglebone() {
@@ -211,6 +216,7 @@ public class Robot extends IterativeRobot {
     
     private void updateGripNetwork() {
     	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+    	Robot.centerYArray = grip.getSubTable("myContoursReport").getNumberArray("centerY", DUMMY);
         Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
         // Prevents RoboRIO from using two different frames of data
         if(Robot.centerXArray.length!=Robot.gripAreaArray.length){
@@ -228,8 +234,10 @@ public class Robot extends IterativeRobot {
         		}
         	}
         	Robot.gripX = Robot.centerXArray[maxIndex];
+        	Robot.gripY = Robot.centerYArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
+        	Robot.gripY = 0.0;
         }
     }
     
@@ -239,6 +247,13 @@ public class Robot extends IterativeRobot {
         return (x)*slope+intercept;
     }
     
+    public static double getDistanceToTarget(){
+    	double centerY = Robot.gripY;
+    	double slope = 0.031814;
+    	double yIntercept = 1.872;
+    	
+    	return (slope*centerY) + yIntercept;
+    }
     
     public static double getAngle(){
     	return Robot.getAngle(Robot.gripX);
