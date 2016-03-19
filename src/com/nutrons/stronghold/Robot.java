@@ -233,18 +233,11 @@ public class Robot extends IterativeRobot {
         }
     }
     
-    public static double getAngle(double x){
-    	double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
-        double intercept = -RobotMap.CAMERA_FOV/2;
-        return (x)*slope+intercept;
-    }
-    
-    
     public static double getAngle(){
-    	return Robot.getAngle(Robot.gripX);
+    	return AngleCalculator.getHorizontalCameraAngle(Robot.gripX);
     }
     
     public static boolean isTargetSeen() {
-    	return Math.abs(getAngle()) != RobotMap.GRIP_IGNORE_VALUE;
+    	return AngleCalculator.isTargetSeen(Robot.gripX);
     }
 }
