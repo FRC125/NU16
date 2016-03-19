@@ -61,9 +61,13 @@ public class AngleCalculator {
      * @param cameraXAngle horizontal angle to the target from the camera
      * @return the Robot's distance to the target
      */
-    private static double getRobotDist(double cameraDistance, double cameraXAngle){
-    	double angle = 90 + cameraXAngle;
-    	return Math.sqrt(Math.pow(RobotMap.CAMERA_X_OFFSET,2)+Math.pow(cameraDistance,2)-(2*RobotMap.CAMERA_X_OFFSET*cameraDistance*Math.cos(Math.toRadians(angle))));
+	@SuppressWarnings("unused")
+	private static double getRobotDist(double cameraDistance, double cameraXAngle){
+		double angle = 90 + ((RobotMap.CAMERA_X_OFFSET > 0) ? cameraXAngle : -cameraXAngle);
+    	if(RobotMap.CAMERA_X_OFFSET == 0.0){
+    		return cameraDistance;
+    	}
+    	return Math.sqrt(Math.pow(RobotMap.CAMERA_X_OFFSET,2)+Math.pow(cameraDistance,2)-(2*Math.abs(RobotMap.CAMERA_X_OFFSET)*cameraDistance*Math.cos(Math.toRadians(angle))));
     }
     
     public static void main(String[] args){
