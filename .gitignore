@@ -6,4 +6,6 @@ build/*
 dist/*
 
 .settings
+.classpath
+
 /bin/
