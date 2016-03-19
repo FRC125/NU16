@@ -45,8 +45,6 @@ public class RobotMap {
 	public static final int LIGHT_RELAY = 3;
 
 	// Robot and Field Dimensions
-	//public static final double TARGET_HEIGHT = 85 /* high goal base height */ + 7 /* half of reflective target's height */;
-	public static final double TARGET_HEIGHT = 90.0;
 	public static final double TARGET_WIDTH = 20.0;
 	// Camera and GRIP
 	public static final double CAMERA_PIXEL_WIDTH = 640.0;
@@ -54,9 +52,7 @@ public class RobotMap {
 	public static final double CAMERA_FOV = 54.0;
 	public static final double CAMERA_VERTICAL_FOV = CAMERA_FOV * CAMERA_PIXEL_HEIGHT / CAMERA_PIXEL_WIDTH;
 	public static final double GRIP_IGNORE_VALUE = AngleCalculator.getHorizontalCameraAngle(0);
-	public static final double MOUNT_ANGLE = 23.0;
 	
 	public static final double CAMERA_X_OFFSET = -8.0;
 	public static final double CAMERA_Y_OFFSET = 0;
-	public static final double CAMERA_Z_OFFSET = 38.0;
 }
