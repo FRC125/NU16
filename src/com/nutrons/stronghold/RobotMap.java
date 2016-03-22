@@ -53,6 +53,6 @@ public class RobotMap {
 	public static final double CAMERA_VERTICAL_FOV = CAMERA_FOV * CAMERA_PIXEL_HEIGHT / CAMERA_PIXEL_WIDTH;
 	public static final double GRIP_IGNORE_VALUE = AngleCalculator.getHorizontalCameraAngle(0);
 	
-	public static final double CAMERA_X_OFFSET = -8.0;
+	public static final double CAMERA_X_OFFSET = -7.0;
 	public static final double CAMERA_Y_OFFSET = 0;
 }

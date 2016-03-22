@@ -15,9 +15,12 @@ import com.nutrons.stronghold.commands.intake.OpenJawCmd;
 import com.nutrons.stronghold.commands.intake.SpitRollersCmd;
 import com.nutrons.stronghold.commands.intake.StopRollersCmd;
 import com.nutrons.stronghold.commands.intake.SuckRollersCmd;
+import com.nutrons.stronghold.commands.shooter.FireBall;
 import com.nutrons.stronghold.commands.shooter.FireBallCmd;
 import com.nutrons.stronghold.commands.shooter.RetractShooterAndJaw;
 import com.nutrons.stronghold.commands.shooter.RetractShooterCmd;
+import com.nutrons.stronghold.commands.shooter.Shoot;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -56,7 +59,7 @@ public class OI {
 		this.openJawButton.whenPressed(new OpenJawCmd());
 		this.closeJawButton.whenPressed(new RetractShooterAndJaw());
 		
-		this.fireButton.whenPressed(new FireBallCmd());
+		this.fireButton.whenPressed(new FireBall());
 		this.retractShooterButton.whenPressed(new RetractShooterCmd());
 		
 		this.spitBallButton.whenPressed(new SpitRollersCmd());
@@ -72,8 +75,7 @@ public class OI {
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
 		
-		this.lightButton.whenPressed(new TurnLightOnCmd());
-		this.lightButton.whenReleased(new TurnLightOffCmd());
+		this.lightButton.whenPressed(new Shoot());
 		
 		this.aim.whenPressed(new Aim());
 	}
