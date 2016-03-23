@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
         chooser.addObject("Do nothing", new DoNothingAuto());
         chooser.addObject("Safe drive auto", new SafeDriveAuto());
+        chooser.addObject("Drive 5ft PID TEST", new DriveDistancePIDCmd(5));
         
         SmartDashboard.putData("Auto mode", chooser);
         

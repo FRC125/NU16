@@ -2,32 +2,32 @@ package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
 
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
- * @author Asher
+ * @author Asher, Camilo Gonzalez
  *
  */
 public class DriveDistancePIDCmd extends Command {
 
 	private double distance;
-	private double tolarence;
 	
 	private Timer timer = new Timer();
 	
-    public DriveDistancePIDCmd(double distance, double tolarence) {
+    public DriveDistancePIDCmd(double distance) {
         requires(Robot.dt);
         this.distance = distance;
-        this.tolarence = tolarence;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	this.timer.reset();
     	this.timer.start();
+    	
     	Robot.dt.resetEncoders();
     	Robot.dt.resetGyro();
     	
@@ -39,23 +39,24 @@ public class DriveDistancePIDCmd extends Command {
     	Robot.dt.rightDriveA.changeControlMode(TalonControlMode.Follower);
     	Robot.dt.rightDriveA.set(Robot.dt.rightDriveB.getDeviceID());
     	
-    	/*
-    	Robot.dt.driveDistance.setInputRange(-this.distance, this.distance * 1.5);
+    	Robot.dt.rightDriveB.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+    	
+    	Robot.dt.driveDistance.setInputRange(-this.distance * 1.5, this.distance * 1.5);
     	Robot.dt.driveDistance.setOutputRange(-1.0, 1.0);
     	Robot.dt.driveDistance.setAbsoluteTolerance(2.0);
     	Robot.dt.driveDistance.setSetpoint(this.distance);
     	Robot.dt.driveDistance.enable();
-    	*/
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.dt.driveHoldingHeading(1.0);
+    	//Robot.dt.driveHoldingHeading(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return  timer.get() > 4.0;
+        return  false;
     }
 
     // Called once after isFinished returns true
