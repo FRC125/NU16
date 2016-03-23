@@ -1,8 +1,5 @@
-package com.nutrons.stronghold.commands.drivetrain.auto;
+package com.nutrons.stronghold.commands.drivetrain;
 
-import com.nutrons.stronghold.commands.drivetrain.AimCmd;
-import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
-import com.nutrons.stronghold.commands.drivetrain.WaitForTargetCmd;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

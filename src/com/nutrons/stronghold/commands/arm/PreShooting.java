@@ -1,6 +1,6 @@
 package com.nutrons.stronghold.commands.arm;
 
-import com.nutrons.stronghold.commands.drivetrain.auto.Aim;
+import com.nutrons.stronghold.commands.drivetrain.Aim;
 import com.nutrons.stronghold.commands.intake.OpenJawCmd;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

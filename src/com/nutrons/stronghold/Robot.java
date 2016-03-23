@@ -9,12 +9,9 @@ import java.io.IOException;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
-import com.nutrons.stronghold.autos.LowBarOneBallAuto;
 import com.nutrons.stronghold.autos.SafeDriveAuto;
 import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
-import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
-import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -72,8 +69,6 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
         chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
-        chooser.addObject("One ball auto", new LowBarOneBallAuto());
-        chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
         chooser.addObject("Do nothing", new DoNothingAuto());
         chooser.addObject("Safe drive auto", new SafeDriveAuto());
         

@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SafeDriveAuto extends CommandGroup {
     
     public  SafeDriveAuto() {
-    	addSequential(new DriveDistanceTimePIDCmd(0.25));
+    	addParallel(new DriveDistanceTimePIDCmd(0.25));
     	addSequential(new MoveArmToIntakePositionCmd());
+    	
     	addSequential(new MoveArmToHoldSafeModeCmd());
     	addSequential(new DriveDistanceTimePIDCmd(2.5));
     	
