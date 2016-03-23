@@ -47,7 +47,9 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
+	public static volatile double gripWidth = 0.0;
 	public static volatile double[] centerXArray;
+	public static volatile double[] widthArray;
 	private static volatile double[] gripAreaArray;
 	public static volatile double lastUsedAngle = 0.0;
 	
@@ -200,7 +202,9 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("turnError", this.dt.turnToAngle.getError());
     	SmartDashboard.putBoolean("isTurnEnable", this.dt.turnToAngle.isEnable());
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
-    	SmartDashboard.putNumber("AngeToTurnAim", getAngle());
+    	
+    	SmartDashboard.putNumber("AngleToTurnAim", AngleCalculator.getHorizontalCameraAngle(Robot.gripX));
+    	SmartDashboard.putNumber("AngleToTurnAimRobot", getAngle());
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
     }
@@ -211,9 +215,10 @@ public class Robot extends IterativeRobot {
     
     private void updateGripNetwork() {
     	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
+    	Robot.widthArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
         Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
         // Prevents RoboRIO from using two different frames of data
-        if(Robot.centerXArray.length!=Robot.gripAreaArray.length){
+        if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.widthArray.length!=Robot.gripAreaArray.length){
         	//this.updateGripNetwork();
         	return;
         }
@@ -228,23 +233,18 @@ public class Robot extends IterativeRobot {
         		}
         	}
         	Robot.gripX = Robot.centerXArray[maxIndex];
+        	Robot.gripWidth = Robot.widthArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
+        	Robot.gripWidth = 0.0;
         }
     }
     
-    public static double getAngle(double x){
-    	double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
-        double intercept = -RobotMap.CAMERA_FOV/2;
-        return (x)*slope+intercept;
-    }
-    
-    
     public static double getAngle(){
-    	return Robot.getAngle(Robot.gripX);
+    	return AngleCalculator.getHorizontalAngle(Robot.gripWidth, Robot.gripX);
     }
     
     public static boolean isTargetSeen() {
-    	return Math.abs(getAngle()) != RobotMap.GRIP_IGNORE_VALUE;
+    	return AngleCalculator.isTargetSeen(Robot.gripX);
     }
 }

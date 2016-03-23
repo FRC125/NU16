@@ -12,9 +12,11 @@ public class FireBallCmd extends Command {
 
     public FireBallCmd() {
         requires(Robot.shooter);
+        requires(Robot.intake);
     }
 
     protected void initialize() {
+    	Robot.intake.closeJaw();
     	Robot.shooter.fireShooter();
     }
 

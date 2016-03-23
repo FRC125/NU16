@@ -6,7 +6,7 @@ package com.nutrons.stronghold;
  *
  */
 public class RobotMap {
-    
+
 	// CAN
 	public static final int LEFT_DRIVE_MOTOR_A = 4;
 	public static final int LEFT_DRIVE_MOTOR_B = 5;
@@ -43,9 +43,16 @@ public class RobotMap {
 	
 	// Relays
 	public static final int LIGHT_RELAY = 3;
-	
+
+	// Robot and Field Dimensions
+	public static final double TARGET_WIDTH = 14.0;
+	// Camera and GRIP
 	public static final double CAMERA_PIXEL_WIDTH = 640.0;
+	public static final double CAMERA_PIXEL_HEIGHT = 480.0;
 	public static final double CAMERA_FOV = 54.0;
-	public static final double GRIP_X_OFFSET = 25.0;
-	public static final double GRIP_IGNORE_VALUE = Robot.getAngle(0);
+	public static final double CAMERA_VERTICAL_FOV = CAMERA_FOV * CAMERA_PIXEL_HEIGHT / CAMERA_PIXEL_WIDTH;
+	public static final double GRIP_IGNORE_VALUE = AngleCalculator.getHorizontalCameraAngle(0);
+	
+	public static final double CAMERA_X_OFFSET = -7.0;
+	public static final double CAMERA_Y_OFFSET = 0;
 }
