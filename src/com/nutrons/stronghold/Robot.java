@@ -47,9 +47,9 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
-	public static volatile double gripWidth = 0.0;
+	public static volatile double gripHeight = 0.0;
 	public static volatile double[] centerXArray;
-	public static volatile double[] widthArray;
+	public static volatile double[] heightArray;
 	private static volatile double[] gripAreaArray;
 	public static volatile double lastUsedAngle = 0.0;
 	
@@ -215,10 +215,10 @@ public class Robot extends IterativeRobot {
     
     private void updateGripNetwork() {
     	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
-    	Robot.widthArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
+    	Robot.heightArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
         Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
         // Prevents RoboRIO from using two different frames of data
-        if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.widthArray.length!=Robot.gripAreaArray.length){
+        if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.heightArray.length!=Robot.gripAreaArray.length){
         	//this.updateGripNetwork();
         	return;
         }
@@ -233,15 +233,15 @@ public class Robot extends IterativeRobot {
         		}
         	}
         	Robot.gripX = Robot.centerXArray[maxIndex];
-        	Robot.gripWidth = Robot.widthArray[maxIndex];
+        	Robot.gripHeight = Robot.heightArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
-        	Robot.gripWidth = 0.0;
+        	Robot.gripHeight = 0.0;
         }
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalAngle(Robot.gripWidth, Robot.gripX);
+    	return AngleCalculator.getHorizontalAngle(Robot.gripHeight, Robot.gripX);
     }
     
     public static boolean isTargetSeen() {
