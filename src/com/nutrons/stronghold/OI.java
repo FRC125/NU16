@@ -4,9 +4,9 @@ import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.ChangeArmSetpointCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
-import com.nutrons.stronghold.commands.arm.MoveArmToShootingPosition;
 import com.nutrons.stronghold.commands.arm.MoveCDFArmDownCmd;
 import com.nutrons.stronghold.commands.arm.MoveCDFArmUpCmd;
+import com.nutrons.stronghold.commands.arm.PreShooting;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
@@ -16,12 +16,9 @@ import com.nutrons.stronghold.commands.intake.OpenJawCmd;
 import com.nutrons.stronghold.commands.intake.SpitRollersCmd;
 import com.nutrons.stronghold.commands.intake.StopRollersCmd;
 import com.nutrons.stronghold.commands.intake.SuckRollersCmd;
-import com.nutrons.stronghold.commands.shooter.FireBall;
 import com.nutrons.stronghold.commands.shooter.FireBallCmd;
 import com.nutrons.stronghold.commands.shooter.RetractShooterAndJaw;
 import com.nutrons.stronghold.commands.shooter.RetractShooterCmd;
-import com.nutrons.stronghold.commands.shooter.Shoot;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,8 +36,11 @@ public class OI {
 	
 	// Buttons driver
 	private Button quickTurnButton = new JoystickButton(this.driverPad, 7);
-	private Button fastDrivingModeButton = new JoystickButton(driverPad, 6);
+	private Button fastDrivingModeButton = new JoystickButton(driverPad, 5);
+	private Button holdHeadingModeButton = new JoystickButton(driverPad, 1);
+	private Button invertButton = new JoystickButton(driverPad, 6);
 	private Button cdfDown = new JoystickButton(driverPad, 2);
+	private Button cdfUp = new JoystickButton(driverPad, 4);
 	
 	// Buttons operator
 	private Button openJawButton = new JoystickButton(this.operatorPad, 8);
@@ -57,10 +57,12 @@ public class OI {
 	private Button aim = new JoystickButton(this.operatorPad, 11);
 	
 	public OI() {
+		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
+		
 		this.openJawButton.whenPressed(new OpenJawCmd());
 		this.closeJawButton.whenPressed(new RetractShooterAndJaw());
 		
-		this.fireButton.whenPressed(new FireBall());
+		this.fireButton.whenPressed(new FireBallCmd());
 		this.retractShooterButton.whenPressed(new RetractShooterCmd());
 		
 		this.spitBallButton.whenPressed(new SpitRollersCmd());
@@ -76,9 +78,12 @@ public class OI {
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
 		
-		this.lightButton.whenPressed(new MoveArmToShootingPosition());
+		this.lightButton.whenPressed(new PreShooting());
 		
 		this.aim.whenPressed(new Aim());
+		
+		cdfDown.whileHeld(new MoveCDFArmDownCmd());
+		cdfUp.whileHeld(new MoveCDFArmUpCmd());
 	}
 	
 	public double getLeftJoystickY() {
@@ -106,14 +111,10 @@ public class OI {
 	}
 	
 	public boolean getHoldHeadingMode() {
-		return Math.abs(this.driverPad.getRawAxis(3)) > 0.9;
+		return this.holdHeadingModeButton.get();
 	}
 	
-	public boolean getCDFUpButton() {
-		return Math.abs(this.driverPad.getRawAxis(2)) > 0.9;
-	}
-	
-	public boolean getCDFDownButton() {
-		return this.cdfDown.get();
+	public boolean getInvertButton() {
+		return this.invertButton.get();
 	}
 }

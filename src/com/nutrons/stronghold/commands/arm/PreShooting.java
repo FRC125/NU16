@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class MoveArmToShootingPosition extends CommandGroup {
+public class PreShooting extends CommandGroup {
     
-    public  MoveArmToShootingPosition() {
+    public  PreShooting() {
     	addParallel(new OpenJawAfterDelay());
     	addSequential(new MoveArmToPositionWithTimeoutCmd(-1800.0));
     	addSequential(new Aim());
