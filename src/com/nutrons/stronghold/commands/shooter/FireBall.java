@@ -11,5 +11,7 @@ public class FireBall extends CommandGroup {
 		addSequential(new CloseJawCmd());
 		addSequential(new WaitCommand(0.1));
 		addSequential(new FireBallCmd());
+		addSequential(new WaitCommand(1));
+		addSequential(new RetractShooterCmd());
 	}
 }

@@ -36,7 +36,7 @@ public class MoveArmToPositionCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+    	return false;
     }
 
     protected void end() {

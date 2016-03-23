@@ -40,7 +40,7 @@ public class MoveArmToPositionWithTimeoutCmd extends Command {
     }
 
     protected boolean isFinished() {
-        return this.timer.get() > 3.0;
+        return this.timer.get() > 1.5;
     }
 
     protected void end() {

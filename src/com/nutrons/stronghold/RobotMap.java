@@ -45,7 +45,7 @@ public class RobotMap {
 	public static final int LIGHT_RELAY = 3;
 
 	// Robot and Field Dimensions
-	public static final double TARGET_WIDTH = 20.0;
+	public static final double TARGET_WIDTH = 14.0;
 	// Camera and GRIP
 	public static final double CAMERA_PIXEL_WIDTH = 640.0;
 	public static final double CAMERA_PIXEL_HEIGHT = 480.0;

@@ -215,7 +215,7 @@ public class Robot extends IterativeRobot {
     
     private void updateGripNetwork() {
     	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
-    	Robot.widthArray = grip.getSubTable("myContoursReport").getNumberArray("width", DUMMY);
+    	Robot.widthArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
         Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
         // Prevents RoboRIO from using two different frames of data
         if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.widthArray.length!=Robot.gripAreaArray.length){
