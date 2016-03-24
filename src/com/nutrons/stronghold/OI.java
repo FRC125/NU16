@@ -2,6 +2,7 @@ package com.nutrons.stronghold;
 
 import com.nutrons.lib.Utils;
 import com.nutrons.stronghold.commands.arm.ChangeArmSetpointCmd;
+import com.nutrons.stronghold.commands.arm.MoveArmToIntakePosition;
 import com.nutrons.stronghold.commands.arm.MoveArmToIntakePositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveArmToShootingPosition;
@@ -71,7 +72,7 @@ public class OI {
 		
 		this.zeroArmButton.whenPressed(new ZeroArmCmd());
 		
-		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
+		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePosition());
 		
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));

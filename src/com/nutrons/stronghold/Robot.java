@@ -10,6 +10,7 @@ import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.autos.LowBarOneBallAuto;
+import com.nutrons.stronghold.autos.OneBallAuto;
 import com.nutrons.stronghold.autos.SafeDriveAuto;
 import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -71,11 +72,11 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
-        chooser.addObject("One ball auto", new LowBarOneBallAuto());
-        chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
-        chooser.addObject("Do nothing", new DoNothingAuto());
-        chooser.addObject("Safe drive auto", new SafeDriveAuto());
+        chooser.addDefault("auto", new OneBallAuto());
+        //chooser.addObject("One ball auto", new LowBarOneBallAuto());
+        //chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
+        //chooser.addObject("Do nothing", new DoNothingAuto());
+        //chooser.addObject("Safe drive auto", new SafeDriveAuto());
         
         SmartDashboard.putData("Auto mode", chooser);
         

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class FireBall extends CommandGroup {
 	public FireBall(){
 		addSequential(new CloseJawCmd());
-		addSequential(new WaitCommand(0.1));
+		addSequential(new WaitCommand(0.2));
 		addSequential(new FireBallCmd());
 		addSequential(new WaitCommand(1));
 		addSequential(new RetractShooterCmd());
