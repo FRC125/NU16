@@ -48,10 +48,12 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
-	public static volatile double gripWidth = 0.0;
+	public static volatile double gripY = 0.0;
+	public static volatile double gripHeight = 0.0;
 	public static volatile double[] centerXArray;
-	public static volatile double[] widthArray;
-	private static volatile double[] gripAreaArray;
+	public static volatile double[] centerYArray;
+	public static volatile double[] heightArray;
+	public static volatile double[] gripAreaArray;
 	public static volatile double lastUsedAngle = 0.0;
 	
 	// Grip network
@@ -206,6 +208,7 @@ public class Robot extends IterativeRobot {
     	
     	SmartDashboard.putNumber("AngleToTurnAim", AngleCalculator.getHorizontalCameraAngle(Robot.gripX));
     	SmartDashboard.putNumber("AngleToTurnAimRobot", getAngle());
+    	SmartDashboard.putNumber("AngleToTurnAimRobotUsingYPos", AngleCalculator.getHorizontalAngleUsingYPos(this.gripX, this.gripY));
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
     }
@@ -214,12 +217,25 @@ public class Robot extends IterativeRobot {
     	return cameraAngle;
     }
     
+    private boolean sameSize(double[][] arrays){
+    	if(arrays.length==0)
+    		return false;
+    	int length = arrays[0].length;
+    	for(double array[] : arrays){
+    		if(array.length!=length)
+    			return false;
+    	}
+    	return true;
+    }
+    
     private void updateGripNetwork() {
-    	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
-    	Robot.widthArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
-        Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
+    	Robot.centerXArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("centerX", DUMMY);
+    	Robot.centerYArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("centerY", DUMMY);
+    	Robot.heightArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("height", DUMMY);
+        Robot.gripAreaArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("area", DUMMY);
+    
         // Prevents RoboRIO from using two different frames of data
-        if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.widthArray.length!=Robot.gripAreaArray.length){
+        if(!sameSize(new double[][]{Robot.centerXArray,Robot.centerYArray,Robot.heightArray,Robot.gripAreaArray})){
         	//this.updateGripNetwork();
         	return;
         }
@@ -234,15 +250,18 @@ public class Robot extends IterativeRobot {
         		}
         	}
         	Robot.gripX = Robot.centerXArray[maxIndex];
-        	Robot.gripWidth = Robot.widthArray[maxIndex];
+        	Robot.gripY = Robot.centerYArray[maxIndex];
+        	Robot.gripHeight = Robot.heightArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
-        	Robot.gripWidth = 0.0;
+        	Robot.gripY = 0.0;
+        	Robot.gripHeight = 0.0;
+        	
         }
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalAngle(Robot.gripWidth, Robot.gripX);
+    	return AngleCalculator.getHorizontalAngle(Robot.gripHeight, Robot.gripX);
     }
     
     public static boolean isTargetSeen() {
