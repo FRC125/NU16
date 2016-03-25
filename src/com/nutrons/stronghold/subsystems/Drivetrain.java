@@ -64,7 +64,7 @@ public class Drivetrain extends Subsystem {
     
     private PIDController holdHeading = new PIDController(this.P_HEADING, this.I_HEADING, this.D_HEADING, new GyroWrapper(), new HoldHeadingOutput());
     public PIDController turnToAngle = new PIDController(this.P_TURN, this.I_TURN, this.D_TURN, new GyroWrapper(), new TurnToAngleOutput());
-    public PIDController aimShot = new PIDController(0.02, 0.0, 0.0, new GyroWrapper(), new AimShotOutput());
+    public PIDController aimShot = new PIDController(0.04, 0.01, 0.1, new GyroWrapper(), new AimShotOutput());
     public PIDController driveDistance = new PIDController(0.001, 0.0, 0.0, new EncoderWrapper(), new DriveDistancePIDOutput());
     
     public Drivetrain() {

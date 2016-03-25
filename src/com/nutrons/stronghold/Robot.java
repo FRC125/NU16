@@ -74,11 +74,9 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("auto", new OneBallAuto());
-        //chooser.addObject("One ball auto", new LowBarOneBallAuto());
-        //chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
-        //chooser.addObject("Do nothing", new DoNothingAuto());
-        //chooser.addObject("Safe drive auto", new SafeDriveAuto());
+        chooser.addDefault("One ball auto - 20 degrees to right", new OneBallAuto());
+        chooser.addObject("Do nothing", new DoNothingAuto());
+        chooser.addObject("Safe drive auto", new SafeDriveAuto());
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -249,9 +247,13 @@ public class Robot extends IterativeRobot {
         			maxIndex = i;
         		}
         	}
-        	Robot.gripX = Robot.centerXArray[maxIndex];
-        	Robot.gripY = Robot.centerYArray[maxIndex];
-        	Robot.gripHeight = Robot.heightArray[maxIndex];
+        	try {
+        		Robot.gripX = Robot.centerXArray[maxIndex];
+        		Robot.gripY = Robot.centerYArray[maxIndex];
+        		Robot.gripHeight = Robot.heightArray[maxIndex];
+        	}catch(Exception e) {
+        		System.out.println("Vision failed epically. We are back online");
+        	}
         }else {
         	Robot.gripX = 0.0;
         	Robot.gripY = 0.0;
@@ -261,7 +263,7 @@ public class Robot extends IterativeRobot {
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalAngle(Robot.gripHeight, Robot.gripX);
+    	return AngleCalculator.getHorizontalCameraAngle(Robot.gripX);
     }
     
     public static boolean isTargetSeen() {

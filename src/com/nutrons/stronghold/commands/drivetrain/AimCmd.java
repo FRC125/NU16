@@ -30,7 +30,7 @@ public class AimCmd extends Command {
 	    	Robot.dt.aimShot.setOutputRange(-1.0, 1.0);
 	    	Robot.dt.aimShot.setAbsoluteTolerance(1.0);
 	    	Robot.dt.aimShot.setContinuous();
-	    	Robot.dt.aimShot.setPID(0.05, 0.01, 0.1);
+	    	Robot.dt.aimShot.setPID(0.04, 0.01, 0.1);
 	    	Robot.dt.aimShot.enable();
     	}
     	timer.reset();
