@@ -56,10 +56,6 @@ public class AngleCalculator {
         return y*slope+intercept;
     }
 	
-	public static boolean isTargetSeen(double x) {
-		return Math.abs(getHorizontalCameraAngle(x)) != RobotMap.GRIP_IGNORE_VALUE;
-	}
-	
 
     /**
      * @param yAngle angle from the horizontal plane to the target

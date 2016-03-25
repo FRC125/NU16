@@ -55,6 +55,8 @@ public class Robot extends IterativeRobot {
 	public static volatile double[] heightArray;
 	public static volatile double[] gripAreaArray;
 	public static volatile double lastUsedAngle = 0.0;
+
+	private static volatile boolean isSeen = false;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
@@ -261,10 +263,13 @@ public class Robot extends IterativeRobot {
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalAngle(Robot.gripHeight, Robot.gripX);
+    	double tempHeight = Robot.gripHeight;
+    	double tempX = Robot.gripX;
+    	Robot.isSeen = tempHeight != 0.0 && tempX != 0.0;
+    	return AngleCalculator.getHorizontalAngle(tempHeight, tempX);
     }
     
     public static boolean isTargetSeen() {
-    	return AngleCalculator.isTargetSeen(Robot.gripX);
+    	return Robot.isSeen;
     }
 }

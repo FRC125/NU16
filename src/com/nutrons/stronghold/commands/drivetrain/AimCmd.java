@@ -22,7 +22,7 @@ public class AimCmd extends Command {
     protected void initialize() {
     	angle =  Robot.getAngle();
     	
-    	if(this.angle != -27.0) {
+    	if(Robot.isTargetSeen()) {
 	    	Robot.dt.resetGyro();
 	    	Robot.dt.aimShot.reset();
 	    	Robot.dt.aimShot.setSetpoint(this.angle);
