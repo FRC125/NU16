@@ -14,12 +14,11 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class LowBarOneBallAuto extends CommandGroup {
+public class RockWallNoAngleOneBallAuto extends CommandGroup {
     
-    public  LowBarOneBallAuto() {
+    public  RockWallNoAngleOneBallAuto() {
     	
     	addSequential(new LowBarSafeDriveAuto());
-    	addSequential(new TurnToAngleCmd(60.0));
     	addSequential(new WaitCommand(0.25));
     	addSequential(new MoveArmToShootingPosition());
     	addSequential(new WaitCommand(0.25));

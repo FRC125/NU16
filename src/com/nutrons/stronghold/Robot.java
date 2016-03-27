@@ -11,6 +11,12 @@ import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.autos.LowBarOneBallAuto;
 import com.nutrons.stronghold.autos.OneBallAuto;
+import com.nutrons.stronghold.autos.OneBallLeft30Auto;
+import com.nutrons.stronghold.autos.OneBallLeft30FarAuto;
+import com.nutrons.stronghold.autos.OneBallLeft30ShortAuto;
+import com.nutrons.stronghold.autos.OneBallNoDegreeCloseAuto;
+import com.nutrons.stronghold.autos.OneBallShortAuto;
+import com.nutrons.stronghold.autos.RockWallNoAngleOneBallAuto;
 import com.nutrons.stronghold.autos.SafeDriveAuto;
 import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -74,7 +80,14 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("One ball auto - 20 degrees to right", new OneBallAuto());
+        chooser.addDefault("One ball auto - 30 degrees to right - regular", new OneBallAuto());
+        chooser.addObject("One ball auto - no degree - far", new RockWallNoAngleOneBallAuto());
+        chooser.addObject("One ball auto - no degree - regular", new OneBallNoDegreeCloseAuto());
+        chooser.addObject("One ball auto - 60 degree to right - far - low bar", new LowBarOneBallAuto());
+        chooser.addObject("One ball auto - 30 degrees to left - regular", new OneBallLeft30Auto());
+        chooser.addObject("One ball auto - 30 degrees to left - far", new OneBallLeft30FarAuto());
+        chooser.addObject("One ball auto - 30 degrees to left - short", new OneBallLeft30ShortAuto());
+        chooser.addDefault("One ball auto - 30 degrees to right - short", new OneBallShortAuto());
         chooser.addObject("Do nothing", new DoNothingAuto());
         chooser.addObject("Safe drive auto", new SafeDriveAuto());
         

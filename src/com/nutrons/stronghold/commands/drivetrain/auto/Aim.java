@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Aim extends CommandGroup {
     
     public  Aim() {
-    	addSequential(new TurnLightOnCmd()); 
     	addSequential(new WaitForTargetCmd());
     	addSequential(new AimCmd());
     }

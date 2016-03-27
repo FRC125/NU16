@@ -165,13 +165,14 @@ public class Drivetrain extends Subsystem {
         double coeff = 1.0;
     	double invert = 1.0;
     	
-    	// Controls CDF Arm. Sketchy AF thanks to Badr's request
-    	if(Robot.oi.getCDFUpButton()) {
-    		this.MoveCDFArmUp();
-    	}else if(Robot.oi.getCDFDownButton()) {
-    		this.MoveCDFArmDown();
+    	if(Robot.oi.getInvertButton()){
+    		invert = -1.0;
+    		
+    		this.frontDriveLightsOff();
+    		this.backDriveLightsOn();
     	}else {
-    		this.StopCDF();
+    		this.frontDriveLightsOn();
+    		this.backDriveLightsOff();
     	}
         
         if(Robot.oi.getSlowDrivingMode()) coeff = 0.7;
@@ -181,7 +182,6 @@ public class Drivetrain extends Subsystem {
         }
         
         if(holdHeading) {
-        	this.resetGyro();
         	if(!this.holdHeading.isEnabled()) this.holdHeading.enable();
         	this.holdHeading.setSetpoint(0.0);
         	driveLR((throttle * 0.5 * invert) - (headingWheel * invert), (throttle * 0.5 * invert) + (headingWheel * invert));
