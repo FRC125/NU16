@@ -10,6 +10,7 @@ import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.autos.LowBarOneBallAuto;
+import com.nutrons.stronghold.autos.OneBallAuto;
 import com.nutrons.stronghold.autos.SafeDriveAuto;
 import com.nutrons.stronghold.commands.drivetrain.DoNothingAuto;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
@@ -47,11 +48,22 @@ public class Robot extends IterativeRobot {
 	// From server
 	private static double cameraAngle = 5000.0;
 	public static volatile double gripX = 0.0;
+<<<<<<< HEAD
 	public static volatile double gripHeight = 0.0;
 	public static volatile double[] centerXArray;
 	public static volatile double[] heightArray;
 	private static volatile double[] gripAreaArray;
+=======
+	public static volatile double gripY = 0.0;
+	public static volatile double gripHeight = 0.0;
+	public static volatile double[] centerXArray;
+	public static volatile double[] centerYArray;
+	public static volatile double[] heightArray;
+	public static volatile double[] gripAreaArray;
+>>>>>>> a17ac69f42d9661be989763c1db37811b6704672
 	public static volatile double lastUsedAngle = 0.0;
+
+	private static volatile boolean isSeen = false;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
@@ -71,11 +83,11 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
-        chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
-        chooser.addObject("One ball auto", new LowBarOneBallAuto());
-        chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
-        chooser.addObject("Do nothing", new DoNothingAuto());
-        chooser.addObject("Safe drive auto", new SafeDriveAuto());
+        chooser.addDefault("auto", new OneBallAuto());
+        //chooser.addObject("One ball auto", new LowBarOneBallAuto());
+        //chooser.addObject("Drive only", new DriveDistancePIDCmd(10.0, 2.0));
+        //chooser.addObject("Do nothing", new DoNothingAuto());
+        //chooser.addObject("Safe drive auto", new SafeDriveAuto());
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -205,6 +217,7 @@ public class Robot extends IterativeRobot {
     	
     	SmartDashboard.putNumber("AngleToTurnAim", AngleCalculator.getHorizontalCameraAngle(Robot.gripX));
     	SmartDashboard.putNumber("AngleToTurnAimRobot", getAngle());
+    	SmartDashboard.putNumber("AngleToTurnAimRobotUsingYPos", AngleCalculator.getHorizontalAngleUsingYPos(this.gripX, this.gripY));
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
     }
@@ -213,12 +226,25 @@ public class Robot extends IterativeRobot {
     	return cameraAngle;
     }
     
+    private boolean sameSize(double[][] arrays){
+    	if(arrays.length==0)
+    		return false;
+    	int length = arrays[0].length;
+    	for(double array[] : arrays){
+    		if(array.length!=length)
+    			return false;
+    	}
+    	return true;
+    }
+    
     private void updateGripNetwork() {
-    	Robot.centerXArray = grip.getSubTable("myContoursReport").getNumberArray("centerX", DUMMY);
-    	Robot.heightArray = grip.getSubTable("myContoursReport").getNumberArray("height", DUMMY);
-        Robot.gripAreaArray = grip.getSubTable("myContoursReport").getNumberArray("area", DUMMY);
+    	Robot.centerXArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("centerX", DUMMY);
+    	Robot.centerYArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("centerY", DUMMY);
+    	Robot.heightArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("height", DUMMY);
+        Robot.gripAreaArray = grip.getSubTable(RobotMap.CONTOUR_REPORT_SUBTABLE).getNumberArray("area", DUMMY);
+    
         // Prevents RoboRIO from using two different frames of data
-        if(Robot.centerXArray.length!=Robot.gripAreaArray.length&&Robot.heightArray.length!=Robot.gripAreaArray.length){
+        if(!sameSize(new double[][]{Robot.centerXArray,Robot.centerYArray,Robot.heightArray,Robot.gripAreaArray})){
         	//this.updateGripNetwork();
         	return;
         }
@@ -233,18 +259,23 @@ public class Robot extends IterativeRobot {
         		}
         	}
         	Robot.gripX = Robot.centerXArray[maxIndex];
+        	Robot.gripY = Robot.centerYArray[maxIndex];
         	Robot.gripHeight = Robot.heightArray[maxIndex];
         }else {
         	Robot.gripX = 0.0;
+        	Robot.gripY = 0.0;
         	Robot.gripHeight = 0.0;
         }
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalAngle(Robot.gripHeight, Robot.gripX);
+    	double tempHeight = Robot.gripHeight;
+    	double tempX = Robot.gripX;
+    	Robot.isSeen = tempHeight != 0.0 && tempX != 0.0;
+    	return AngleCalculator.getHorizontalAngle(tempHeight, tempX);
     }
     
     public static boolean isTargetSeen() {
-    	return AngleCalculator.isTargetSeen(Robot.gripX);
+    	return Robot.isSeen;
     }
 }

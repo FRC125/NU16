@@ -14,7 +14,6 @@ public class AngleCalculator {
 	 * @param centerX the x position of target on screen
 	 * @return the horizontal angle to the target from the robot's center
 	 */
-	// TODO calculate height from arm angle instead of using constant
 	public static double getHorizontalAngle(double pixelHeight, double centerX){
 		double measuredDistance = getCameraDist(pixelHeight);
 		SmartDashboard.putNumber("cameraMeasuredDistance", measuredDistance);
@@ -24,9 +23,23 @@ public class AngleCalculator {
     		+ Math.pow(distance, 2)) / (2*distance*Math.abs(RobotMap.CAMERA_X_OFFSET))))-90.0;
     }
 	/**
-	 * In the event that the camera is centered on the robot, this method can be used
+	 * EXPERIMENTAL
+	 * @param centerY vertical position of the target, in pixels, on the image
+	 * @param centerX horizontal position of the target, in pixels, on the image
+	 * @return the horizontal angle to the target from the robot's center
+	 */
+	public static double getHorizontalAngleUsingYPos(double centerX, double centerY){
+		// TODO calculate height from arm angle instead of using constant
+		double measuredDistance = getCameraDistWithAngle(getVerticalCameraAngle(centerY)+RobotMap.CAMERA_MOUNT_ANGLE);
+		SmartDashboard.putNumber("cameraMeasuredDistanceUsingYPos", measuredDistance);
+    	double distance = getRobotDist(measuredDistance, getHorizontalCameraAngle(centerX));
+    	SmartDashboard.putNumber("robotPredictedDistanceUsingYPos", distance);
+    	return Math.toDegrees(Math.acos((Math.pow(RobotMap.CAMERA_X_OFFSET, 2) - Math.pow(measuredDistance, 2)
+    		+ Math.pow(distance, 2)) / (2*distance*Math.abs(RobotMap.CAMERA_X_OFFSET))))-90.0;
+    }
+	/**
 	 * @param x horizontal position of target, in pixels, on the image
-	 * @return horizontal position of target in degrees
+	 * @return horizontal position of target in degrees from the camera
 	 */
 	public static double getHorizontalCameraAngle(double x){
 		double slope = RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH;
@@ -42,15 +55,6 @@ public class AngleCalculator {
         double intercept = RobotMap.CAMERA_VERTICAL_FOV/2;
         return y*slope+intercept;
     }
-	
-	/**
-	 * @param x x position of target
-	 * @return false if the target isn't actually detected
-	 */
-	public static boolean isTargetSeen(double x) {
-		return Math.abs(getHorizontalCameraAngle(x)) != RobotMap.GRIP_IGNORE_VALUE;
-	}
-	
 	
 	/**
 	 * NOT TESTED
