@@ -71,8 +71,8 @@ public class AngleCalculator {
      * @return the camera's distance to the target
      */
 	public static double getCameraDist(double targetPixelHeight){
-		double targetAngularWidth = targetPixelHeight*RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH; 
-		return (RobotMap.TARGET_HEIGHT/2.0)/Math.tan(Math.toRadians(targetAngularWidth/2.0));
+		double targetAngularHeight = targetPixelHeight*RobotMap.CAMERA_FOV/RobotMap.CAMERA_PIXEL_WIDTH; 
+		return (RobotMap.TARGET_HEIGHT/2.0)/Math.tan(Math.toRadians(targetAngularHeight/2.0));
 	}
     /**
      * @param cameraDistance the distance from the camera to the target
