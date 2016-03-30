@@ -1,5 +1,7 @@
 package com.nutrons.camera;
 
+import com.nutrons.stronghold.RobotMap;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class AxisCamera implements GripCamera {
@@ -16,7 +18,9 @@ public class AxisCamera implements GripCamera {
 	private double height;
 	private double width;
 	
-	public AxisCamera(NetworkTable contourReport, int retryAttempts, int height, int width, double FOV){
+	private MountOffset offsetData; 
+	
+	public AxisCamera(NetworkTable contourReport, int retryAttempts, int height, int width, double FOV, MountOffset offsetData){
 		this.retryAttempts = retryAttempts;
 		this.contourReport = contourReport;
 		this.FOV = FOV;
@@ -27,6 +31,8 @@ public class AxisCamera implements GripCamera {
 		this.centerY = 0.0;
 		this.height = 0.0;
 		this.width = 0.0;
+		
+		this.offsetData = offsetData;
 	}
 	
 	public void updateData() {
@@ -96,4 +102,35 @@ public class AxisCamera implements GripCamera {
     	return true;
     }
 
+	public double getCenterY() {
+		return this.centerY;
+	}
+
+	public double getMountAngle() {
+		return this.offsetData.mountAngle;
+	}
+
+	public double getMountYOffset() {
+		return this.offsetData.mountYOffset;
+	}
+
+	public double getMountXOffset() {
+		return this.offsetData.mountXOffset;
+	}
+
+	public double getMountZOffset() {
+		return this.offsetData.mountZOffset;
+	}
+
+	/**
+	 * Data concerning how the camera is mounted to the robot
+	 * Defaults values to RobotMap values
+	 * @author Asher
+	 */
+	public class MountOffset{
+		public double mountAngle = RobotMap.CAMERA_MOUNT_ANGLE;
+		public double mountXOffset = RobotMap.CAMERA_X_OFFSET;
+		public double mountYOffset = RobotMap.CAMERA_Y_OFFSET;
+		public double mountZOffset = RobotMap.CAMERA_Z_OFFSET;
+	}
 }

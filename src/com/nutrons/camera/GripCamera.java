@@ -13,4 +13,9 @@ public interface GripCamera {
 	public double getCenterY();
 	public double getHeight();
 	public double getWidth();
+
+	public double getMountAngle();
+	public double getMountYOffset();
+	public double getMountXOffset();
+	public double getMountZOffset();
 }
