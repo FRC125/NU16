@@ -20,6 +20,8 @@ import com.nutrons.stronghold.commands.shooter.FireBall;
 import com.nutrons.stronghold.commands.shooter.FireBallCmd;
 import com.nutrons.stronghold.commands.shooter.RetractShooterAndJaw;
 import com.nutrons.stronghold.commands.shooter.RetractShooterCmd;
+import com.nutrons.stronghold.subsystems.Arm;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -76,8 +78,8 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
-		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(Arm.ARM_UP));
+		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(Arm.ARM_SAFE));
 		
 		this.lightButton.whenPressed(new MoveArmToIntakePosition());
 		

@@ -1,6 +1,8 @@
 package com.nutrons.stronghold.commands.arm;
 
 import com.nutrons.stronghold.Robot;
+import com.nutrons.stronghold.subsystems.Arm;
+
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,7 +18,7 @@ public class MoveArmToHoldSafeModeCmd extends Command {
 	
     public MoveArmToHoldSafeModeCmd() {
     	requires(Robot.arm);
-    	this.position = -600.0;
+    	this.position = Arm.ARM_SAFE;
     }
 
     protected void initialize() {

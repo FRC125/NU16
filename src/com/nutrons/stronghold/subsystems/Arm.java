@@ -34,6 +34,9 @@ public class Arm extends Subsystem {
 	private static double I_ARM_POSITION = 0.0;
 	private static double D_ARM_POSITION = 0.0;
 	private static double F_ARM_POSITION = 0.0;
+	
+	public static final double ARM_UP = -1800.0;
+	public static final double ARM_SAFE = -600.0;
 		
 	public static volatile double setpoint = 0.0;
 	
