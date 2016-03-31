@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
 	public static volatile double[] gripAreaArray;
 
 	public static volatile double lastUsedAngle = 0.0;
-	private static volatile boolean isSeen = false;
+	public static volatile boolean isSeen = false;
 	
 	// Grip network
 	private final NetworkTable grip = NetworkTable.getTable("GRIP");
@@ -198,7 +198,7 @@ public class Robot extends IterativeRobot {
     public void updateDashboard() {
     	this.cameraAngle = Double.valueOf(VisionServer.getInstance().getAngle());
     	
-    	SmartDashboard.putBoolean("canSee", canSee);
+    	SmartDashboard.putBoolean("canSee", isSeen);
     	SmartDashboard.putNumber("headingAngle", this.dt.getAngleInDegrees());
     	//SmartDashboard.putBoolean("zeroButton", this.shooter.isZeroButtonPressed());
     	SmartDashboard.putNumber("armPosition", this.arm.getArmPosition());
