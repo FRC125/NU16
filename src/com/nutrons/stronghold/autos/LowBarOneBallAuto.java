@@ -24,7 +24,7 @@ public class LowBarOneBallAuto extends CommandGroup {
     	
     	//Make sure that we can see before we shoot to avoid shooting blindly
     
-    	if(Robot.canSee){
+    	if(Robot.isSeen){
     	addSequential(new FireBall());
     	}
     }
