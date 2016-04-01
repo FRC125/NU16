@@ -46,7 +46,8 @@ public class RobotMap {
 
 	// Robot and Field Dimensions
 	public static final double TARGET_HEIGHT = 14.0;
-	public static final double TARGET_HEIGHT_ON_WALL = 92.0;
+	//public static final double TARGET_HEIGHT_ON_WALL = 92.0;
+	public static final double TARGET_HEIGHT_ON_WALL = 90.0;  
 	public static final double CAMERA_MOUNT_ANGLE = 28.0;
 	// Camera and GRIP
 	public static final String CONTOUR_REPORT_SUBTABLE = "myContoursReport";

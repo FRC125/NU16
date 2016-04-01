@@ -276,7 +276,8 @@ public class Robot extends IterativeRobot {
     }
     
     public static double getAngle(){
-    	return AngleCalculator.getHorizontalCameraAngle(Robot.gripX);
+    	//return AngleCalculator.getHorizontalCameraAngle(Robot.gripX);
+    	return AngleCalculator.getHorizontalAngleUsingYPos(Robot.gripX, Robot.gripY);
     }
     
     public static boolean isTargetSeen() {
