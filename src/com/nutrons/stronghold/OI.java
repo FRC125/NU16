@@ -88,19 +88,19 @@ public class OI {
 	}
 	
 	public double getLeftJoystickY() {
-		return Utils.deadband(this.driverPad.getRawAxis(1), 0.005, 0.0);
+		return Utils.deadband(this.driverPad.getRawAxis(1), 0.15, 0.0);
 	}
 	
 	public double getRightJoystickY() {
-	return Utils.deadband(this.driverPad.getRawAxis(5), 0.005, 0.0);
+	return Utils.deadband(this.driverPad.getRawAxis(5), 0.15, 0.0);
 	}
 	
 	public double getrightJoystickX() {
-		return Utils.deadband(this.driverPad.getRawAxis(4), 0.05, 0.0);
+		return Utils.deadband(this.driverPad.getRawAxis(4), 0.15, 0.0);
 	}
 	
 	public double getLeftJoystickOperatorY() {
-		return Utils.deadband(this.operatorPad.getRawAxis(1), 0.005, 0.0);
+		return Utils.deadband(this.operatorPad.getRawAxis(1), 0.15, 0.0);
 	}
 	
 	public boolean getQuickTurn() {

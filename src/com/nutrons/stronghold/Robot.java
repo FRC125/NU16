@@ -218,10 +218,10 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putBoolean("isTurnOnTarget", this.dt.turnToAngle.onTarget());
     	
     	SmartDashboard.putNumber("AngleToTurnAim", AngleCalculator.getHorizontalCameraAngle(Robot.gripX));
-    	SmartDashboard.putNumber("AngleToTurnAimRobot", getAngle());
-    	SmartDashboard.putNumber("AngleToTurnAimRobotUsingYPos", AngleCalculator.getHorizontalAngleUsingYPos(this.gripX, this.gripY));
+    	//SmartDashboard.putNumber("AngleToTurnAimRobot", getAngle());
+    	//SmartDashboard.putNumber("AngleToTurnAimRobotUsingYPos", AngleCalculator.getHorizontalAngleUsingYPos(this.gripX, this.gripY));
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
-    	SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
+    	//SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
     }
     
     public static double getCameraAngleFromBeaglebone() {
@@ -276,8 +276,8 @@ public class Robot extends IterativeRobot {
     }
     
     public static double getAngle(){
-    	//return AngleCalculator.getHorizontalCameraAngle(Robot.gripX);
-    	return AngleCalculator.getHorizontalAngleUsingYPos(Robot.gripX, Robot.gripY);
+    	return AngleCalculator.getHorizontalCameraAngle(Robot.gripX); // no offset. center of robot
+    	//return AngleCalculator.getHorizontalAngleUsingYPos(Robot.gripX, Robot.gripY); offset
     }
     
     public static boolean isTargetSeen() {
