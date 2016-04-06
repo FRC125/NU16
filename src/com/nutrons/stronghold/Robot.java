@@ -23,6 +23,8 @@ import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
 import com.nutrons.stronghold.commands.drivetrain.auto.LowBarAuto;
 import com.nutrons.stronghold.commands.drivetrain.auto.TerrainAutoTest;
 import com.nutrons.stronghold.subsystems.Arm;
+import com.nutrons.stronghold.subsystems.Climber;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
 	public static Arm arm = new Arm();
+	public static Climber climber = new Climber();
 	
 	public static OI oi;
 	

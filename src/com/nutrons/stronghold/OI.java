@@ -8,6 +8,8 @@ import com.nutrons.stronghold.commands.arm.MoveArmToPositionCmd;
 import com.nutrons.stronghold.commands.arm.MoveCDFArmDownCmd;
 import com.nutrons.stronghold.commands.arm.MoveCDFArmUpCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
+import com.nutrons.stronghold.commands.climber.ClimbCmd;
+import com.nutrons.stronghold.commands.climber.DeployHooksCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
@@ -50,12 +52,13 @@ public class OI {
 	private Button retractShooterButton = new JoystickButton(this.operatorPad, 7);
 	private Button intakeBallButton = new JoystickButton(this.operatorPad, 2);
 	private Button spitBallButton = new JoystickButton(this.operatorPad, 3);
-	private Button zeroArmButton = new JoystickButton(this.operatorPad, 10);
+	private Button climb = new JoystickButton(this.operatorPad, 10);
 	private Button moveArmToIntakeButton = new JoystickButton(this.operatorPad, 15);
 	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 13);
 	private Button moveArmToSavePosButton = new JoystickButton(this.operatorPad, 4);
 	private Button lightButton = new JoystickButton(this.operatorPad, 12);
 	private Button aim = new JoystickButton(this.operatorPad, 11);
+	private Button deployHooks = new JoystickButton(this.operatorPad, 9);
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
@@ -72,7 +75,8 @@ public class OI {
 		this.intakeBallButton.whenPressed(new SuckRollersCmd());
 		this.spitBallButton.whenReleased(new StopRollersCmd());
 		
-		this.zeroArmButton.whenPressed(new ZeroArmCmd());
+		this.climb.whenPressed(new ClimbCmd());
+		this.deployHooks.whenPressed(new DeployHooksCmd());
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
