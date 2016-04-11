@@ -225,6 +225,7 @@ public class Robot extends IterativeRobot {
     	//SmartDashboard.putNumber("AngleToTurnAimRobotUsingYPos", AngleCalculator.getHorizontalAngleUsingYPos(this.gripX, this.gripY));
     	SmartDashboard.putBoolean("isArmOnTarget", Math.abs(this.arm.arm1.getClosedLoopError()) < 100.0);
     	//SmartDashboard.putNumber("gripIgnore", RobotMap.GRIP_IGNORE_VALUE);
+    	SmartDashboard.putNumber("zAccelerometer", this.dt.getZAcceleration());
     }
     
     public static double getCameraAngleFromBeaglebone() {

@@ -1,6 +1,7 @@
 package com.nutrons.stronghold.subsystems;
 
 import com.nutrons.stronghold.RobotMap;
+import com.nutrons.stronghold.commands.climber.UnclimbCmd;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -14,24 +15,31 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-	private DoubleSolenoid pullHooks = new DoubleSolenoid(RobotMap.PULL_HOOKS_A, RobotMap.PULL_HOOKS_B);
-	private Solenoid deployHooks = new Solenoid(RobotMap.DEPLOY_HOOKS);
+	private Solenoid pullHooks = new Solenoid(1, RobotMap.PULL_HOOKS_A);
+	private Solenoid pullHooksB = new Solenoid(1, RobotMap.PULL_HOOKS_B);
+	private Solenoid deployHooks = new Solenoid(1, RobotMap.DEPLOY_HOOKS);
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        //setDefaultCommand(new UnclimbCmd());
     }
     
     public void deployHooks() {
     	this.deployHooks.set(true);
     }
     
+    public void retractHooks() {
+    	this.deployHooks.set(false);
+    }
+    
     public void climb() {
-    	this.pullHooks.set(Value.kForward);
+    	this.pullHooks.set(true);
+    	this.pullHooksB.set(false);
     }
     
     public void unclimb() {
-    	this.pullHooks.set(Value.kReverse);
+    	this.pullHooks.set(false);
+    	this.pullHooksB.set(true);
     }
 
 }

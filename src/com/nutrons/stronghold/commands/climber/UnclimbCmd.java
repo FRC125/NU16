@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj.command.Command;
  * @author Andreas L.C.
  *
  */
-public class ClimbCmd extends Command {
+public class UnclimbCmd extends Command {
 
-    public ClimbCmd() {
+    public UnclimbCmd() {
     	requires(Robot.climber);
     }  
     
     protected void initialize() {
-    	Robot.climber.climb();
+    	Robot.climber.unclimb();
     }
    
     protected void execute() {

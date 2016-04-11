@@ -22,7 +22,7 @@ public class LowBarOneBallAuto extends CommandGroup {
     	addSequential(new TurnToAngleCmd(60.0));
     	addSequential(new WaitCommand(0.25));
     	addSequential(new MoveArmToShootingPosition());
-    	addSequential(new WaitCommand(0.25));
+    	addSequential(new WaitCommand(0.3));
     	addSequential(new Aim());
     	addSequential(new WaitCommand(0.25));
     	addSequential(new FireBall());

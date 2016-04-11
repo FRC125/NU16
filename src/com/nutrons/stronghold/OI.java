@@ -10,6 +10,8 @@ import com.nutrons.stronghold.commands.arm.MoveCDFArmUpCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
 import com.nutrons.stronghold.commands.climber.ClimbCmd;
 import com.nutrons.stronghold.commands.climber.DeployHooksCmd;
+import com.nutrons.stronghold.commands.climber.RetractHooksCmd;
+import com.nutrons.stronghold.commands.climber.UnclimbCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOnCmd;
 import com.nutrons.stronghold.commands.drivetrain.ZeroGyroCmd;
@@ -59,6 +61,7 @@ public class OI {
 	private Button lightButton = new JoystickButton(this.operatorPad, 12);
 	private Button aim = new JoystickButton(this.operatorPad, 11);
 	private Button deployHooks = new JoystickButton(this.operatorPad, 9);
+	private Button moveArmToClimbingPosition = new JoystickButton(this.operatorPad, 1);
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
@@ -76,12 +79,16 @@ public class OI {
 		this.spitBallButton.whenReleased(new StopRollersCmd());
 		
 		this.climb.whenPressed(new ClimbCmd());
+		this.climb.whenReleased(new UnclimbCmd());
+		
 		this.deployHooks.whenPressed(new DeployHooksCmd());
+		this.deployHooks.whenReleased(new RetractHooksCmd());
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
 		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
+		this.moveArmToClimbingPosition.whenPressed(new MoveArmToPositionCmd(-2200.0)); // get the distance from smart dashboard
 		
 		this.lightButton.whenPressed(new MoveArmToIntakePosition());
 		

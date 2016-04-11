@@ -36,9 +36,10 @@ public class RobotMap {
 	public static final int SHOOTER4 = 3;
 	public static final int JAW_A = 4;
 	public static final int JAW_B = 5;
-	public static final int PULL_HOOKS_A = 8;
-	public static final int PULL_HOOKS_B = 9;
-	public static final int DEPLOY_HOOKS = 10;
+	
+	public static final int PULL_HOOKS_A = 0;
+	public static final int PULL_HOOKS_B = 1;
+	public static final int DEPLOY_HOOKS = 2;
 	
 	// Analog Input
 	public static final int ULTRASONIC_RX = 0;

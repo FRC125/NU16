@@ -6,19 +6,19 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * 
- * @author Andreas L.C.
+ * @author Camilo Gonzalez
  *
  */
-public class ClimbCmd extends Command {
+public class RetractHooksCmd extends Command {
 
-    public ClimbCmd() {
-    	requires(Robot.climber);
-    }  
-    
-    protected void initialize() {
-    	Robot.climber.climb();
+    public RetractHooksCmd() {
+        requires(Robot.climber);
     }
-   
+
+    protected void initialize() {
+    	Robot.climber.retractHooks();
+    }
+
     protected void execute() {
     }
 
@@ -27,9 +27,9 @@ public class ClimbCmd extends Command {
     }
 
     protected void end() {
+
     }
 
-    
     protected void interrupted() {
     }
 }

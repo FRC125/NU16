@@ -1,35 +1,34 @@
-package com.nutrons.stronghold.commands.climber;
+package com.nutrons.stronghold.commands.drivetrain;
 
 import com.nutrons.stronghold.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * 
- * @author Andreas L.C.
  *
  */
-public class ClimbCmd extends Command {
+public class WaitToLevelCmd extends Command {
 
-    public ClimbCmd() {
-    	requires(Robot.climber);
-    }  
-    
-    protected void initialize() {
-    	Robot.climber.climb();
+    public WaitToLevelCmd() {
+        requires(Robot.dt);
     }
-   
+
+    protected void initialize() {
+    
+    }
+
     protected void execute() {
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {
+    
     }
 
-    
     protected void interrupted() {
+
     }
 }

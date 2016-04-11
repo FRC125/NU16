@@ -6,6 +6,7 @@ import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
@@ -44,8 +46,11 @@ public class Drivetrain extends Subsystem {
     private DigitalOutput rightDriveLightFront = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_FRONT);
     private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
     
-    // Arduino gyro
+    // Spartanboard gyro
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    
+    // Roborio accelerometer
+    private Accelerometer accelerometer = new BuiltInAccelerometer();
     
     // Constants
     public double P_HEADING = 0.025;
@@ -126,6 +131,10 @@ public class Drivetrain extends Subsystem {
      */
     public double getAngleInDegrees() {
     	return this.gyro.getAngle();
+    }
+    
+    public double getZAcceleration() {
+    	return this.accelerometer.getZ();
     }
     
     /**
