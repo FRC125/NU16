@@ -45,8 +45,9 @@ public class Drivetrain extends Subsystem {
     private DigitalOutput rightDriveLightBack = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_BACK);
     private DigitalOutput rightDriveLightFront = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_FRONT);
     private DigitalOutput visionLight = new DigitalOutput(RobotMap.VISION_LIGHT);
+
+    private double angleAcumilator = 0;
     
-    // Spartanboard gyro
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     
     // Roborio accelerometer
@@ -120,6 +121,10 @@ public class Drivetrain extends Subsystem {
     	
     	this.gyro.calibrate();
     }
+    
+    public double getAngleAccumilator(){
+    	return this.angleAcumilator;
+    }
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new CheesyDriveCmd());
@@ -141,6 +146,7 @@ public class Drivetrain extends Subsystem {
      * Resets the gyro back to zero
      */
     public void resetGyro() {
+    	this.angleAcumilator += this.getAngleInDegrees();
     	this.gyro.reset();
     }
     
