@@ -7,6 +7,7 @@ import com.nutrons.stronghold.commands.arm.MoveArmToShootingPosition;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistanceTimeBackwardsPIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnToAngleCmd;
+import com.nutrons.stronghold.commands.drivetrain.TurnToZeroCMD;
 import com.nutrons.stronghold.commands.drivetrain.auto.Aim;
 import com.nutrons.stronghold.commands.intake.SuckRollersCmd;
 import com.nutrons.stronghold.commands.shooter.FireBall;
@@ -31,7 +32,7 @@ public class LowBarTwoBallAuto extends CommandGroup {
     	shoot(0.1); // ≈ 5.5 seconds 
     	addSequential(new WaitCommand(1.0)); // = 1 second 
     	addSequential(new MoveArmToIntakePositionCmd()); // ≈ 1 second
-    	addParallel(new TurnToAngleCmd(-1 * angle)); // ≈ 1 second 
+    	addParallel(new TurnToZeroCMD()); // ≈ 1 second 
     	// RETRACE STEPS ----> turn beck to initial position
     	addSequential(new LowBarSafeDriveAutoBackwards()); // ≈ 2.5 seconds
     	addSequential(new SuckRollersCmd()); // ≈ 1 second
