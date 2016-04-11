@@ -10,6 +10,7 @@ import com.nutrons.stronghold.commands.drivetrain.DriveDistanceCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveDistancePIDCmd;
 import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.autos.LowBarOneBallAuto;
+import com.nutrons.stronghold.autos.LowBarTwoBallAuto;
 import com.nutrons.stronghold.autos.OneBallAuto;
 import com.nutrons.stronghold.autos.OneBallLeft30Auto;
 import com.nutrons.stronghold.autos.OneBallLeft30FarAuto;
@@ -83,6 +84,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		
         chooser = new SendableChooser();
+        chooser.addDefault("Low bar two ball auto", new LowBarTwoBallAuto());
         chooser.addDefault("One ball auto - 30 degrees to right - regular", new OneBallAuto());
         chooser.addObject("One ball auto - no degree - far", new RockWallNoAngleOneBallAuto());
         chooser.addObject("One ball auto - no degree - regular", new OneBallNoDegreeCloseAuto());

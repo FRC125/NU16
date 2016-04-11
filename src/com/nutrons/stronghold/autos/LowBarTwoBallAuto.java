@@ -26,9 +26,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class LowBarTwoBallAuto extends CommandGroup {
 	
 	
-    public  LowBarTwoBallAuto(double angle) {
+    public  LowBarTwoBallAuto() {
     	addSequential(new LowBarSafeDriveAuto()); // ≈ 2.5 seconds 
-    	addSequential(new TurnToAngleCmd(angle)); // ≈ 1 second  
+    	addSequential(new TurnToAngleCmd(60)); // ≈ 1 second  
     	shoot(0.1); // ≈ 5.5 seconds 
     	addSequential(new WaitCommand(1.0)); // = 1 second 
     	addSequential(new MoveArmToIntakePositionCmd()); // ≈ 1 second
@@ -37,7 +37,7 @@ public class LowBarTwoBallAuto extends CommandGroup {
     	addSequential(new LowBarSafeDriveAutoBackwards()); // ≈ 2.5 seconds
     	addSequential(new SuckRollersCmd()); // ≈ 1 second
     	centerDrive(); // ≈ 2.5 seconds
-    	addSequential(new TurnToAngleCmd(angle)); // ≈ 1 second
+    	addSequential(new TurnToAngleCmd(60)); // ≈ 1 second
     	addSequential(new WaitCommand(0.1)); // = 0.125 seconds
     	shoot(0.1); // ≈ 5.5 seconds 
     }
