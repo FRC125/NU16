@@ -35,11 +35,8 @@ public class Drivetrain extends Subsystem {
 	public CANTalon leftDriveB = new CANTalon(RobotMap.LEFT_DRIVE_MOTOR_B);
 	public CANTalon rightDriveA = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_A);
 	public CANTalon rightDriveB = new CANTalon(RobotMap.RIGHT_DRIVE_MOTOR_B);
-	
-	public Victor cdfArmMotor = new Victor(RobotMap.CDF_ARM);
     
     // Light
-    private Relay cdfArm = new Relay(RobotMap.LIGHT_RELAY);
     private DigitalOutput leftDriveLightBack = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_BACK);
     private DigitalOutput leftDriveLightFront = new DigitalOutput(RobotMap.LEFT_DRIVE_LIGHT_FRONT);
     private DigitalOutput rightDriveLightBack = new DigitalOutput(RobotMap.RIGHT_DRIVE_LIGHT_BACK);
@@ -179,16 +176,6 @@ public class Drivetrain extends Subsystem {
     public void driveCheesy(double throttle, double wheel, boolean holdHeading) {
         double coeff = 1.0;
     	double invert = 1.0;
-    	
-    	if(Robot.oi.getInvertButton()){
-    		invert = -1.0;
-    		
-    		this.frontDriveLightsOff();
-    		this.backDriveLightsOn();
-    	}else {
-    		this.frontDriveLightsOn();
-    		this.backDriveLightsOff();
-    	}
         
         if(Robot.oi.getSlowDrivingMode()) coeff = 0.7;
         
@@ -227,24 +214,6 @@ public class Drivetrain extends Subsystem {
     public void disableHoldHeading() {
     	this.holdHeading.disable();
     	this.holdHeading.reset();
-    }
-    
-    /**
-     * Moves CDF down
-     */
-    public void MoveCDFArmDown() {
-    	this.cdfArmMotor.set(-0.5);
-    }
-    
-    /**
-     * Moves CDF up
-     */
-    public void MoveCDFArmUp() {
-    	this.cdfArmMotor.set(0.5);
-    }
-    
-    public void StopCDF() {
-    	this.cdfArmMotor.set(0);
     }
     
     /**

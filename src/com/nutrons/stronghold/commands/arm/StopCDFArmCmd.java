@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class StopCDFArmCmd extends Command {
 
     public StopCDFArmCmd() {
-    	requires(Robot.dt);
+    	requires(Robot.cdf);
     }
 
     protected void initialize() {
-    	Robot.dt.StopCDF();
+    	Robot.cdf.StopCDF();
     }
 
     protected void execute() {

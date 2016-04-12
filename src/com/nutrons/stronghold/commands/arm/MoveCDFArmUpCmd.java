@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveCDFArmUpCmd extends Command {
 
     public MoveCDFArmUpCmd() {
-    	requires(Robot.dt);
+    	requires(Robot.cdf);
     }
 
     protected void initialize() {
-    	Robot.dt.MoveCDFArmUp();
+    	Robot.cdf.MoveCDFArmUp();
     }
 
     protected void execute() {
@@ -25,7 +25,7 @@ public class MoveCDFArmUpCmd extends Command {
     }
 
     protected void end() {
-    	Robot.dt.StopCDF();
+    	Robot.cdf.StopCDF();
     }
 
     protected void interrupted() {

@@ -13,12 +13,12 @@ public class MoveCDFArmDownCmd extends Command {
 	private Timer timer = new Timer();
 	
     public MoveCDFArmDownCmd() {
-    	requires(Robot.dt);
+    	requires(Robot.cdf);
     }
 
     protected void initialize() {
     	timer.start();
-    	Robot.dt.MoveCDFArmDown();
+    	Robot.cdf.MoveCDFArmDown();
     }
 
     protected void execute() {
@@ -31,7 +31,7 @@ public class MoveCDFArmDownCmd extends Command {
     protected void end() {
     	timer.stop();
     	timer.reset();
-    	Robot.dt.StopCDF();
+    	Robot.cdf.StopCDF();
     }
 
     protected void interrupted() {

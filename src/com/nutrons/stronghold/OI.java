@@ -43,9 +43,8 @@ public class OI {
 	private Button quickTurnButton = new JoystickButton(this.driverPad, 7);
 	private Button fastDrivingModeButton = new JoystickButton(driverPad, 5);
 	private Button holdHeadingModeButton = new JoystickButton(driverPad, 1);
-	private Button invertButton = new JoystickButton(driverPad, 6);
-	private Button cdfDown = new JoystickButton(driverPad, 2);
-	private Button cdfUp = new JoystickButton(driverPad, 4);
+	private Button cdfDown = new JoystickButton(driverPad, 6);
+	private Button cdfUp = new JoystickButton(driverPad, 5);
 	
 	// Buttons operator
 	private Button openJawButton = new JoystickButton(this.operatorPad, 8);
@@ -124,9 +123,5 @@ public class OI {
 	
 	public boolean getHoldHeadingMode() {
 		return this.holdHeadingModeButton.get();
-	}
-	
-	public boolean getInvertButton() {
-		return this.invertButton.get();
 	}
 }
