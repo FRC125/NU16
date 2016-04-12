@@ -3,6 +3,7 @@ package com.nutrons.stronghold.subsystems;
 import com.nutrons.stronghold.Robot;
 import com.nutrons.stronghold.RobotMap;
 import com.nutrons.stronghold.commands.drivetrain.CheesyDriveCmd;
+import com.team254.lib.util.ADXRS453_Gyro;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
@@ -45,7 +46,7 @@ public class Drivetrain extends Subsystem {
 
     private double angleAcumilator = 0;
     
-    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    private ADXRS453_Gyro gyro = new ADXRS453_Gyro();
     
     // Roborio accelerometer
     private Accelerometer accelerometer = new BuiltInAccelerometer();
