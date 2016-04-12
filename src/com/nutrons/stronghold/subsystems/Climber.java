@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-	private Solenoid pullHooks = new Solenoid(1, RobotMap.PULL_HOOKS_A);
+	private Solenoid pullHooksA = new Solenoid(1, RobotMap.PULL_HOOKS_A);
 	private Solenoid pullHooksB = new Solenoid(1, RobotMap.PULL_HOOKS_B);
 	private Solenoid deployHooks = new Solenoid(1, RobotMap.DEPLOY_HOOKS);
 	
@@ -33,12 +33,12 @@ public class Climber extends Subsystem {
     }
     
     public void climb() {
-    	this.pullHooks.set(true);
+    	this.pullHooksA.set(true);
     	this.pullHooksB.set(false);
     }
     
     public void unclimb() {
-    	this.pullHooks.set(false);
+    	this.pullHooksA.set(false);
     	this.pullHooksB.set(true);
     }
 
