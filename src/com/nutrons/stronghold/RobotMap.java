@@ -18,6 +18,7 @@ public class RobotMap {
 	
 	// PWM
 	public static final int CDF_ARM = 0;
+	public static final int CLIMB_MOTOR = 2;
 	
 	// Digital
 	public static final int ZERO_BUTTON = 0;

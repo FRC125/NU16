@@ -6,6 +6,7 @@ import com.nutrons.stronghold.commands.climber.UnclimbCmd;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,6 +19,8 @@ public class Climber extends Subsystem {
 	private Solenoid pullHooksA = new Solenoid(1, RobotMap.PULL_HOOKS_A);
 	private Solenoid pullHooksB = new Solenoid(1, RobotMap.PULL_HOOKS_B);
 	private Solenoid deployHooks = new Solenoid(1, RobotMap.DEPLOY_HOOKS);
+	
+	private Victor pullMotor = new Victor(RobotMap.CLIMB_MOTOR);
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -42,4 +45,7 @@ public class Climber extends Subsystem {
     	this.pullHooksB.set(true);
     }
 
+    public void driveClimber(double power) {
+    	this.pullMotor.set(power);
+    }
 }

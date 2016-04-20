@@ -13,7 +13,7 @@ public class MoveArmToShootingPosition extends CommandGroup {
     
     public  MoveArmToShootingPosition() {
     	addParallel(new OpenJawAfterDelay());
-    	addSequential(new MoveArmToPositionWithTimeoutCmd(-1800.0));
+    	addSequential(new MoveArmToPositionWithTimeoutCmd(-1700.0));
     	addSequential(new WaitCommand(0.5));
     	addSequential(new Aim());
     }

@@ -12,10 +12,14 @@ import com.nutrons.stronghold.commands.drivetrain.DriveMotionProfileCmd;
 import com.nutrons.stronghold.autos.LowBarOneBallAuto;
 import com.nutrons.stronghold.autos.LowBarTwoBallAuto;
 import com.nutrons.stronghold.autos.OneBallAuto;
+import com.nutrons.stronghold.autos.OneBallFar30RightAuto;
 import com.nutrons.stronghold.autos.OneBallLeft30Auto;
 import com.nutrons.stronghold.autos.OneBallLeft30FarAuto;
 import com.nutrons.stronghold.autos.OneBallLeft30ShortAuto;
 import com.nutrons.stronghold.autos.OneBallNoDegreeCloseAuto;
+import com.nutrons.stronghold.autos.OneBallReallyFar30RightAuto;
+import com.nutrons.stronghold.autos.OneBallReallyFar30leftAuto;
+import com.nutrons.stronghold.autos.OneBallReallyFarNoDegreeAuto;
 import com.nutrons.stronghold.autos.OneBallShortAuto;
 import com.nutrons.stronghold.autos.RockWallNoAngleOneBallAuto;
 import com.nutrons.stronghold.autos.SafeDriveAuto;
@@ -87,14 +91,18 @@ public class Robot extends IterativeRobot {
 		
         chooser = new SendableChooser();
         chooser.addDefault("Low bar two ball auto", new LowBarTwoBallAuto());
-        chooser.addDefault("One ball auto - 30 degrees to right - regular", new OneBallAuto());
+        chooser.addObject("One ball auto - 30 degrees to right - regular", new OneBallAuto());
         chooser.addObject("One ball auto - no degree - far", new RockWallNoAngleOneBallAuto());
         chooser.addObject("One ball auto - no degree - regular", new OneBallNoDegreeCloseAuto());
         chooser.addObject("One ball auto - 60 degree to right - far - low bar", new LowBarOneBallAuto());
         chooser.addObject("One ball auto - 30 degrees to left - regular", new OneBallLeft30Auto());
         chooser.addObject("One ball auto - 30 degrees to left - far", new OneBallLeft30FarAuto());
         chooser.addObject("One ball auto - 30 degrees to left - short", new OneBallLeft30ShortAuto());
-        chooser.addDefault("One ball auto - 30 degrees to right - short", new OneBallShortAuto());
+        chooser.addObject("One ball auto - 30 degrees to right - short", new OneBallShortAuto());
+        chooser.addObject("One ball auto - 30 degrees to right - far", new OneBallFar30RightAuto());
+        chooser.addObject("One ball auto - 30 degrees to right - really far", new OneBallReallyFar30RightAuto());
+        chooser.addObject("One ball auto - 30 degrees to left - really far", new OneBallReallyFar30leftAuto());
+        chooser.addObject("One ball auto - no degree - really far", new OneBallReallyFarNoDegreeAuto());
         chooser.addObject("Do nothing", new DoNothingAuto());
         chooser.addObject("Safe drive auto", new SafeDriveAuto());
         

@@ -46,7 +46,7 @@ public class Drivetrain extends Subsystem {
 
     private double angleAcumilator = 0;
     
-    private ADXRS453_Gyro gyro = new ADXRS453_Gyro();
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     
     // Roborio accelerometer
     private Accelerometer accelerometer = new BuiltInAccelerometer();

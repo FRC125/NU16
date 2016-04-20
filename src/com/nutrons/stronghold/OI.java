@@ -10,6 +10,8 @@ import com.nutrons.stronghold.commands.arm.MoveCDFArmUpCmd;
 import com.nutrons.stronghold.commands.arm.ZeroArmCmd;
 import com.nutrons.stronghold.commands.climber.ClimbCmd;
 import com.nutrons.stronghold.commands.climber.DeployHooksCmd;
+import com.nutrons.stronghold.commands.climber.PullClimberStopCmd;
+import com.nutrons.stronghold.commands.climber.PullClimberUpCmd;
 import com.nutrons.stronghold.commands.climber.RetractHooksCmd;
 import com.nutrons.stronghold.commands.climber.UnclimbCmd;
 import com.nutrons.stronghold.commands.drivetrain.TurnLightOffCmd;
@@ -85,11 +87,12 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1700.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
-		this.moveArmToClimbingPosition.whenPressed(new MoveArmToPositionCmd(-2200.0)); // get the distance from smart dashboard
+		this.moveArmToClimbingPosition.whenPressed(new MoveArmToPositionCmd(-2400.0)); // get the distance from smart dashboard
 		
-		this.lightButton.whenPressed(new MoveArmToIntakePosition());
+		this.lightButton.whenPressed(new PullClimberUpCmd());
+		this.lightButton.whenReleased(new PullClimberStopCmd());
 		
 		this.aim.whenPressed(new Aim());
 		
@@ -98,19 +101,19 @@ public class OI {
 	}
 	
 	public double getLeftJoystickY() {
-		return Utils.deadband(this.driverPad.getRawAxis(1), 0.15, 0.0);
+		return Utils.deadband(this.driverPad.getRawAxis(1), 0.25, 0.0);
 	}
 	
 	public double getRightJoystickY() {
-	return Utils.deadband(this.driverPad.getRawAxis(5), 0.15, 0.0);
+	return Utils.deadband(this.driverPad.getRawAxis(5), 0.25, 0.0);
 	}
 	
 	public double getrightJoystickX() {
-		return Utils.deadband(this.driverPad.getRawAxis(4), 0.15, 0.0);
+		return Utils.deadband(this.driverPad.getRawAxis(4), 0.25, 0.0);
 	}
 	
 	public double getLeftJoystickOperatorY() {
-		return Utils.deadband(this.operatorPad.getRawAxis(1), 0.15, 0.0);
+		return Utils.deadband(this.operatorPad.getRawAxis(1), 0.25, 0.0);
 	}
 	
 	public boolean getQuickTurn() {
