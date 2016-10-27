@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	public static Compressor compressor;
-	
+	public static Compressor compressor2;
 	public static Drivetrain dt = new Drivetrain();
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
@@ -65,8 +65,11 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-		compressor = new Compressor();
-		
+		compressor = new Compressor(0);
+		compressor2 = new Compressor(1);
+
+		compressor.start();
+		compressor2.start();
         chooser = new SendableChooser();
         chooser.addDefault("Turn to angle", new TurnToAngleCmd(-90.0));
         chooser.addObject("Do nothing", new DoNothingAuto());
@@ -100,6 +103,7 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
+
     	updateDashboard();
     	this.dt.enableBreakMode();
     	this.gripProcess.destroy();
@@ -107,6 +111,7 @@ public class Robot extends IterativeRobot {
     }
 	
 	public void disabledPeriodic() {
+		
 		Scheduler.getInstance().run();
 		updateDashboard();
 		this.arm.disableBreak();
