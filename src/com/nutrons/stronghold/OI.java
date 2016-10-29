@@ -37,25 +37,25 @@ public class OI {
 	
 	// Buttons driver
 	private Button quickTurnButton = new JoystickButton(this.driverPad, 7);
-	private Button fastDrivingModeButton = new JoystickButton(driverPad, 5);
+	private Button fastDrivingModeButton = new JoystickButton(driverPad, 7);
 	private Button holdHeadingModeButton = new JoystickButton(driverPad, 1);
-	private Button invertButton = new JoystickButton(driverPad, 6);
-	private Button cdfDown = new JoystickButton(driverPad, 2);
-	private Button cdfUp = new JoystickButton(driverPad, 4);
+	private Button invertButton = new JoystickButton(driverPad, 7);
+	private Button cdfDown = new JoystickButton(driverPad, 6);
+	private Button cdfUp = new JoystickButton(driverPad, 5);
 	
 	// Buttons operator
-	private Button openJawButton = new JoystickButton(this.operatorPad, 8);
-	private Button closeJawButton = new JoystickButton(this.operatorPad, 6);
+	private Button openJawButton = new JoystickButton(this.operatorPad, 6);
+	private Button closeJawButton = new JoystickButton(this.operatorPad, 8);
 	private Button fireButton = new JoystickButton(this.operatorPad, 5);
-	private Button retractShooterButton = new JoystickButton(this.operatorPad, 7);
-	private Button intakeBallButton = new JoystickButton(this.operatorPad, 2);
-	private Button spitBallButton = new JoystickButton(this.operatorPad, 3);
+	private Button retractShooterButton = new JoystickButton(this.operatorPad, 8);
+	private Button intakeBallButton = new JoystickButton(this.operatorPad, 3);
+	private Button spitBallButton = new JoystickButton(this.operatorPad, 1);
 	private Button zeroArmButton = new JoystickButton(this.operatorPad, 10);
-	private Button moveArmToIntakeButton = new JoystickButton(this.operatorPad, 15);
-	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 13);
+	private Button moveArmToIntakeButton = new JoystickButton(this.operatorPad, 2);
+	private Button moveArmToShootingPosButton = new JoystickButton(this.operatorPad, 4); //13
 	private Button moveArmToSavePosButton = new JoystickButton(this.operatorPad, 4);
-	private Button lightButton = new JoystickButton(this.operatorPad, 12);
-	private Button aim = new JoystickButton(this.operatorPad, 11);
+	private Button lightButton = new JoystickButton(this.operatorPad, 14);
+	private Button aim = new JoystickButton(this.operatorPad, 12);
 	
 	public OI() {
 		holdHeadingModeButton.whenPressed(new ZeroGyroCmd());
@@ -76,7 +76,7 @@ public class OI {
 		
 		this.moveArmToIntakeButton.whenPressed(new MoveArmToIntakePositionCmd());
 		
-		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1800.0));
+		this.moveArmToShootingPosButton.whenPressed(new MoveArmToPositionCmd(-1850.0));
 		this.moveArmToSavePosButton.whenPressed(new MoveArmToPositionCmd(-600.0));
 		
 		this.lightButton.whenPressed(new MoveArmToIntakePosition());

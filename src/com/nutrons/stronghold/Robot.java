@@ -43,7 +43,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
 	public static Compressor compressor;
-	
+	public static Compressor compressor2;
 	public static Drivetrain dt = new Drivetrain();
 	public static Intake intake = new Intake();
 	public static Shooter shooter = new Shooter();
@@ -77,7 +77,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-		compressor = new Compressor();
+		compressor = new Compressor(0);
+		compressor2 = new Compressor(1);
 		
         chooser = new SendableChooser();
         chooser.addDefault("One ball auto - 30 degrees to right - regular", new OneBallAuto());
